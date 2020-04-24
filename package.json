@@ -2,12 +2,12 @@
 	"name": "car-rental-management-api",
 	"version": "0.0.1",
 	"description": "API wrapper for car-rental-management-server.",
-	"main": "index.js",
+	"main": "dist/index.js",
 	"scripts": {
 		"test:run": "jest --config jest.config.json",
-		"test:watch": "jest --watch --config jest.config.js",
-		"format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\" \"src/**/*.js\"",
-		"lint": "eslint",
+		"test:watch": "jest --watch --config jest.config.json",
+		"format": "prettier --write \"src/**/*.ts\"",
+		"lint": "eslint --ext .js,.jsx,.ts,.tsx src --color --config .eslintrc",
 		"build": "rm -rf ./dist/* && tsc",
 		"prepare": "npm run build",
 		"prepublishOnly": "npm run test:run && npm run lint",
@@ -27,6 +27,8 @@
 	"devDependencies": {
 		"@types/jest": "^25.2.1",
 		"@types/moxios": "^0.4.9",
+		"@typescript-eslint/eslint-plugin": "^2.29.0",
+		"@typescript-eslint/parser": "^2.29.0",
 		"eslint": "^6.8.0",
 		"eslint-config-prettier": "^6.11.0",
 		"eslint-plugin-import": "^2.20.2",
@@ -38,5 +40,11 @@
 		"prettier-eslint-cli": "^5.0.0",
 		"ts-jest": "^25.4.0",
 		"typescript": "^3.8.3"
+	},
+	"dependencies": {
+		"axios": "^0.19.2",
+		"eslint-config-airbnb-typescript": "^7.2.1",
+		"eslint-import-resolver-typescript": "^2.0.0",
+		"moment": "^2.24.0"
 	}
 }

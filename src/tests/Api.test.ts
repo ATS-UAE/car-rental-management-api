@@ -1,7 +1,7 @@
 import moxios from "moxios";
 import { Api } from "../Api";
 import authPostResponse from "./fixtures/response/auth/post";
-import { AuthServerResponseGet } from "../shared/typings";
+
 describe("Api", () => {
 	beforeEach(() => {
 		moxios.install();
