@@ -1,0 +1,3 @@
+[submodule "src/shared"]
+	path = src/shared
+	url = https://github.com/ATS-UAE/car-rental-management-shared.git
