@@ -1,6 +1,8 @@
 import moxios from "moxios";
 import { Api } from "../Api";
 import authPostResponse from "./fixtures/response/auth/post";
+import { BASE_URL, COOKIE_SESSION, USERNAME, PASSWORD } from "./fixtures";
+import { createApiInstance } from "./utils/createApiInstance";
 
 describe("Api", () => {
 	beforeEach(() => {
@@ -9,14 +11,9 @@ describe("Api", () => {
 	afterEach(() => {
 		moxios.uninstall();
 	});
-	const USERNAME = "test-user";
-	const PASSWORD = "test-password";
-	const BASE_URL = "https://www.example.com/api";
 	describe("auth", () => {
 		const LOGIN_URL = `${BASE_URL}/auth/login`;
 		const LOGIN_METHOD = "post";
-		const COOKIE_SESSION =
-			"connect.sid=s%3AZvvHUU93a0rEb7WgfwH79WGtW_ACjM1J.GzEwEsVFFpJDIlJJYaaZPb%2F%2FfHMrVvNyzskVWUBl1hs";
 		const LOGIN_RESPONSE = authPostResponse();
 
 		it("Logs in", async () => {
@@ -65,13 +62,6 @@ describe("Api", () => {
 		it("Logs out", async () => {
 			const LOGOUT_METHOD = "get";
 			const LOGOUT_URL = `${BASE_URL}/auth/logout`;
-			moxios.stubOnce(LOGIN_METHOD, LOGIN_URL, {
-				response: LOGIN_RESPONSE,
-				status: 200,
-				headers: {
-					"Set-Cookie": COOKIE_SESSION
-				}
-			});
 			moxios.stubOnce(LOGOUT_METHOD, LOGOUT_URL, {
 				status: 200,
 				response: {
@@ -81,11 +71,7 @@ describe("Api", () => {
 					success: true
 				}
 			});
-			const api = await Api.login({
-				username: USERNAME,
-				password: PASSWORD,
-				baseUrl: BASE_URL
-			});
+			const api = await createApiInstance();
 			await api.logout();
 			const mostRecentApiCall = moxios.requests.mostRecent();
 			expect(mostRecentApiCall.url).toEqual(LOGOUT_URL);
