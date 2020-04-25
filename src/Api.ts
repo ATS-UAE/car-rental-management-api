@@ -1,20 +1,21 @@
 import axios, { AxiosInstance } from "axios";
 import { AuthServerResponseGet } from "./shared/typings";
+import { Authenticated, ApiOptions } from "./Authenticated";
+import { VehicleFactory } from "./VehicleFactory";
 
-interface ApiOptions {
-	baseUrl: string;
-}
 interface LoginOptions extends ApiOptions {
 	username: string;
 	password: string;
 }
 
-export class Api {
+export class Api extends Authenticated {
 	private constructor(
-		private api: AxiosInstance,
-		public data: AuthServerResponseGet,
-		private options: ApiOptions
-	) {}
+		api: AxiosInstance,
+		options: ApiOptions,
+		public data: AuthServerResponseGet
+	) {
+		super(api, options);
+	}
 
 	public static login = async ({
 		username,
@@ -31,10 +32,14 @@ export class Api {
 				password
 			}
 		);
-		return new Api(api, response.data, { baseUrl });
+		return new Api(api, { baseUrl }, response.data);
 	};
+
+	public execute = async () => {};
 
 	public logout = async () => {
 		await this.api.get(`${this.options.baseUrl}/auth/logout`);
 	};
+
+	public vehicle = new VehicleFactory(this.api, this.options);
 }
