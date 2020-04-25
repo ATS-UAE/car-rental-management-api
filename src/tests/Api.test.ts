@@ -37,6 +37,7 @@ describe("Api", () => {
 			expect(mostRecentApiCall.config.method).toEqual(LOGIN_METHOD);
 			expect(mostRecentApiCall.withCredentials).toEqual(true);
 			expect(api instanceof Api).toEqual(true);
+			expect(api.data).toEqual(LOGIN_RESPONSE);
 		});
 
 		it("Throws an error on wrong credentials", async () => {
@@ -59,6 +60,39 @@ describe("Api", () => {
 					baseUrl: BASE_URL
 				})
 			).rejects.toBeTruthy();
+		});
+
+		it("Logs out", async () => {
+			const LOGOUT_METHOD = "get";
+			const LOGOUT_URL = `${BASE_URL}/auth/logout`;
+			moxios.stubOnce(LOGIN_METHOD, LOGIN_URL, {
+				response: LOGIN_RESPONSE,
+				status: 200,
+				headers: {
+					"Set-Cookie": COOKIE_SESSION
+				}
+			});
+			moxios.stubOnce(LOGOUT_METHOD, LOGOUT_URL, {
+				status: 200,
+				response: {
+					code: 200,
+					errors: [],
+					message: "Logout successful!",
+					success: true
+				}
+			});
+			const api = await Api.login({
+				username: USERNAME,
+				password: PASSWORD,
+				baseUrl: BASE_URL
+			});
+			await api.logout();
+			const mostRecentApiCall = moxios.requests.mostRecent();
+			expect(mostRecentApiCall.url).toEqual(LOGOUT_URL);
+			expect(mostRecentApiCall.config.method).toEqual(LOGOUT_METHOD);
+			test.todo(
+				"Doing anything else when logged out will throw an error."
+			);
 		});
 	});
 });
