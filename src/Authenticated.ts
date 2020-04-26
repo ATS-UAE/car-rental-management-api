@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+import { ServerResponseMeta, AuthServerResponseGet } from "./shared/typings";
 
 export interface ApiOptions {
 	baseUrl: string;
@@ -10,6 +11,8 @@ export interface ApiOptions {
 export class Authenticated {
 	protected constructor(
 		public api: AxiosInstance,
-		public options: ApiOptions
+		public options: ApiOptions,
+		public data: AuthServerResponseGet["data"],
+		public meta: ServerResponseMeta
 	) {}
 }

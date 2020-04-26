@@ -13,10 +13,10 @@ export class Api extends Authenticated {
 	private constructor(
 		api: AxiosInstance,
 		options: ApiOptions,
-		public data: AuthServerResponseGet["data"],
-		public meta: ServerResponseMeta
+		data: AuthServerResponseGet["data"],
+		meta: ServerResponseMeta
 	) {
-		super(api, options);
+		super(api, options, data, meta);
 	}
 
 	public static login = async ({
@@ -44,5 +44,17 @@ export class Api extends Authenticated {
 		await this.api.get(`${this.options.baseUrl}/auth/logout`);
 	};
 
-	public vehicle = new VehicleFactory(this.api, this.options);
+	public vehicle = new VehicleFactory(
+		this.api,
+		this.options,
+		this.data,
+		this.meta
+	);
+
+	public booking = new BookingFactory(
+		this.api,
+		this.options,
+		this.data,
+		this.meta
+	);
 }
