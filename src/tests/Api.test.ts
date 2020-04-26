@@ -29,12 +29,14 @@ describe("Api", () => {
 				password: PASSWORD,
 				baseUrl: BASE_URL
 			});
+			const { data, ...meta } = LOGIN_RESPONSE;
 			const mostRecentApiCall = moxios.requests.mostRecent();
 			expect(mostRecentApiCall.url).toEqual(LOGIN_URL);
 			expect(mostRecentApiCall.config.method).toEqual(LOGIN_METHOD);
 			expect(mostRecentApiCall.withCredentials).toEqual(true);
 			expect(api instanceof Api).toEqual(true);
-			expect(api.data).toEqual(LOGIN_RESPONSE);
+			expect(api.data).toEqual(data);
+			expect(api.meta).toEqual(meta);
 		});
 
 		it("Throws an error on wrong credentials", async () => {

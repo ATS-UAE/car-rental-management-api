@@ -1,7 +1,8 @@
 import axios, { AxiosInstance } from "axios";
-import { AuthServerResponseGet } from "./shared/typings";
+import { AuthServerResponseGet, ServerResponseMeta } from "./shared/typings";
 import { Authenticated, ApiOptions } from "./Authenticated";
 import { VehicleFactory } from "./VehicleFactory";
+import { BookingFactory } from "./BookingFactory";
 
 interface LoginOptions extends ApiOptions {
 	username: string;
@@ -12,7 +13,8 @@ export class Api extends Authenticated {
 	private constructor(
 		api: AxiosInstance,
 		options: ApiOptions,
-		public data: AuthServerResponseGet
+		public data: AuthServerResponseGet["data"],
+		public meta: ServerResponseMeta
 	) {
 		super(api, options);
 	}
@@ -32,7 +34,8 @@ export class Api extends Authenticated {
 				password
 			}
 		);
-		return new Api(api, { baseUrl }, response.data);
+		const { data, ...meta } = response.data;
+		return new Api(api, { baseUrl }, data, meta);
 	};
 
 	public execute = async () => {};
