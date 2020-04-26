@@ -35,7 +35,8 @@ export const getOne = (
 			startFuel: 0,
 			startMileage: 0,
 			userId: 1,
-			vehicleId: 2
+			vehicleId: 2,
+			...vehicleData
 		}
 	);
 };

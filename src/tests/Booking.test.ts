@@ -4,12 +4,20 @@ import { getAll as bookingGetAllResponse } from "./fixtures/response/bookings/ge
 import { BASE_URL } from "./fixtures";
 import { createApiInstance } from "./utils/createApiInstance";
 import { Booking } from "../Booking";
-import { BookingServerParamsPost, BookingType } from "../shared/typings";
+import {
+	BookingServerParamsPost,
+	BookingType,
+	BookingServerResponseDelete,
+	BookingServerParamsPatch
+} from "../shared/typings";
+import { createBookingInstance } from "./utils/createBookingInstance";
+import { createServerResponse } from "./utils/createServerResponse";
 
 describe("Booking", () => {
 	beforeEach(() => {
 		moxios.install();
 	});
+
 	afterEach(() => {
 		moxios.uninstall();
 	});
@@ -41,6 +49,7 @@ describe("Booking", () => {
 			).toBe(true);
 		});
 	});
+
 	describe("Creating a booking", () => {
 		const newBooking: Omit<BookingServerParamsPost, "userId"> &
 			Partial<Pick<BookingServerParamsPost, "userId">> = {
@@ -83,6 +92,100 @@ describe("Booking", () => {
 			expect(booking instanceof Booking).toBe(true);
 			expect(booking.data).toEqual(data);
 			expect(booking.meta).toEqual(meta);
+		});
+	});
+
+	describe("Deleting a booking.", () => {
+		it("Deletes a booking", async () => {
+			const booking = await createBookingInstance();
+			const DELETE_RESPONSE: BookingServerResponseDelete = createServerResponse(
+				200,
+				[],
+				true,
+				`Booking with ID ${booking.data.id}`,
+				bookingGetResponse(booking.data).data
+			);
+			moxios.stubOnce(
+				"delete",
+				`${BASE_URL}/bookings/${booking.data.id}`,
+				{
+					response: DELETE_RESPONSE
+				}
+			);
+			// We only need this function to resolve to pass the test.
+			await expect(booking.destroy()).resolves.toBeUndefined();
+		});
+	});
+
+	describe("Updating a booking", () => {
+		it("Updates a booking.", async () => {
+			const booking = await createBookingInstance({ approved: null });
+			const PATCH_PARAMS: BookingServerParamsPatch = {
+				vehicleId: 25,
+				approved: false
+			};
+			const PATCH_RESPONSE: BookingServerResponseDelete = createServerResponse(
+				200,
+				[],
+				true,
+				`Booking with ID ${booking.data.id}`,
+				bookingGetResponse(PATCH_PARAMS).data
+			);
+			moxios.stubOnce(
+				"patch",
+				`${BASE_URL}/bookings/${booking.data.id}`,
+				{
+					response: PATCH_RESPONSE
+				}
+			);
+			await booking.update(PATCH_PARAMS);
+			const { data, ...meta } = PATCH_RESPONSE;
+			expect(booking.data).toEqual(data);
+			expect(booking.meta).toEqual(meta);
+		});
+		it("Approves the booking", async () => {
+			const booking = await createBookingInstance({ approved: null });
+			const PATCH_RESPONSE: BookingServerResponseDelete = createServerResponse(
+				200,
+				[],
+				true,
+				`Booking with ID ${booking.data.id}`,
+				bookingGetResponse({
+					...booking.data,
+					approved: true
+				}).data
+			);
+			moxios.stubOnce(
+				"patch",
+				`${BASE_URL}/bookings/${booking.data.id}`,
+				{
+					response: PATCH_RESPONSE
+				}
+			);
+			await booking.approve();
+			expect(booking.data.approved).toBe(true);
+		});
+		it("Denies a booking.", async () => {
+			const booking = await createBookingInstance({ approved: null });
+			const PATCH_RESPONSE: BookingServerResponseDelete = createServerResponse(
+				200,
+				[],
+				true,
+				`Booking with ID ${booking.data.id}`,
+				bookingGetResponse({
+					...booking.data,
+					approved: false
+				}).data
+			);
+			moxios.stubOnce(
+				"patch",
+				`${BASE_URL}/bookings/${booking.data.id}`,
+				{
+					response: PATCH_RESPONSE
+				}
+			);
+			await booking.deny();
+			expect(booking.data.approved).toBe(false);
 		});
 	});
 });

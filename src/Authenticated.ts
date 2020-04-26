@@ -6,7 +6,7 @@ export interface ApiOptions {
 }
 
 /**
- * All api classes which uses authenticated users will extend this class.
+ * This class will hold the authentication data as well as the tools to communicate to the API server.
  */
 export class Authenticated {
 	protected constructor(
