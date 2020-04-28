@@ -10,7 +10,7 @@ interface LoginOptions extends ApiOptions {
 }
 
 interface CookieAuthOptions extends ApiOptions {
-	cookie: string;
+	cookie?: string;
 }
 
 export class Api extends Authenticated {
@@ -42,6 +42,9 @@ export class Api extends Authenticated {
 		return new Api(api, { baseUrl }, data, meta);
 	};
 
+	/**
+	 * You can optionally provide a cookie if you want the api to use the cookie stored in the browser.
+	 */
 	public static useCookie = async ({
 		cookie,
 		baseUrl

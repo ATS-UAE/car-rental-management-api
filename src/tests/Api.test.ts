@@ -108,6 +108,21 @@ describe("Api", () => {
 				expect(api.data).toEqual(data);
 				expect(api.meta).toEqual(meta);
 			});
+			it("Can use browser cookie", async () => {
+				moxios.stubOnce(CHECK_VALIDITY_URL_METHOD, CHECK_VALIDITY_URL, {
+					response: LOGIN_RESPONSE,
+					status: 200
+				});
+				const api = await Api.useCookie({
+					baseUrl: BASE_URL
+				});
+				const { data, ...meta } = LOGIN_RESPONSE;
+				const mostRecentApiCall = moxios.requests.mostRecent();
+				expect(mostRecentApiCall.withCredentials).toEqual(true);
+				expect(api instanceof Api).toEqual(true);
+				expect(api.data).toEqual(data);
+				expect(api.meta).toEqual(meta);
+			});
 			it("Throws an error if cookie is invalid", async () => {
 				moxios.stubOnce(CHECK_VALIDITY_URL_METHOD, CHECK_VALIDITY_URL, {
 					response: createServerResponse(
