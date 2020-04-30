@@ -67,6 +67,10 @@ export class Api extends Authenticated {
 		await this.api.get(`${this.options.baseUrl}/auth/logout`);
 	};
 
+	get cookie() {
+		return this.api.defaults.headers.Cookie;
+	}
+
 	public vehicle = new VehicleFactory(
 		this.api,
 		this.options,

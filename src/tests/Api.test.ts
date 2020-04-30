@@ -100,6 +100,7 @@ describe("Api", () => {
 				});
 				const { data, ...meta } = LOGIN_RESPONSE;
 				const mostRecentApiCall = moxios.requests.mostRecent();
+				expect(api.cookie).toEqual(COOKIE_SESSION);
 				expect(mostRecentApiCall.withCredentials).toEqual(true);
 				expect(mostRecentApiCall.headers.Cookie).toEqual(
 					COOKIE_SESSION
