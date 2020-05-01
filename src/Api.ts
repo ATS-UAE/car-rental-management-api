@@ -42,6 +42,16 @@ export class Api extends Authenticated {
 		await this.api.get(`${this.options.baseUrl}/auth/logout`);
 	};
 
+	public validate = async () => {
+		const response = await this.api.get<AuthServerResponseGet>(
+			`${this.options.baseUrl}/auth/me`
+		);
+
+		const { data, ...meta } = response.data;
+		this.data = data;
+		this.meta = meta;
+	};
+
 	public vehicle = new VehicleFactory(
 		this.api,
 		this.options,
