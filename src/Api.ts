@@ -9,10 +9,6 @@ interface LoginOptions extends ApiOptions {
 	password: string;
 }
 
-interface CookieAuthOptions extends ApiOptions {
-	cookie?: string;
-}
-
 export class Api extends Authenticated {
 	private constructor(
 		api: AxiosInstance,
@@ -42,34 +38,9 @@ export class Api extends Authenticated {
 		return new Api(api, { baseUrl }, data, meta);
 	};
 
-	/**
-	 * You can optionally provide a cookie if you want the api to use the cookie stored in the browser.
-	 */
-	public static useCookie = async ({
-		cookie,
-		baseUrl
-	}: CookieAuthOptions) => {
-		const api = axios.create({
-			withCredentials: true,
-			headers: {
-				Cookie: cookie
-			}
-		});
-
-		const response = await api.get<AuthServerResponseGet>(
-			`${baseUrl}/auth/me`
-		);
-		const { data, ...meta } = response.data;
-		return new Api(api, { baseUrl }, data, meta);
-	};
-
 	public logout = async () => {
 		await this.api.get(`${this.options.baseUrl}/auth/logout`);
 	};
-
-	get cookie() {
-		return this.api.defaults.headers.Cookie;
-	}
 
 	public vehicle = new VehicleFactory(
 		this.api,
