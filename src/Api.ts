@@ -42,6 +42,19 @@ export class Api extends Authenticated {
 		await this.api.get(`${this.options.baseUrl}/auth/logout`);
 	};
 
+	/** Check if the cookie stored by the browser is still valid. */
+
+	public static checkCookie = async ({ baseUrl }: { baseUrl: string }) => {
+		const api = axios.create({
+			withCredentials: true
+		});
+		const response = await api.get(`${baseUrl}/auth/me`);
+		const { data, ...meta } = response.data;
+		return new Api(api, { baseUrl }, data, meta);
+	};
+
+	/** Check current axios instance has a valid cookie. */
+
 	public validate = async () => {
 		const response = await this.api.get<AuthServerResponseGet>(
 			`${this.options.baseUrl}/auth/me`
