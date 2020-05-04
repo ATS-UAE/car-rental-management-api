@@ -1,6 +1,6 @@
 import { Authenticated } from "./Authenticated";
 import { User } from "./User";
-import { UserServerParamsPost, PartialKeys } from "./shared/typings";
+import { UserServerParamsPost } from "./shared/typings";
 
 export class UserFactory extends Authenticated {
 	public getOne = (id: number) => {
@@ -11,12 +11,7 @@ export class UserFactory extends Authenticated {
 		return User.getAll(this);
 	};
 
-	public create = (
-		bookingData: PartialKeys<UserServerParamsPost, "userId">
-	) => {
-		return User.create(this, {
-			...bookingData,
-			userId: bookingData.userId || this.data.id
-		});
+	public create = (userData: UserServerParamsPost) => {
+		return User.create(this, userData);
 	};
 }
