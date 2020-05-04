@@ -3,8 +3,10 @@ import { AuthServerResponseGet, ServerResponseMeta } from "./shared/typings";
 import { Authenticated, ApiOptions } from "./Authenticated";
 import { VehicleFactory } from "./VehicleFactory";
 import { BookingFactory } from "./BookingFactory";
+import { AccidentFactory } from "./AccidentFactory";
+import { UserFactory } from "./UserFactory";
 
-interface LoginOptions extends ApiOptions {
+export interface LoginOptions extends ApiOptions {
 	username: string;
 	password: string;
 }
@@ -78,4 +80,13 @@ export class Api extends Authenticated {
 		this.data,
 		this.meta
 	);
+
+	public accident = new AccidentFactory(
+		this.api,
+		this.options,
+		this.data,
+		this.meta
+	);
+
+	public user = new UserFactory(this.api, this.options, this.data, this.meta);
 }

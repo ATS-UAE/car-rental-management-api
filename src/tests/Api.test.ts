@@ -3,7 +3,6 @@ import { Api } from "../Api";
 import authPostResponse from "./fixtures/response/auth/post";
 import { BASE_URL, COOKIE_SESSION, USERNAME, PASSWORD } from "./fixtures";
 import { createApiInstance } from "./utils/createApiInstance";
-import { createServerResponse } from "./utils/createServerResponse";
 
 describe("Api", () => {
 	beforeEach(() => {
