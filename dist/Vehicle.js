@@ -47,6 +47,9 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var typings_1 = require("./shared/typings");
+var Booking_1 = require("./Booking");
+var utils_1 = require("./shared/utils");
 var Vehicle = /** @class */ (function () {
     function Vehicle(login, data, meta) {
         var _this = this;
@@ -81,7 +84,54 @@ var Vehicle = /** @class */ (function () {
                 }
             });
         }); };
+        this.getBookings = function () { return __awaiter(_this, void 0, void 0, function () {
+            var responseData, data, meta;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/vehicles/" + this.data.id + "/bookings")];
+                    case 1:
+                        responseData = (_a.sent()).data;
+                        data = responseData.data, meta = __rest(responseData, ["data"]);
+                        return [2 /*return*/, data.map(function (b) { return new Booking_1.Booking(_this.login, b, meta); })];
+                }
+            });
+        }); };
+        this.isVehicleAvailableForBooking = (function (bookings) {
+            if (bookings) {
+                if (_this.data.defleeted === true) {
+                    return false;
+                }
+                return Vehicle.checkAvailabilityFromBookings(bookings.map(function (booking) {
+                    if (booking instanceof Booking_1.Booking) {
+                        return booking.data;
+                    }
+                    return booking;
+                }));
+            }
+            return _this.getBookings().then(function (vehicleBookings) {
+                if (_this.data.defleeted === true) {
+                    return false;
+                }
+                return Vehicle.checkAvailabilityFromBookings(vehicleBookings.map(function (vehicle) { return vehicle.data; }));
+            });
+        });
     }
+    Vehicle.checkAvailabilityFromBookings = function (bookings) {
+        return bookings.every(function (booking) {
+            var status = utils_1.getBookingStatus({
+                from: booking.from,
+                to: booking.to,
+                approved: booking.approved
+            });
+            if (status === typings_1.BookingStatus.PENDING ||
+                status === typings_1.BookingStatus.APPROVED ||
+                status === typings_1.BookingStatus.ONGOING) {
+                return false;
+            }
+            return true;
+        });
+    };
     Vehicle.getOne = function (login, vehicleId) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {

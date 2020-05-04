@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable prefer-template */
+/* eslint-disable class-methods-use-this */
+/* eslint-disable lines-between-class-members */
 import { Authenticated } from "./Authenticated";
 import {
 	VehicleServerResponseGet,
@@ -8,8 +12,19 @@ import {
 	VehicleServerParamsPost,
 	VehicleServerParamsPatch,
 	VehicleServerResponsePatch,
-	VehicleServerResponseDelete
+	VehicleServerResponseDelete,
+	BookingServerResponseGetAll,
+	BookingStatus,
+	BookingServerResponseGet
 } from "./shared/typings";
+import { Booking } from "./Booking";
+import { getBookingStatus } from "./shared/utils";
+
+interface IsVehicleAvailableForBookingFunction {
+	(bookings: Booking[]): boolean;
+	(bookings: ExtractServerResponseData<VehicleServerResponseGet>[]): boolean;
+	(): Promise<boolean>;
+}
 
 export class Vehicle {
 	constructor(
@@ -17,6 +32,26 @@ export class Vehicle {
 		public data: ExtractServerResponseData<VehicleServerResponseGet>,
 		public meta: ServerResponseMeta
 	) {}
+
+	public static checkAvailabilityFromBookings = (
+		bookings: ExtractServerResponseData<BookingServerResponseGet>[]
+	) => {
+		return bookings.every((booking) => {
+			const status = getBookingStatus({
+				from: booking.from,
+				to: booking.to,
+				approved: booking.approved
+			});
+			if (
+				status === BookingStatus.PENDING ||
+				status === BookingStatus.APPROVED ||
+				status === BookingStatus.ONGOING
+			) {
+				return false;
+			}
+			return true;
+		});
+	};
 
 	public static getOne = async (login: Authenticated, vehicleId: number) => {
 		const { data: responseData } = await login.api.get<
@@ -65,4 +100,42 @@ export class Vehicle {
 		this.data = data;
 		this.meta = meta;
 	};
+
+	public getBookings = async () => {
+		const { data: responseData } = await this.login.api.get<
+			BookingServerResponseGetAll
+		>(`${this.login.options.baseUrl}/vehicles/${this.data.id}/bookings`);
+
+		const { data, ...meta } = responseData;
+
+		return data.map((b) => new Booking(this.login, b, meta));
+	};
+
+	public isVehicleAvailableForBooking = ((
+		bookings?: Array<
+			Booking | ExtractServerResponseData<BookingServerResponseGet>
+		>
+	): boolean | Promise<boolean> => {
+		if (bookings) {
+			if (this.data.defleeted === true) {
+				return false;
+			}
+			return Vehicle.checkAvailabilityFromBookings(
+				bookings.map((booking) => {
+					if (booking instanceof Booking) {
+						return booking.data;
+					}
+					return booking;
+				})
+			);
+		}
+		return this.getBookings().then((vehicleBookings) => {
+			if (this.data.defleeted === true) {
+				return false;
+			}
+			return Vehicle.checkAvailabilityFromBookings(
+				vehicleBookings.map((vehicle) => vehicle.data)
+			);
+		});
+	}) as IsVehicleAvailableForBookingFunction;
 }
