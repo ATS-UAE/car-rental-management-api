@@ -1,3 +1,4 @@
+import moment from "moment";
 import { Authenticated } from "./Authenticated";
 import {
 	BookingServerResponseGet,
@@ -8,7 +9,8 @@ import {
 	BookingServerParamsPost,
 	BookingServerParamsPatch,
 	BookingServerResponsePatch,
-	BookingServerResponseDelete
+	BookingServerResponseDelete,
+	BookingStatus
 } from "./shared/typings";
 
 export class Booking {
@@ -68,5 +70,31 @@ export class Booking {
 		const { data, ...meta } = responseData;
 		this.data = data;
 		this.meta = meta;
+	};
+
+	public getBookingStatus = (): BookingStatus => {
+		let status = BookingStatus.UNKNOWN;
+		const currentTime = moment();
+		const hasPassedFrom = moment(this.data.from, "X").isSameOrBefore(
+			currentTime
+		);
+		const hasPassedTo = moment(this.data.to, "X").isSameOrBefore(
+			currentTime
+		);
+		if (this.data.approved) {
+			if (hasPassedFrom && !hasPassedTo) {
+				status = BookingStatus.ONGOING;
+			} else if (hasPassedTo) {
+				status = BookingStatus.FINISHED;
+			} else {
+				status = BookingStatus.APPROVED;
+			}
+		} else if (this.data.approved === null) {
+			status = BookingStatus.PENDING;
+		} else if (this.data.approved === false) {
+			status = BookingStatus.DENIED;
+		}
+
+		return status;
 	};
 }
