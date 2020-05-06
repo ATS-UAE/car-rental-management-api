@@ -47,6 +47,18 @@ export class Booking {
 		return new Booking(login, data, meta);
 	};
 
+	public static update = async (
+		login: Authenticated,
+		bookingId: number,
+		updatedVehicleData: BookingServerParamsPatch
+	) => {
+		const { data: responseData } = await login.api.patch<
+			BookingServerResponsePatch
+		>(`${login.options.baseUrl}/bookings/${bookingId}`, updatedVehicleData);
+		const { data, ...meta } = responseData;
+		return new Booking(login, data, meta);
+	};
+
 	public update = async (updatedVehicleData: BookingServerParamsPatch) => {
 		const { data: responseData } = await this.login.api.patch<
 			BookingServerResponsePatch

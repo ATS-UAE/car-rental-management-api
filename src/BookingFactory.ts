@@ -1,6 +1,10 @@
 import { Authenticated } from "./Authenticated";
 import { Booking } from "./Booking";
-import { BookingServerParamsPost, PartialKeys } from "./shared/typings";
+import {
+	BookingServerParamsPost,
+	PartialKeys,
+	BookingServerParamsPatch
+} from "./shared/typings";
 
 export class BookingFactory extends Authenticated {
 	public getOne = (id: number) => {
@@ -18,5 +22,12 @@ export class BookingFactory extends Authenticated {
 			...bookingData,
 			userId: bookingData.userId || this.data.id
 		});
+	};
+
+	public update = (
+		id: number,
+		updatedBookingData: BookingServerParamsPatch
+	) => {
+		return Booking.update(this, id, updatedBookingData);
 	};
 }
