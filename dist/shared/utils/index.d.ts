@@ -11,3 +11,4 @@ export declare const hasActiveBooking: (bookings: {
     approved: boolean | null;
     id: number;
 }[], bookingId?: number | undefined) => boolean;
+export declare const toTitleWords: (word: string, delimiter?: string) => string;

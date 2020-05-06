@@ -21,3 +21,6 @@ export declare type UseParameters<AllParams, RequiredParams extends keyof AllPar
 export declare type ReplaceAttributes<Original extends object, Enhancer extends object> = {
     [P in keyof Original]: P extends keyof Enhancer ? Enhancer[P] : Original[P];
 } & Omit<Enhancer, keyof Original>;
+export declare type WithID<T extends object> = T & {
+    id: number;
+};

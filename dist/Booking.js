@@ -46,7 +46,12 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var moment_1 = __importDefault(require("moment"));
+var typings_1 = require("./shared/typings");
 var Booking = /** @class */ (function () {
     function Booking(login, data, meta) {
         var _this = this;
@@ -87,6 +92,30 @@ var Booking = /** @class */ (function () {
                 }
             });
         }); };
+        this.getBookingStatus = function () {
+            var status = typings_1.BookingStatus.UNKNOWN;
+            var currentTime = moment_1.default();
+            var hasPassedFrom = moment_1.default(_this.data.from, "X").isSameOrBefore(currentTime);
+            var hasPassedTo = moment_1.default(_this.data.to, "X").isSameOrBefore(currentTime);
+            if (_this.data.approved) {
+                if (hasPassedFrom && !hasPassedTo) {
+                    status = typings_1.BookingStatus.ONGOING;
+                }
+                else if (hasPassedTo) {
+                    status = typings_1.BookingStatus.FINISHED;
+                }
+                else {
+                    status = typings_1.BookingStatus.APPROVED;
+                }
+            }
+            else if (_this.data.approved === null) {
+                status = typings_1.BookingStatus.PENDING;
+            }
+            else if (_this.data.approved === false) {
+                status = typings_1.BookingStatus.DENIED;
+            }
+            return status;
+        };
     }
     Booking.getOne = function (login, bookingId) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;
@@ -117,6 +146,18 @@ var Booking = /** @class */ (function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, login.api.post(login.options.baseUrl + "/bookings", bookingData)];
+                case 1:
+                    responseData = (_a.sent()).data;
+                    data = responseData.data, meta = __rest(responseData, ["data"]);
+                    return [2 /*return*/, new Booking(login, data, meta)];
+            }
+        });
+    }); };
+    Booking.update = function (login, bookingId, updatedVehicleData) { return __awaiter(void 0, void 0, void 0, function () {
+        var responseData, data, meta;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, login.api.patch(login.options.baseUrl + "/bookings/" + bookingId, updatedVehicleData)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);

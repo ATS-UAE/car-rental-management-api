@@ -48,3 +48,22 @@ exports.hasActiveBooking = function (bookings, bookingId) {
     }
     return active;
 };
+exports.toTitleWords = function (word, delimiter) {
+    if (delimiter === void 0) { delimiter = "_"; }
+    var splitWord = word.split(delimiter);
+    var result = "";
+    for (var _i = 0, splitWord_1 = splitWord; _i < splitWord_1.length; _i++) {
+        var word_1 = splitWord_1[_i];
+        for (var i = 0; i < word_1.length; i++) {
+            var letter = word_1[i];
+            if (i === 0) {
+                result += letter.toUpperCase();
+            }
+            else {
+                result += letter.toLowerCase();
+            }
+        }
+        result += " ";
+    }
+    return result;
+};

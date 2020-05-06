@@ -39,6 +39,9 @@ var BookingFactory = /** @class */ (function (_super) {
         _this.create = function (bookingData) {
             return Booking_1.Booking.create(_this, __assign(__assign({}, bookingData), { userId: bookingData.userId || _this.data.id }));
         };
+        _this.update = function (id, updatedBookingData) {
+            return Booking_1.Booking.update(_this, id, updatedBookingData);
+        };
         return _this;
     }
     return BookingFactory;

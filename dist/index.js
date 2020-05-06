@@ -10,4 +10,8 @@ __export(require("./Booking"));
 __export(require("./BookingFactory"));
 __export(require("./Vehicle"));
 __export(require("./VehicleFactory"));
+__export(require("./Accident"));
+__export(require("./AccidentFactory"));
+__export(require("./User"));
+__export(require("./UserFactory"));
 exports.default = Api_1.Api;
