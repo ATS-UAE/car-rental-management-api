@@ -5,6 +5,7 @@ import { VehicleFactory } from "./VehicleFactory";
 import { BookingFactory } from "./BookingFactory";
 import { AccidentFactory } from "./AccidentFactory";
 import { UserFactory } from "./UserFactory";
+import { LocationFactory } from "./LocationFactory";
 
 export interface LoginOptions extends ApiOptions {
 	username: string;
@@ -89,4 +90,11 @@ export class Api extends Authenticated {
 	);
 
 	public user = new UserFactory(this.api, this.options, this.data, this.meta);
+
+	public location = new LocationFactory(
+		this.api,
+		this.options,
+		this.data,
+		this.meta
+	);
 }

@@ -69,6 +69,7 @@ var VehicleFactory_1 = require("./VehicleFactory");
 var BookingFactory_1 = require("./BookingFactory");
 var AccidentFactory_1 = require("./AccidentFactory");
 var UserFactory_1 = require("./UserFactory");
+var LocationFactory_1 = require("./LocationFactory");
 var Api = /** @class */ (function (_super) {
     __extends(Api, _super);
     function Api(api, options, data, meta) {
@@ -102,6 +103,7 @@ var Api = /** @class */ (function (_super) {
         _this.booking = new BookingFactory_1.BookingFactory(_this.api, _this.options, _this.data, _this.meta);
         _this.accident = new AccidentFactory_1.AccidentFactory(_this.api, _this.options, _this.data, _this.meta);
         _this.user = new UserFactory_1.UserFactory(_this.api, _this.options, _this.data, _this.meta);
+        _this.location = new LocationFactory_1.LocationFactory(_this.api, _this.options, _this.data, _this.meta);
         return _this;
     }
     Api.login = function (_a) {
