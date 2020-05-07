@@ -10,5 +10,7 @@ export * from "./Accident";
 export * from "./AccidentFactory";
 export * from "./User";
 export * from "./UserFactory";
+export * from "./Location";
+export * from "./LocationFactory";
 
 export default Api;

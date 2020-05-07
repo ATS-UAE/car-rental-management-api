@@ -1,4 +1,3 @@
-import moment from "moment";
 import { Authenticated } from "./Authenticated";
 import {
 	LocationServerResponseGet,
