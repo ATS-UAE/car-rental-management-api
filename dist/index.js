@@ -14,4 +14,6 @@ __export(require("./Accident"));
 __export(require("./AccidentFactory"));
 __export(require("./User"));
 __export(require("./UserFactory"));
+__export(require("./Location"));
+__export(require("./LocationFactory"));
 exports.default = Api_1.Api;
