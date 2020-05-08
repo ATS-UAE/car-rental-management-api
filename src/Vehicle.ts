@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable prefer-template */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable lines-between-class-members */
 import { Authenticated } from "./Authenticated";
 import {
 	VehicleServerResponseGet,
@@ -15,10 +11,12 @@ import {
 	VehicleServerResponseDelete,
 	BookingServerResponseGetAll,
 	BookingStatus,
-	BookingServerResponseGet
+	BookingServerResponseGet,
+	WialonUnitServerResponseGet
 } from "./shared/typings";
 import { Booking } from "./Booking";
 import { getBookingStatus } from "./shared/utils";
+import { WialonUnit } from "./WialonUnit";
 
 interface IsVehicleAvailableForBookingFunction {
 	(bookings: Booking[]): boolean;
@@ -109,6 +107,16 @@ export class Vehicle {
 		const { data, ...meta } = responseData;
 
 		return data.map((b) => new Booking(this.login, b, meta));
+	};
+
+	public getWialonUnit = async () => {
+		const { data: responseData } = await this.login.api.get<
+			WialonUnitServerResponseGet
+		>(`${this.login.options.baseUrl}/vehicles/${this.data.id}/wialonUnit`);
+
+		const { data, ...meta } = responseData;
+
+		return new WialonUnit(data, meta);
 	};
 
 	public isVehicleAvailableForBooking = ((
