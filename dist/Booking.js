@@ -53,6 +53,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var moment_1 = __importDefault(require("moment"));
 var typings_1 = require("./shared/typings");
 var Vehicle_1 = require("./Vehicle");
+var User_1 = require("./User");
 var Booking = /** @class */ (function () {
     function Booking(login, data, meta) {
         var _this = this;
@@ -126,6 +127,18 @@ var Booking = /** @class */ (function () {
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
                         return [2 /*return*/, new Vehicle_1.Vehicle(this.login, data, meta)];
+                }
+            });
+        }); };
+        this.getUser = function () { return __awaiter(_this, void 0, void 0, function () {
+            var responseData, data, meta;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/bookings/" + this.data.id + "/user")];
+                    case 1:
+                        responseData = (_a.sent()).data;
+                        data = responseData.data, meta = __rest(responseData, ["data"]);
+                        return [2 /*return*/, new User_1.User(this.login, data, meta)];
                 }
             });
         }); };

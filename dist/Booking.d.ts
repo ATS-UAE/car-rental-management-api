@@ -1,6 +1,7 @@
 import { Authenticated } from "./Authenticated";
 import { BookingServerResponseGet, ExtractServerResponseData, ServerResponseMeta, BookingStatus } from "./shared/typings";
 import { Vehicle } from "./Vehicle";
+import { User } from "./User";
 export declare class Booking {
     private login;
     data: ExtractServerResponseData<BookingServerResponseGet>;
@@ -16,4 +17,5 @@ export declare class Booking {
     destroy: () => Promise<void>;
     getBookingStatus: () => BookingStatus;
     getVehicle: () => Promise<Vehicle>;
+    getUser: () => Promise<User>;
 }

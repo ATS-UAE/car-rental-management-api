@@ -16,4 +16,6 @@ __export(require("./User"));
 __export(require("./UserFactory"));
 __export(require("./Location"));
 __export(require("./LocationFactory"));
+__export(require("./WialonUnit"));
+__export(require("./WialonUnitFactory"));
 exports.default = Api_1.Api;

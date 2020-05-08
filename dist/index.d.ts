@@ -11,4 +11,6 @@ export * from "./User";
 export * from "./UserFactory";
 export * from "./Location";
 export * from "./LocationFactory";
+export * from "./WialonUnit";
+export * from "./WialonUnitFactory";
 export default Api;
