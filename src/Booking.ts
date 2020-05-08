@@ -11,9 +11,11 @@ import {
 	BookingServerResponsePatch,
 	BookingServerResponseDelete,
 	BookingStatus,
-	VehicleServerResponseGet
+	VehicleServerResponseGet,
+	UserServerResponseGet
 } from "./shared/typings";
 import { Vehicle } from "./Vehicle";
+import { User } from "./User";
 
 export class Booking {
 	constructor(
@@ -118,5 +120,13 @@ export class Booking {
 		>(`${this.login.options.baseUrl}/bookings/${this.data.id}/vehicle`);
 		const { data, ...meta } = responseData;
 		return new Vehicle(this.login, data, meta);
+	};
+
+	public getUser = async () => {
+		const { data: responseData } = await this.login.api.get<
+			UserServerResponseGet
+		>(`${this.login.options.baseUrl}/bookings/${this.data.id}/user`);
+		const { data, ...meta } = responseData;
+		return new User(this.login, data, meta);
 	};
 }
