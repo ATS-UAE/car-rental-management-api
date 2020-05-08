@@ -3,7 +3,8 @@ import { Booking } from "./Booking";
 import {
 	BookingServerParamsPost,
 	PartialKeys,
-	BookingServerParamsPatch
+	BookingServerParamsPatch,
+	BookingServerResponseDelete
 } from "./shared/typings";
 
 export class BookingFactory extends Authenticated {
@@ -29,5 +30,12 @@ export class BookingFactory extends Authenticated {
 		updatedBookingData: BookingServerParamsPatch
 	) => {
 		return Booking.update(this, id, updatedBookingData);
+	};
+
+	public destroy = async (id: number) => {
+		const { data: responseData } = await this.api.delete<
+			BookingServerResponseDelete
+		>(`${this.options.baseUrl}/bookings/${id}`);
+		return responseData;
 	};
 }
