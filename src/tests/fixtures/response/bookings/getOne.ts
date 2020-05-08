@@ -36,6 +36,10 @@ export const getOne = (
 			startMileage: 0,
 			userId: 1,
 			vehicleId: 2,
+			replaceBrand: null,
+			replaceModel: null,
+			replacePlateNumber: null,
+			replaceVin: null,
 			...vehicleData
 		}
 	);
