@@ -5,6 +5,7 @@ import { AccidentFactory } from "./AccidentFactory";
 import { UserFactory } from "./UserFactory";
 import { LocationFactory } from "./LocationFactory";
 import { ClientFactory } from "./ClientFactory";
+import { CategoryFactory } from "./CategoryFactory";
 export interface LoginOptions extends ApiOptions {
     username: string;
     password: string;
@@ -25,4 +26,5 @@ export declare class Api extends Authenticated {
     user: UserFactory;
     location: LocationFactory;
     client: ClientFactory;
+    category: CategoryFactory;
 }
