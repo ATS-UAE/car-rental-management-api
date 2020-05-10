@@ -16,5 +16,7 @@ export * from "./WialonUnit";
 export * from "./WialonUnitFactory";
 export * from "./Client";
 export * from "./ClientFactory";
+export * from "./Category";
+export * from "./CategoryFactory";
 
 export default Api;

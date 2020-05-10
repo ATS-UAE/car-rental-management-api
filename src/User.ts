@@ -8,8 +8,10 @@ import {
 	UserServerParamsPost,
 	UserServerParamsPatch,
 	UserServerResponsePatch,
-	UserServerResponseDelete
+	UserServerResponseDelete,
+	CategoryServerResponseGetAll
 } from "./shared/typings";
+import { Category } from "./Category";
 
 export class User {
 	constructor(
@@ -76,5 +78,13 @@ export class User {
 		const { data, ...meta } = responseData;
 		this.data = data;
 		this.meta = meta;
+	};
+
+	public getCategories = async () => {
+		const { data: responseData } = await this.login.api.get<
+			CategoryServerResponseGetAll
+		>(`${this.login.options.baseUrl}/users/${this.data.id}/categories`);
+		const { data, ...meta } = responseData;
+		return data.map((c) => new Category(this.login, c, meta));
 	};
 }

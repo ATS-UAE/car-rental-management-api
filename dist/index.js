@@ -20,4 +20,6 @@ __export(require("./WialonUnit"));
 __export(require("./WialonUnitFactory"));
 __export(require("./Client"));
 __export(require("./ClientFactory"));
+__export(require("./Category"));
+__export(require("./CategoryFactory"));
 exports.default = Api_1.Api;

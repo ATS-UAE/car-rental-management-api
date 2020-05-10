@@ -47,9 +47,8 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Category_1 = require("./Category");
-var User = /** @class */ (function () {
-    function User(login, data, meta) {
+var Category = /** @class */ (function () {
+    function Category(login, data, meta) {
         var _this = this;
         this.login = login;
         this.data = data;
@@ -58,7 +57,7 @@ var User = /** @class */ (function () {
             var responseData, data, meta;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.patch(this.login.options.baseUrl + "/users/" + this.data.id, updatedVehicleData)];
+                    case 0: return [4 /*yield*/, this.login.api.patch(this.login.options.baseUrl + "/categories/" + this.data.id, updatedVehicleData)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -72,7 +71,7 @@ var User = /** @class */ (function () {
             var responseData, data, meta;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.delete(this.login.options.baseUrl + "/users/" + this.data.id)];
+                    case 0: return [4 /*yield*/, this.login.api.delete(this.login.options.baseUrl + "/categories/" + this.data.id)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -82,68 +81,55 @@ var User = /** @class */ (function () {
                 }
             });
         }); };
-        this.getCategories = function () { return __awaiter(_this, void 0, void 0, function () {
-            var responseData, data, meta;
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/users/" + this.data.id + "/categories")];
-                    case 1:
-                        responseData = (_a.sent()).data;
-                        data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, data.map(function (c) { return new Category_1.Category(_this.login, c, meta); })];
-                }
-            });
-        }); };
     }
-    User.getOne = function (login, userId) { return __awaiter(void 0, void 0, void 0, function () {
+    Category.getOne = function (login, userId) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/users/" + userId)];
+                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/categories/" + userId)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new User(login, data, meta)];
+                    return [2 /*return*/, new Category(login, data, meta)];
             }
         });
     }); };
-    User.getAll = function (login) { return __awaiter(void 0, void 0, void 0, function () {
+    Category.getAll = function (login) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/users")];
+                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/categories")];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, data.map(function (v) { return new User(login, v, meta); })];
+                    return [2 /*return*/, data.map(function (v) { return new Category(login, v, meta); })];
             }
         });
     }); };
-    User.create = function (login, userData) { return __awaiter(void 0, void 0, void 0, function () {
+    Category.create = function (login, userData) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.post(login.options.baseUrl + "/users", userData)];
+                case 0: return [4 /*yield*/, login.api.post(login.options.baseUrl + "/categories", userData)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new User(login, data, meta)];
+                    return [2 /*return*/, new Category(login, data, meta)];
             }
         });
     }); };
-    User.update = function (login, userId, updatedVehicleData) { return __awaiter(void 0, void 0, void 0, function () {
+    Category.update = function (login, userId, updatedVehicleData) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.patch(login.options.baseUrl + "/users/" + userId, updatedVehicleData)];
+                case 0: return [4 /*yield*/, login.api.patch(login.options.baseUrl + "/categories/" + userId, updatedVehicleData)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new User(login, data, meta)];
+                    return [2 /*return*/, new Category(login, data, meta)];
             }
         });
     }); };
-    return User;
+    return Category;
 }());
-exports.User = User;
+exports.Category = Category;
