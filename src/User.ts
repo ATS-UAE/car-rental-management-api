@@ -57,6 +57,18 @@ export class User {
 		this.meta = meta;
 	};
 
+	public static update = async (
+		login: Authenticated,
+		userId: number,
+		updatedVehicleData: UserServerParamsPatch
+	) => {
+		const { data: responseData } = await login.api.patch<
+			UserServerResponsePatch
+		>(`${login.options.baseUrl}/users/${userId}`, updatedVehicleData);
+		const { data, ...meta } = responseData;
+		return new User(login, data, meta);
+	};
+
 	public destroy = async () => {
 		const { data: responseData } = await this.login.api.delete<
 			UserServerResponseDelete

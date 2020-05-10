@@ -118,6 +118,18 @@ var User = /** @class */ (function () {
             }
         });
     }); };
+    User.update = function (login, userId, updatedVehicleData) { return __awaiter(void 0, void 0, void 0, function () {
+        var responseData, data, meta;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, login.api.patch(login.options.baseUrl + "/users/" + userId, updatedVehicleData)];
+                case 1:
+                    responseData = (_a.sent()).data;
+                    data = responseData.data, meta = __rest(responseData, ["data"]);
+                    return [2 /*return*/, new User(login, data, meta)];
+            }
+        });
+    }); };
     return User;
 }());
 exports.User = User;
