@@ -28,6 +28,9 @@ var UserFactory = /** @class */ (function (_super) {
         _this.create = function (userData) {
             return User_1.User.create(_this, userData);
         };
+        _this.update = function (userId, userData) {
+            return User_1.User.update(_this, userId, userData);
+        };
         return _this;
     }
     return UserFactory;
