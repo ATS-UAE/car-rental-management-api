@@ -7,6 +7,7 @@ import { AccidentFactory } from "./AccidentFactory";
 import { UserFactory } from "./UserFactory";
 import { LocationFactory } from "./LocationFactory";
 import { ClientFactory } from "./ClientFactory";
+import { CategoryFactory } from "./CategoryFactory";
 
 export interface LoginOptions extends ApiOptions {
 	username: string;
@@ -100,6 +101,13 @@ export class Api extends Authenticated {
 	);
 
 	public client = new ClientFactory(
+		this.api,
+		this.options,
+		this.data,
+		this.meta
+	);
+
+	public category = new CategoryFactory(
 		this.api,
 		this.options,
 		this.data,
