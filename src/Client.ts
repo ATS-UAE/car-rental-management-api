@@ -8,8 +8,14 @@ import {
 	ClientServerParamsPost,
 	ClientServerParamsPatch,
 	ClientServerResponsePatch,
-	ClientServerResponseDelete
+	ClientServerResponseDelete,
+	LocationServerResponseGetAll,
+	UserServerResponseGetAll,
+	VehicleServerResponseGetAll
 } from "./shared/typings";
+import { Location } from "./Location";
+import { User } from "./User";
+import { Vehicle } from "./Vehicle";
 
 export class Client {
 	constructor(
@@ -76,5 +82,29 @@ export class Client {
 		const { data, ...meta } = responseData;
 		this.data = data;
 		this.meta = meta;
+	};
+
+	public getLocations = async () => {
+		const { data: responseData } = await this.login.api.get<
+			LocationServerResponseGetAll
+		>(`${this.login.options.baseUrl}/clients/locations`);
+		const { data, ...meta } = responseData;
+		return data.map((item) => new Location(this.login, item, meta));
+	};
+
+	public getUsers = async () => {
+		const { data: responseData } = await this.login.api.get<
+			UserServerResponseGetAll
+		>(`${this.login.options.baseUrl}/clients/locations`);
+		const { data, ...meta } = responseData;
+		return data.map((item) => new User(this.login, item, meta));
+	};
+
+	public getVehicles = async () => {
+		const { data: responseData } = await this.login.api.get<
+			VehicleServerResponseGetAll
+		>(`${this.login.options.baseUrl}/clients/locations`);
+		const { data, ...meta } = responseData;
+		return data.map((item) => new Vehicle(this.login, item, meta));
 	};
 }

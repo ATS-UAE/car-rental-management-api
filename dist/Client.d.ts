@@ -1,5 +1,8 @@
 import { Authenticated } from "./Authenticated";
 import { ClientServerResponseGet, ExtractServerResponseData, ServerResponseMeta, ClientServerParamsPatch } from "./shared/typings";
+import { Location } from "./Location";
+import { User } from "./User";
+import { Vehicle } from "./Vehicle";
 export declare class Client {
     private login;
     data: ExtractServerResponseData<ClientServerResponseGet>;
@@ -11,4 +14,7 @@ export declare class Client {
     static update: (login: Authenticated, clientId: number, updatedVehicleData: ClientServerParamsPatch) => Promise<Client>;
     update: (updatedVehicleData: ClientServerParamsPatch) => Promise<void>;
     destroy: () => Promise<void>;
+    getLocations: () => Promise<Location[]>;
+    getUsers: () => Promise<User[]>;
+    getVehicles: () => Promise<Vehicle[]>;
 }

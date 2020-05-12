@@ -47,6 +47,9 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var Location_1 = require("./Location");
+var User_1 = require("./User");
+var Vehicle_1 = require("./Vehicle");
 var Client = /** @class */ (function () {
     function Client(login, data, meta) {
         var _this = this;
@@ -78,6 +81,45 @@ var Client = /** @class */ (function () {
                         this.data = data;
                         this.meta = meta;
                         return [2 /*return*/];
+                }
+            });
+        }); };
+        this.getLocations = function () { return __awaiter(_this, void 0, void 0, function () {
+            var responseData, data, meta;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/clients/locations")];
+                    case 1:
+                        responseData = (_a.sent()).data;
+                        data = responseData.data, meta = __rest(responseData, ["data"]);
+                        return [2 /*return*/, data.map(function (item) { return new Location_1.Location(_this.login, item, meta); })];
+                }
+            });
+        }); };
+        this.getUsers = function () { return __awaiter(_this, void 0, void 0, function () {
+            var responseData, data, meta;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/clients/locations")];
+                    case 1:
+                        responseData = (_a.sent()).data;
+                        data = responseData.data, meta = __rest(responseData, ["data"]);
+                        return [2 /*return*/, data.map(function (item) { return new User_1.User(_this.login, item, meta); })];
+                }
+            });
+        }); };
+        this.getVehicles = function () { return __awaiter(_this, void 0, void 0, function () {
+            var responseData, data, meta;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/clients/locations")];
+                    case 1:
+                        responseData = (_a.sent()).data;
+                        data = responseData.data, meta = __rest(responseData, ["data"]);
+                        return [2 /*return*/, data.map(function (item) { return new Vehicle_1.Vehicle(_this.login, item, meta); })];
                 }
             });
         }); };
