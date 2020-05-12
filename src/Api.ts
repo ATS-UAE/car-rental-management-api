@@ -8,6 +8,7 @@ import { UserFactory } from "./UserFactory";
 import { LocationFactory } from "./LocationFactory";
 import { ClientFactory } from "./ClientFactory";
 import { CategoryFactory } from "./CategoryFactory";
+import { WialonUnitFactory } from "./WialonUnitFactory";
 
 export interface LoginOptions extends ApiOptions {
 	username: string;
@@ -108,6 +109,13 @@ export class Api extends Authenticated {
 	);
 
 	public category = new CategoryFactory(
+		this.api,
+		this.options,
+		this.data,
+		this.meta
+	);
+
+	public wialonUnit = new WialonUnitFactory(
 		this.api,
 		this.options,
 		this.data,
