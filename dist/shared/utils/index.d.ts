@@ -11,4 +11,5 @@ export declare const hasActiveBooking: (bookings: {
     approved: boolean | null;
     id: number;
 }[], bookingId?: number | undefined) => boolean;
+export declare const rangeOverlap: (x1: number, x2: number, y1: number, y2: number) => boolean;
 export declare const toTitleWords: (word: string, delimiter?: string) => string;

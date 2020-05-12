@@ -48,6 +48,9 @@ exports.hasActiveBooking = function (bookings, bookingId) {
     }
     return active;
 };
+exports.rangeOverlap = function (x1, x2, y1, y2) {
+    return Math.max(x1, y1) <= Math.min(x2, y2);
+};
 exports.toTitleWords = function (word, delimiter) {
     if (delimiter === void 0) { delimiter = "_"; }
     var splitWord = word.split(delimiter);
