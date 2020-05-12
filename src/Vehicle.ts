@@ -80,6 +80,18 @@ export class Vehicle {
 		return new Vehicle(login, data, meta);
 	};
 
+	public static update = async (
+		login: Authenticated,
+		vehicleId: number,
+		vehicleData: VehicleServerParamsPatch
+	) => {
+		const { data: responseData } = await login.api.patch<
+			VehicleServerResponsePatch
+		>(`${login.options.baseUrl}/vehicles/${vehicleId}`, vehicleData);
+		const { data, ...meta } = responseData;
+		return new Vehicle(login, data, meta);
+	};
+
 	public update = async (updatedVehicleData: VehicleServerParamsPatch) => {
 		const { data: responseData } = await this.login.api.patch<
 			VehicleServerResponsePatch
