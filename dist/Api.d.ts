@@ -6,6 +6,7 @@ import { UserFactory } from "./UserFactory";
 import { LocationFactory } from "./LocationFactory";
 import { ClientFactory } from "./ClientFactory";
 import { CategoryFactory } from "./CategoryFactory";
+import { WialonUnitFactory } from "./WialonUnitFactory";
 export interface LoginOptions extends ApiOptions {
     username: string;
     password: string;
@@ -27,4 +28,5 @@ export declare class Api extends Authenticated {
     location: LocationFactory;
     client: ClientFactory;
     category: CategoryFactory;
+    wialonUnit: WialonUnitFactory;
 }

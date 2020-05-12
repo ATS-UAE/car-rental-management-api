@@ -51,6 +51,7 @@ var typings_1 = require("./shared/typings");
 var Booking_1 = require("./Booking");
 var utils_1 = require("./shared/utils");
 var WialonUnit_1 = require("./WialonUnit");
+var Category_1 = require("./Category");
 var Vehicle = /** @class */ (function () {
     function Vehicle(login, data, meta) {
         var _this = this;
@@ -107,6 +108,19 @@ var Vehicle = /** @class */ (function () {
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
                         return [2 /*return*/, new WialonUnit_1.WialonUnit(data, meta)];
+                }
+            });
+        }); };
+        this.getCategories = function () { return __awaiter(_this, void 0, void 0, function () {
+            var responseData, data, meta;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/vehicles/" + this.data.id + "/categories")];
+                    case 1:
+                        responseData = (_a.sent()).data;
+                        data = responseData.data, meta = __rest(responseData, ["data"]);
+                        return [2 /*return*/, data.map(function (c) { return new Category_1.Category(_this.login, c, meta); })];
                 }
             });
         }); };
@@ -174,6 +188,18 @@ var Vehicle = /** @class */ (function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, login.api.post(login.options.baseUrl + "/vehicles", vehicleData)];
+                case 1:
+                    responseData = (_a.sent()).data;
+                    data = responseData.data, meta = __rest(responseData, ["data"]);
+                    return [2 /*return*/, new Vehicle(login, data, meta)];
+            }
+        });
+    }); };
+    Vehicle.update = function (login, vehicleId, vehicleData) { return __awaiter(void 0, void 0, void 0, function () {
+        var responseData, data, meta;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, login.api.patch(login.options.baseUrl + "/vehicles/" + vehicleId, vehicleData)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
