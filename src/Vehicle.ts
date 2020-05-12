@@ -12,11 +12,13 @@ import {
 	BookingServerResponseGetAll,
 	BookingStatus,
 	BookingServerResponseGet,
-	WialonUnitServerResponseGet
+	WialonUnitServerResponseGet,
+	CategoryServerResponseGetAll
 } from "./shared/typings";
 import { Booking } from "./Booking";
 import { getBookingStatus } from "./shared/utils";
 import { WialonUnit } from "./WialonUnit";
+import { Category } from "./Category";
 
 interface IsVehicleAvailableForBookingFunction {
 	(bookings: Booking[]): boolean;
@@ -117,6 +119,16 @@ export class Vehicle {
 		const { data, ...meta } = responseData;
 
 		return new WialonUnit(data, meta);
+	};
+
+	public getCategories = async () => {
+		const { data: responseData } = await this.login.api.get<
+			CategoryServerResponseGetAll
+		>(`${this.login.options.baseUrl}/vehicles/${this.data.id}/categories`);
+
+		const { data, ...meta } = responseData;
+
+		return data.map((c) => new Category(this.login, c, meta));
 	};
 
 	public isVehicleAvailableForBooking = ((
