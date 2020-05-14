@@ -102,7 +102,7 @@ var Client = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/clients/locations")];
+                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/clients/users")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -115,7 +115,7 @@ var Client = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/clients/locations")];
+                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/clients/vehicles")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);

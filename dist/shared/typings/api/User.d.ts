@@ -1,6 +1,6 @@
 import { UserAttributes, DatePropsToUnix, ServerResponse, RemoveImmutableSequelizeProperties, UseParameters } from "../";
-export declare type UserServerResponseGet = ServerResponse<DatePropsToUnix<UserAttributes>>;
-export declare type UserServerResponseGetAll = ServerResponse<DatePropsToUnix<UserAttributes>[]>;
+export declare type UserServerResponseGet = ServerResponse<DatePropsToUnix<Omit<UserAttributes, "password">>>;
+export declare type UserServerResponseGetAll = ServerResponse<DatePropsToUnix<Omit<UserAttributes, "password">>[]>;
 export declare type UserServerParamsPatch = DatePropsToUnix<UseParameters<RemoveImmutableSequelizeProperties<UserAttributes>, never, "userImageSrc" | "timeZone" | "clientId" | "email" | "firstName" | "lastName" | "blocked" | "mobileNumber" | "licenseImageSrc" | "password" | "role" | "username"> & {
     categories?: number[];
 }>;
