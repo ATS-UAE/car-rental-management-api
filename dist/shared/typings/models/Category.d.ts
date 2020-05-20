@@ -3,5 +3,5 @@ export interface CategoryAttributes {
     name: string;
     clientId: number;
     readonly createdAt: Date;
-    readonly updatedAt: Date;
+    readonly updatedAt: Date | null;
 }

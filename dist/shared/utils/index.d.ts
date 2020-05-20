@@ -13,3 +13,8 @@ export declare const hasActiveBooking: (bookings: {
 }[], bookingId?: number | undefined) => boolean;
 export declare const rangeOverlap: (x1: number, x2: number, y1: number, y2: number) => boolean;
 export declare const toTitleWords: (word: string, delimiter?: string) => string;
+export declare const isBookingTimeSlotTaken: (bookings: {
+    from: number;
+    to: number;
+    id: number;
+}[], from: number, to: number, bookingId?: number | undefined) => boolean;

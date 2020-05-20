@@ -9,7 +9,6 @@ exports.default = (function () { return ({
     data: {
         blocked: false,
         clientId: 1,
-        contractNo: null,
         createdAt: 0,
         lastLogin: null,
         email: "test@mail.com",
@@ -19,11 +18,9 @@ exports.default = (function () { return ({
         id: 1,
         licenseImageSrc: null,
         mobileNumber: "",
-        objectNo: "",
         role: typings_1.Role.ADMIN,
         timeZone: "asia/dubai",
         updatedAt: 0,
-        userCreatorId: 0,
         userImageSrc: null,
         username: "test"
     }

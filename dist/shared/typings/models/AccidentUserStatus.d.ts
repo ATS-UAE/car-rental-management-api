@@ -4,5 +4,5 @@ export interface AccidentUserStatusAttributes {
     accidentId: number;
     userId: number;
     readonly createdAt: Date;
-    readonly updatedAt: Date;
+    readonly updatedAt: Date | null;
 }

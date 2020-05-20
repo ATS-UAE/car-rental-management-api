@@ -4,6 +4,7 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./enums"));
+__export(require("./api"));
 // TODO remove RBAC
 var Operation;
 (function (Operation) {

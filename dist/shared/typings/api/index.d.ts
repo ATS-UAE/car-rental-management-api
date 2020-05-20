@@ -8,6 +8,7 @@ export * from "./User";
 export * from "./Vehicle";
 export * from "./WialonUnit";
 export * from "./Report";
+export * from "./Invite";
 export interface ServerResponse<Result> extends ServerResponseMeta {
     data: Result;
 }
@@ -21,3 +22,9 @@ export interface ServerResponseMeta {
     message: string;
 }
 export declare type RemoveImmutableSequelizeProperties<T> = Omit<T, "createdAt" | "updatedAt" | "id">;
+export declare enum API_OPERATION {
+    CREATE = "CREATE",
+    DELETE = "DELETE",
+    UPDATE = "UPDATE",
+    READ = "READ"
+}

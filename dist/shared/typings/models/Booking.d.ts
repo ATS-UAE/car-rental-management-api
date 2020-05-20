@@ -14,7 +14,6 @@ export interface BookingAttributes {
     userId: number;
     vehicleId: number;
     bookingType: BookingType;
-    replaceVehicleId: number | null;
     returnDate: Date | null;
     pickupDate: Date | null;
     replacePlateNumber: string | null;
@@ -22,5 +21,5 @@ export interface BookingAttributes {
     replaceModel: string | null;
     replaceVin: string | null;
     readonly createdAt: Date;
-    readonly updatedAt: Date;
+    readonly updatedAt: Date | null;
 }

@@ -70,3 +70,14 @@ exports.toTitleWords = function (word, delimiter) {
     }
     return result;
 };
+exports.isBookingTimeSlotTaken = function (bookings, from, to, bookingId) {
+    var taken = false;
+    for (var _i = 0, bookings_2 = bookings; _i < bookings_2.length; _i++) {
+        var booking = bookings_2[_i];
+        taken = exports.rangeOverlap(from, to, booking.from, booking.to);
+        if ((taken && !bookingId) || bookingId !== booking.id) {
+            return taken;
+        }
+    }
+    return taken;
+};
