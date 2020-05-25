@@ -10,10 +10,11 @@ import { WialonUnitFactory } from "./WialonUnitFactory";
 export interface LoginOptions extends ApiOptions {
     username: string;
     password: string;
+    remember?: boolean;
 }
 export declare class Api extends Authenticated {
     private constructor();
-    static login: ({ username, password, baseUrl }: LoginOptions) => Promise<Api>;
+    static login: ({ username, password, baseUrl, remember }: LoginOptions) => Promise<Api>;
     logout: () => Promise<void>;
     /** Check if the cookie stored by the browser is still valid. */
     static checkCookie: ({ baseUrl }: {

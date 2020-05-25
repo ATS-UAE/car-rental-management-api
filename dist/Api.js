@@ -113,7 +113,7 @@ var Api = /** @class */ (function (_super) {
         return _this;
     }
     Api.login = function (_a) {
-        var username = _a.username, password = _a.password, baseUrl = _a.baseUrl;
+        var username = _a.username, password = _a.password, baseUrl = _a.baseUrl, remember = _a.remember;
         return __awaiter(void 0, void 0, void 0, function () {
             var api, response, _b, data, meta;
             return __generator(this, function (_c) {
@@ -124,7 +124,8 @@ var Api = /** @class */ (function (_super) {
                         });
                         return [4 /*yield*/, api.post(baseUrl + "/auth/login", {
                                 username: username,
-                                password: password
+                                password: password,
+                                remember: remember
                             })];
                     case 1:
                         response = _c.sent();
