@@ -15,7 +15,7 @@ export class WialonUnit {
 	public static getOne = async (login: Authenticated, bookingId: number) => {
 		const { data: responseData } = await login.api.get<
 			WialonUnitServerResponseGet
-		>(`${login.options.baseUrl}/units/${bookingId}`);
+		>(`${login.options.baseUrl}/wialon_units/${bookingId}`);
 		const { data, ...meta } = responseData;
 		return new WialonUnit(data, meta);
 	};
@@ -23,7 +23,7 @@ export class WialonUnit {
 	public static getAll = async (login: Authenticated) => {
 		const { data: responseData } = await login.api.get<
 			WialonUnitServerResponseGetAll
-		>(`${login.options.baseUrl}/units`);
+		>(`${login.options.baseUrl}/wialon_units`);
 		const { data, ...meta } = responseData;
 		return data.map((v) => new WialonUnit(v, meta));
 	};
