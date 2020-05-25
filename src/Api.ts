@@ -13,6 +13,7 @@ import { WialonUnitFactory } from "./WialonUnitFactory";
 export interface LoginOptions extends ApiOptions {
 	username: string;
 	password: string;
+	remember?: boolean;
 }
 
 export class Api extends Authenticated {
@@ -28,7 +29,8 @@ export class Api extends Authenticated {
 	public static login = async ({
 		username,
 		password,
-		baseUrl
+		baseUrl,
+		remember
 	}: LoginOptions) => {
 		const api = axios.create({
 			withCredentials: true
@@ -37,7 +39,8 @@ export class Api extends Authenticated {
 			`${baseUrl}/auth/login`,
 			{
 				username,
-				password
+				password,
+				remember
 			}
 		);
 		const { data, ...meta } = response.data;
