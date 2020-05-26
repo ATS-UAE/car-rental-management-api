@@ -87,7 +87,7 @@ export class Client {
 	public getLocations = async () => {
 		const { data: responseData } = await this.login.api.get<
 			LocationServerResponseGetAll
-		>(`${this.login.options.baseUrl}/clients/locations`);
+		>(`${this.login.options.baseUrl}/clients/${this.data.id}/locations`);
 		const { data, ...meta } = responseData;
 		return data.map((item) => new Location(this.login, item, meta));
 	};
@@ -95,7 +95,7 @@ export class Client {
 	public getUsers = async () => {
 		const { data: responseData } = await this.login.api.get<
 			UserServerResponseGetAll
-		>(`${this.login.options.baseUrl}/clients/users`);
+		>(`${this.login.options.baseUrl}/clients/${this.data.id}/users`);
 		const { data, ...meta } = responseData;
 		return data.map((item) => new User(this.login, item, meta));
 	};
@@ -103,7 +103,7 @@ export class Client {
 	public getVehicles = async () => {
 		const { data: responseData } = await this.login.api.get<
 			VehicleServerResponseGetAll
-		>(`${this.login.options.baseUrl}/clients/vehicles`);
+		>(`${this.login.options.baseUrl}/clients/${this.data.id}/vehicles`);
 		const { data, ...meta } = responseData;
 		return data.map((item) => new Vehicle(this.login, item, meta));
 	};
