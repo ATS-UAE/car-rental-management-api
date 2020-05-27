@@ -171,11 +171,16 @@ var Vehicle = /** @class */ (function () {
             }
         });
     }); };
-    Vehicle.getAll = function (login) { return __awaiter(void 0, void 0, void 0, function () {
-        var responseData, data, meta;
+    Vehicle.getAll = function (login, options) { return __awaiter(void 0, void 0, void 0, function () {
+        var url, responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/vehicles")];
+                case 0:
+                    url = login.options.baseUrl + "/vehicles";
+                    if (options && options.from && options.to) {
+                        url = url + "/?from=" + options.from + "&to=" + options.to;
+                    }
+                    return [4 /*yield*/, login.api.get(url)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);

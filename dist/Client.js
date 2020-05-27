@@ -110,12 +110,17 @@ var Client = /** @class */ (function () {
                 }
             });
         }); };
-        this.getVehicles = function () { return __awaiter(_this, void 0, void 0, function () {
-            var responseData, data, meta;
+        this.getVehicles = function (options) { return __awaiter(_this, void 0, void 0, function () {
+            var url, responseData, data, meta;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/clients/" + this.data.id + "/vehicles")];
+                    case 0:
+                        url = this.login.options.baseUrl + "/clients/" + this.data.id + "/vehicles";
+                        if (options && options.from && options.to) {
+                            url = url + "/?from=" + options.from + "&to=" + options.to;
+                        }
+                        return [4 /*yield*/, this.login.api.get(url)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);

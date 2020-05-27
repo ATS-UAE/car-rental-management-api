@@ -8,6 +8,10 @@ interface IsVehicleAvailableForBookingFunction {
     (bookings: ExtractServerResponseData<VehicleServerResponseGet>[]): boolean;
     (): Promise<boolean>;
 }
+export interface VehicleGetAllOptions {
+    from: number;
+    to: number;
+}
 export declare class Vehicle {
     private login;
     data: ExtractServerResponseData<VehicleServerResponseGet>;
@@ -15,7 +19,7 @@ export declare class Vehicle {
     constructor(login: Authenticated, data: ExtractServerResponseData<VehicleServerResponseGet>, meta: ServerResponseMeta);
     static checkAvailabilityFromBookings: (bookings: import("./shared/typings").DatePropsToUnix<import("./shared/typings").BookingAttributes>[]) => boolean;
     static getOne: (login: Authenticated, vehicleId: number) => Promise<Vehicle>;
-    static getAll: (login: Authenticated) => Promise<Vehicle[]>;
+    static getAll: (login: Authenticated, options?: VehicleGetAllOptions | undefined) => Promise<Vehicle[]>;
     static create: (login: Authenticated, vehicleData: import("./shared/typings").DatePropsToUnix<Pick<Pick<import("./shared/typings").VehicleAttributes, "clientId" | "brand" | "model" | "plateNumber" | "vin" | "defleeted" | "parkingLocation" | "vehicleImageSrc" | "bookingChargeCount" | "bookingCharge" | "wialonUnitId" | "bookingChargeUnit" | "locationId">, "brand" | "model" | "plateNumber" | "vin"> & Pick<Partial<Pick<import("./shared/typings").VehicleAttributes, "clientId" | "brand" | "model" | "plateNumber" | "vin" | "defleeted" | "parkingLocation" | "vehicleImageSrc" | "bookingChargeCount" | "bookingCharge" | "wialonUnitId" | "bookingChargeUnit" | "locationId">>, "clientId" | "defleeted" | "parkingLocation" | "vehicleImageSrc" | "bookingChargeCount" | "bookingCharge" | "wialonUnitId" | "bookingChargeUnit" | "locationId"> & {
         categories?: number[] | undefined;
     }>) => Promise<Vehicle>;
