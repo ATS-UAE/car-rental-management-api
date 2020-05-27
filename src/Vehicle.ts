@@ -126,7 +126,7 @@ export class Vehicle {
 	public getWialonUnit = async () => {
 		const { data: responseData } = await this.login.api.get<
 			WialonUnitServerResponseGet
-		>(`${this.login.options.baseUrl}/vehicles/${this.data.id}/wialonUnit`);
+		>(`${this.login.options.baseUrl}/vehicles/${this.data.id}/wialon_unit`);
 
 		const { data, ...meta } = responseData;
 
