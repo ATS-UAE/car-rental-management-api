@@ -15,7 +15,7 @@ import {
 } from "./shared/typings";
 import { Location } from "./Location";
 import { User } from "./User";
-import { Vehicle } from "./Vehicle";
+import { Vehicle, VehicleGetAllOptions } from "./Vehicle";
 
 export class Client {
 	constructor(
@@ -100,10 +100,14 @@ export class Client {
 		return data.map((item) => new User(this.login, item, meta));
 	};
 
-	public getVehicles = async () => {
+	public getVehicles = async (options?: VehicleGetAllOptions) => {
+		let url = `${this.login.options.baseUrl}/clients/${this.data.id}/vehicles`;
+		if (options && options.from && options.to) {
+			url = `${url}/?from=${options.from}&to=${options.to}`;
+		}
 		const { data: responseData } = await this.login.api.get<
 			VehicleServerResponseGetAll
-		>(`${this.login.options.baseUrl}/clients/${this.data.id}/vehicles`);
+		>(url);
 		const { data, ...meta } = responseData;
 		return data.map((item) => new Vehicle(this.login, item, meta));
 	};

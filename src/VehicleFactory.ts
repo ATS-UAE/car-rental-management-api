@@ -1,5 +1,5 @@
 import { Authenticated } from "./Authenticated";
-import { Vehicle } from "./Vehicle";
+import { Vehicle, VehicleGetAllOptions } from "./Vehicle";
 import { VehicleServerParamsPatch } from "./shared/typings";
 
 export class VehicleFactory extends Authenticated {
@@ -7,7 +7,7 @@ export class VehicleFactory extends Authenticated {
 		return Vehicle.getOne(this, id);
 	};
 
-	public getAll = () => {
+	public getAll = (options?: VehicleGetAllOptions) => {
 		return Vehicle.getAll(this);
 	};
 

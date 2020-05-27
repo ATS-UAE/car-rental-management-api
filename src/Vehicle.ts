@@ -26,6 +26,11 @@ interface IsVehicleAvailableForBookingFunction {
 	(): Promise<boolean>;
 }
 
+export interface VehicleGetAllOptions {
+	from: number;
+	to: number;
+}
+
 export class Vehicle {
 	constructor(
 		private login: Authenticated,
@@ -61,10 +66,17 @@ export class Vehicle {
 		return new Vehicle(login, data, meta);
 	};
 
-	public static getAll = async (login: Authenticated) => {
+	public static getAll = async (
+		login: Authenticated,
+		options?: VehicleGetAllOptions
+	) => {
+		let url = `${login.options.baseUrl}/vehicles`;
+		if (options && options.from && options.to) {
+			url = `${url}/?from=${options.from}&to=${options.to}`;
+		}
 		const { data: responseData } = await login.api.get<
 			VehicleServerResponseGetAll
-		>(`${login.options.baseUrl}/vehicles`);
+		>(url);
 		const { data, ...meta } = responseData;
 		return data.map((v) => new Vehicle(login, v, meta));
 	};
