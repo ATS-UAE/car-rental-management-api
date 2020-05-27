@@ -118,6 +118,18 @@ var Accident = /** @class */ (function () {
             }
         });
     }); };
+    Accident.destroy = function (login, accidentId) { return __awaiter(void 0, void 0, void 0, function () {
+        var responseData, data, meta;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, login.api.delete(login.options.baseUrl + "/accidents/" + accidentId)];
+                case 1:
+                    responseData = (_a.sent()).data;
+                    data = responseData.data, meta = __rest(responseData, ["data"]);
+                    return [2 /*return*/, new Accident(login, data, meta)];
+            }
+        });
+    }); };
     return Accident;
 }());
 exports.Accident = Accident;

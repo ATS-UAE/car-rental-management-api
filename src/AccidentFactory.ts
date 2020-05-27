@@ -19,4 +19,8 @@ export class AccidentFactory extends Authenticated {
 			userId: accidentData.userId || this.data.id
 		});
 	};
+
+	public destroy = (accidentId: number) => {
+		return Accident.destroy(this, accidentId);
+	};
 }

@@ -39,6 +39,9 @@ var AccidentFactory = /** @class */ (function (_super) {
         _this.create = function (accidentData) {
             return Accident_1.Accident.create(_this, __assign(__assign({}, accidentData), { userId: accidentData.userId || _this.data.id }));
         };
+        _this.destroy = function (accidentId) {
+            return Accident_1.Accident.destroy(_this, accidentId);
+        };
         return _this;
     }
     return AccidentFactory;

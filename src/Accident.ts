@@ -45,6 +45,17 @@ export class Accident {
 		return new Accident(login, data, meta);
 	};
 
+	public static destroy = async (
+		login: Authenticated,
+		accidentId: number
+	) => {
+		const { data: responseData } = await login.api.delete<
+			AccidentServerResponseDelete
+		>(`${login.options.baseUrl}/accidents/${accidentId}`);
+		const { data, ...meta } = responseData;
+		return new Accident(login, data, meta);
+	};
+
 	public update = async (updatedVehicleData: AccidentServerParamsPatch) => {
 		const { data: responseData } = await this.login.api.patch<
 			AccidentServerResponsePatch
