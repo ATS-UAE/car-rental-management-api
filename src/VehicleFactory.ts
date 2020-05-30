@@ -8,7 +8,7 @@ export class VehicleFactory extends Authenticated {
 	};
 
 	public getAll = (options?: VehicleGetAllOptions) => {
-		return Vehicle.getAll(this);
+		return Vehicle.getAll(this, options);
 	};
 
 	public update = (

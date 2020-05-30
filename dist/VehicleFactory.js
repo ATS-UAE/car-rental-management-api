@@ -23,7 +23,7 @@ var VehicleFactory = /** @class */ (function (_super) {
             return Vehicle_1.Vehicle.getOne(_this, id);
         };
         _this.getAll = function (options) {
-            return Vehicle_1.Vehicle.getAll(_this);
+            return Vehicle_1.Vehicle.getAll(_this, options);
         };
         _this.update = function (id, updateVehicleData) {
             return Vehicle_1.Vehicle.update(_this, id, updateVehicleData);
