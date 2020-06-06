@@ -18,5 +18,7 @@ export * from "./Client";
 export * from "./ClientFactory";
 export * from "./Category";
 export * from "./CategoryFactory";
+export * from "./VehicleCategory";
+export * from "./VehicleCategoryFactory";
 
 export default Api;

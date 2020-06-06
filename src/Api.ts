@@ -9,6 +9,7 @@ import { LocationFactory } from "./LocationFactory";
 import { ClientFactory } from "./ClientFactory";
 import { CategoryFactory } from "./CategoryFactory";
 import { WialonUnitFactory } from "./WialonUnitFactory";
+import { VehicleCategoryFactory } from "./VehicleCategoryFactory";
 
 export interface LoginOptions extends ApiOptions {
 	username: string;
@@ -119,6 +120,13 @@ export class Api extends Authenticated {
 	);
 
 	public wialonUnit = new WialonUnitFactory(
+		this.api,
+		this.options,
+		this.data,
+		this.meta
+	);
+
+	public vehicleCategory = new VehicleCategoryFactory(
 		this.api,
 		this.options,
 		this.data,
