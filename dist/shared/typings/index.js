@@ -5,14 +5,6 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./enums"));
 __export(require("./api"));
-// TODO remove RBAC
-var Operation;
-(function (Operation) {
-    Operation["READ"] = "READ";
-    Operation["UPDATE"] = "UPDATE";
-    Operation["DELETE"] = "DELETE";
-    Operation["CREATE"] = "CREATE";
-})(Operation = exports.Operation || (exports.Operation = {}));
 var Resource;
 (function (Resource) {
     Resource["BOOKINGS"] = "BOOKINGS";

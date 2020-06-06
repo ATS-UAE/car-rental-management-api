@@ -22,4 +22,6 @@ __export(require("./Client"));
 __export(require("./ClientFactory"));
 __export(require("./Category"));
 __export(require("./CategoryFactory"));
+__export(require("./VehicleCategory"));
+__export(require("./VehicleCategoryFactory"));
 exports.default = Api_1.Api;

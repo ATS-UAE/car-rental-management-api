@@ -73,6 +73,7 @@ var LocationFactory_1 = require("./LocationFactory");
 var ClientFactory_1 = require("./ClientFactory");
 var CategoryFactory_1 = require("./CategoryFactory");
 var WialonUnitFactory_1 = require("./WialonUnitFactory");
+var VehicleCategoryFactory_1 = require("./VehicleCategoryFactory");
 var Api = /** @class */ (function (_super) {
     __extends(Api, _super);
     function Api(api, options, data, meta) {
@@ -110,6 +111,7 @@ var Api = /** @class */ (function (_super) {
         _this.client = new ClientFactory_1.ClientFactory(_this.api, _this.options, _this.data, _this.meta);
         _this.category = new CategoryFactory_1.CategoryFactory(_this.api, _this.options, _this.data, _this.meta);
         _this.wialonUnit = new WialonUnitFactory_1.WialonUnitFactory(_this.api, _this.options, _this.data, _this.meta);
+        _this.vehicleCategory = new VehicleCategoryFactory_1.VehicleCategoryFactory(_this.api, _this.options, _this.data, _this.meta);
         return _this;
     }
     Api.login = function (_a) {

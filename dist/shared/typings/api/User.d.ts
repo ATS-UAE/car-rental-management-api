@@ -6,6 +6,7 @@ export declare type UserServerParamsPatch = DatePropsToUnix<UseParameters<Remove
 }>;
 export declare type UserServerParamsPost = DatePropsToUnix<UseParameters<RemoveImmutableSequelizeProperties<UserAttributes>, "clientId" | "email" | "username" | "firstName" | "lastName" | "password" | "mobileNumber" | "role", "userImageSrc" | "timeZone">> & {
     categories?: number[];
+    token?: string;
 };
 export declare type UserServerResponsePost = UserServerResponseGet;
 export declare type UserServerResponsePatch = UserServerResponseGet;
