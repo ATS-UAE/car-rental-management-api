@@ -13,7 +13,8 @@ import {
 	BookingStatus,
 	BookingServerResponseGet,
 	WialonUnitServerResponseGet,
-	CategoryServerResponseGetAll
+	CategoryServerResponseGetAll,
+	CategoryServerResponseGet
 } from "./shared/typings";
 import { Booking } from "./Booking";
 import { getBookingStatus } from "./shared/utils";
@@ -143,6 +144,18 @@ export class Vehicle {
 		const { data, ...meta } = responseData;
 
 		return new WialonUnit(data, meta);
+	};
+
+	public getCategoryCost = async () => {
+		const { data: responseData } = await this.login.api.get<
+			CategoryServerResponseGet
+		>(
+			`${this.login.options.baseUrl}/vehicles/${this.data.id}/category_cost`
+		);
+
+		const { data, ...meta } = responseData;
+
+		return new Category(this.login, data, meta);
 	};
 
 	public getCategories = async () => {

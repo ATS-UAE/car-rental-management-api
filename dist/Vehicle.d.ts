@@ -32,6 +32,7 @@ export declare class Vehicle {
     destroy: () => Promise<void>;
     getBookings: () => Promise<Booking[]>;
     getWialonUnit: () => Promise<WialonUnit>;
+    getCategoryCost: () => Promise<Category>;
     getCategories: () => Promise<Category[]>;
     isVehicleAvailableForBooking: IsVehicleAvailableForBookingFunction;
 }

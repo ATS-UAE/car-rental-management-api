@@ -111,6 +111,18 @@ var Vehicle = /** @class */ (function () {
                 }
             });
         }); };
+        this.getCategoryCost = function () { return __awaiter(_this, void 0, void 0, function () {
+            var responseData, data, meta;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/vehicles/" + this.data.id + "/category_cost")];
+                    case 1:
+                        responseData = (_a.sent()).data;
+                        data = responseData.data, meta = __rest(responseData, ["data"]);
+                        return [2 /*return*/, new Category_1.Category(this.login, data, meta)];
+                }
+            });
+        }); };
         this.getCategories = function () { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
             var _this = this;
