@@ -32,6 +32,7 @@ export const getOne = (
 			vehicleImageSrc: "www.example.com/vehicle.jpg",
 			vin: "VINTEST",
 			wialonUnitId: null,
+			categoryCostId: 1,
 			...vehicleData
 		}
 	);
