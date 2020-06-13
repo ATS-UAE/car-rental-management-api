@@ -1,6 +1,9 @@
 import { Authenticated } from "./Authenticated";
-import { User } from "./User";
-import { UserServerParamsPost, UserServerParamsPatch } from "./shared/typings";
+import {
+	User,
+	UserServerParamsPatchFormData,
+	UserServerParamsPostFormData
+} from "./User";
 
 export class UserFactory extends Authenticated {
 	public getOne = (id: number) => {
@@ -11,11 +14,14 @@ export class UserFactory extends Authenticated {
 		return User.getAll(this);
 	};
 
-	public create = (userData: UserServerParamsPost) => {
+	public create = (userData: UserServerParamsPostFormData) => {
 		return User.create(this, userData);
 	};
 
-	public update = (userId: number, userData: UserServerParamsPatch) => {
+	public update = (
+		userId: number,
+		userData: UserServerParamsPatchFormData
+	) => {
 		return User.update(this, userId, userData);
 	};
 }

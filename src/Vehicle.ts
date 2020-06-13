@@ -23,12 +23,12 @@ import { WialonUnit } from "./WialonUnit";
 import { Category } from "./Category";
 import { constructFormDataPayload } from "./utils";
 
-type VehicleServerParamsPatchFormData = ReplaceAttributes<
+export type VehicleServerParamsPatchFormData = ReplaceAttributes<
 	VehicleServerParamsPatch,
 	{ vehicleImageSrc?: File | null | string }
 >;
 
-type VehicleServerParamsPostFormData = ReplaceAttributes<
+export type VehicleServerParamsPostFormData = ReplaceAttributes<
 	VehicleServerParamsPost,
 	{ vehicleImageSrc?: File | null | string }
 >;

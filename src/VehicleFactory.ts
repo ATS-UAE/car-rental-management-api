@@ -1,6 +1,9 @@
 import { Authenticated } from "./Authenticated";
-import { Vehicle, VehicleGetAllOptions } from "./Vehicle";
-import { VehicleServerParamsPatch } from "./shared/typings";
+import {
+	Vehicle,
+	VehicleGetAllOptions,
+	VehicleServerParamsPatchFormData
+} from "./Vehicle";
 
 export class VehicleFactory extends Authenticated {
 	public getOne = (id: number) => {
@@ -13,7 +16,7 @@ export class VehicleFactory extends Authenticated {
 
 	public update = (
 		id: number,
-		updateVehicleData: VehicleServerParamsPatch
+		updateVehicleData: VehicleServerParamsPatchFormData
 	) => {
 		return Vehicle.update(this, id, updateVehicleData);
 	};

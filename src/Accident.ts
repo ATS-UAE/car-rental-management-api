@@ -13,12 +13,12 @@ import {
 } from "./shared/typings";
 import { constructFormDataPayload } from "./utils";
 
-type AccidentServerParamsPostFormData = ReplaceAttributes<
+export type AccidentServerParamsPostFormData = ReplaceAttributes<
 	AccidentServerParamsPost,
 	{ accidentImageSrc?: File | string | null }
 >;
 
-type AccidentServerParamsPatchFormData = ReplaceAttributes<
+export type AccidentServerParamsPatchFormData = ReplaceAttributes<
 	AccidentServerParamsPatch,
 	{ accidentImageSrc?: File | string | null }
 >;

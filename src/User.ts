@@ -15,12 +15,12 @@ import {
 import { Category } from "./Category";
 import { constructFormDataPayload } from "./utils";
 
-type UserServerParamsPostFormData = ReplaceAttributes<
+export type UserServerParamsPostFormData = ReplaceAttributes<
 	UserServerParamsPost,
 	{ userImageSrc?: File | null | string }
 >;
 
-type UserServerParamsPatchFormData = ReplaceAttributes<
+export type UserServerParamsPatchFormData = ReplaceAttributes<
 	UserServerParamsPatch,
 	{ userImageSrc?: File | null | string }
 >;

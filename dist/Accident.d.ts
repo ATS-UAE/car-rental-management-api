@@ -1,5 +1,11 @@
 import { Authenticated } from "./Authenticated";
-import { AccidentServerResponseGet, ExtractServerResponseData, ServerResponseMeta, ReplaceAttributes } from "./shared/typings";
+import { AccidentServerResponseGet, ExtractServerResponseData, ServerResponseMeta, AccidentServerParamsPost, AccidentServerParamsPatch, ReplaceAttributes } from "./shared/typings";
+export declare type AccidentServerParamsPostFormData = ReplaceAttributes<AccidentServerParamsPost, {
+    accidentImageSrc?: File | string | null;
+}>;
+export declare type AccidentServerParamsPatchFormData = ReplaceAttributes<AccidentServerParamsPatch, {
+    accidentImageSrc?: File | string | null;
+}>;
 export declare class Accident {
     private login;
     data: ExtractServerResponseData<AccidentServerResponseGet>;

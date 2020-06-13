@@ -1,8 +1,14 @@
 import { Authenticated } from "./Authenticated";
-import { VehicleServerResponseGet, ExtractServerResponseData, ServerResponseMeta, ReplaceAttributes } from "./shared/typings";
+import { VehicleServerResponseGet, ExtractServerResponseData, ServerResponseMeta, VehicleServerParamsPost, VehicleServerParamsPatch, ReplaceAttributes } from "./shared/typings";
 import { Booking } from "./Booking";
 import { WialonUnit } from "./WialonUnit";
 import { Category } from "./Category";
+export declare type VehicleServerParamsPatchFormData = ReplaceAttributes<VehicleServerParamsPatch, {
+    vehicleImageSrc?: File | null | string;
+}>;
+export declare type VehicleServerParamsPostFormData = ReplaceAttributes<VehicleServerParamsPost, {
+    vehicleImageSrc?: File | null | string;
+}>;
 interface IsVehicleAvailableForBookingFunction {
     (bookings: Booking[]): boolean;
     (bookings: ExtractServerResponseData<VehicleServerResponseGet>[]): boolean;

@@ -1,6 +1,12 @@
 import { Authenticated } from "./Authenticated";
-import { UserServerResponseGet, ExtractServerResponseData, ServerResponseMeta, UserServerParamsPost, ReplaceAttributes } from "./shared/typings";
+import { UserServerResponseGet, ExtractServerResponseData, ServerResponseMeta, UserServerParamsPost, UserServerParamsPatch, ReplaceAttributes } from "./shared/typings";
 import { Category } from "./Category";
+export declare type UserServerParamsPostFormData = ReplaceAttributes<UserServerParamsPost, {
+    userImageSrc?: File | null | string;
+}>;
+export declare type UserServerParamsPatchFormData = ReplaceAttributes<UserServerParamsPatch, {
+    userImageSrc?: File | null | string;
+}>;
 export declare class User {
     private login;
     data: ExtractServerResponseData<UserServerResponseGet>;

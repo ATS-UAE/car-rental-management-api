@@ -1,6 +1,6 @@
 import { Authenticated } from "./Authenticated";
-import { Accident } from "./Accident";
-import { AccidentServerParamsPost, PartialKeys } from "./shared/typings";
+import { Accident, AccidentServerParamsPostFormData } from "./Accident";
+import { PartialKeys } from "./shared/typings";
 
 export class AccidentFactory extends Authenticated {
 	public getOne = (id: number) => {
@@ -12,7 +12,7 @@ export class AccidentFactory extends Authenticated {
 	};
 
 	public create = (
-		accidentData: PartialKeys<AccidentServerParamsPost, "userId">
+		accidentData: PartialKeys<AccidentServerParamsPostFormData, "userId">
 	) => {
 		return Accident.create(this, {
 			...accidentData,
