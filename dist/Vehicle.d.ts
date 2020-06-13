@@ -1,5 +1,5 @@
 import { Authenticated } from "./Authenticated";
-import { VehicleServerResponseGet, ExtractServerResponseData, ServerResponseMeta } from "./shared/typings";
+import { VehicleServerResponseGet, ExtractServerResponseData, ServerResponseMeta, ReplaceAttributes } from "./shared/typings";
 import { Booking } from "./Booking";
 import { WialonUnit } from "./WialonUnit";
 import { Category } from "./Category";
@@ -20,14 +20,20 @@ export declare class Vehicle {
     static checkAvailabilityFromBookings: (bookings: import("./shared/typings").DatePropsToUnix<import("./shared/typings").BookingAttributes>[]) => boolean;
     static getOne: (login: Authenticated, vehicleId: number) => Promise<Vehicle>;
     static getAll: (login: Authenticated, options?: VehicleGetAllOptions | undefined) => Promise<Vehicle[]>;
-    static create: (login: Authenticated, vehicleData: import("./shared/typings").DatePropsToUnix<Pick<Pick<import("./shared/typings").VehicleAttributes, "clientId" | "bookingChargeCount" | "bookingCharge" | "bookingChargeUnit" | "brand" | "model" | "plateNumber" | "vin" | "defleeted" | "parkingLocation" | "vehicleImageSrc" | "wialonUnitId" | "locationId" | "categoryCostId">, "brand" | "model" | "plateNumber" | "vin"> & Pick<Partial<Pick<import("./shared/typings").VehicleAttributes, "clientId" | "bookingChargeCount" | "bookingCharge" | "bookingChargeUnit" | "brand" | "model" | "plateNumber" | "vin" | "defleeted" | "parkingLocation" | "vehicleImageSrc" | "wialonUnitId" | "locationId" | "categoryCostId">>, "clientId" | "bookingChargeCount" | "bookingCharge" | "bookingChargeUnit" | "defleeted" | "parkingLocation" | "vehicleImageSrc" | "wialonUnitId" | "locationId"> & {
+    static create: (login: Authenticated, vehicleData: ReplaceAttributes<import("./shared/typings").DatePropsToUnix<Pick<Pick<import("./shared/typings").VehicleAttributes, "clientId" | "bookingChargeCount" | "bookingCharge" | "bookingChargeUnit" | "brand" | "model" | "plateNumber" | "vin" | "defleeted" | "parkingLocation" | "vehicleImageSrc" | "wialonUnitId" | "locationId" | "categoryCostId">, "brand" | "model" | "plateNumber" | "vin"> & Pick<Partial<Pick<import("./shared/typings").VehicleAttributes, "clientId" | "bookingChargeCount" | "bookingCharge" | "bookingChargeUnit" | "brand" | "model" | "plateNumber" | "vin" | "defleeted" | "parkingLocation" | "vehicleImageSrc" | "wialonUnitId" | "locationId" | "categoryCostId">>, "clientId" | "bookingChargeCount" | "bookingCharge" | "bookingChargeUnit" | "defleeted" | "parkingLocation" | "vehicleImageSrc" | "wialonUnitId" | "locationId"> & {
         categories?: number[] | undefined;
+    }>, {
+        vehicleImageSrc?: string | File | null | undefined;
     }>) => Promise<Vehicle>;
-    static update: (login: Authenticated, vehicleId: number, vehicleData: import("./shared/typings").DatePropsToUnix<Partial<Pick<import("./shared/typings").VehicleAttributes, "clientId" | "bookingChargeCount" | "bookingCharge" | "bookingChargeUnit" | "brand" | "model" | "plateNumber" | "vin" | "defleeted" | "parkingLocation" | "vehicleImageSrc" | "wialonUnitId" | "locationId" | "categoryCostId">> & {
+    static update: (login: Authenticated, vehicleId: number, vehicleData: ReplaceAttributes<import("./shared/typings").DatePropsToUnix<Partial<Pick<import("./shared/typings").VehicleAttributes, "clientId" | "bookingChargeCount" | "bookingCharge" | "bookingChargeUnit" | "brand" | "model" | "plateNumber" | "vin" | "defleeted" | "parkingLocation" | "vehicleImageSrc" | "wialonUnitId" | "locationId" | "categoryCostId">> & {
         categories?: number[] | undefined;
+    }>, {
+        vehicleImageSrc?: string | File | null | undefined;
     }>) => Promise<Vehicle>;
-    update: (updatedVehicleData: import("./shared/typings").DatePropsToUnix<Partial<Pick<import("./shared/typings").VehicleAttributes, "clientId" | "bookingChargeCount" | "bookingCharge" | "bookingChargeUnit" | "brand" | "model" | "plateNumber" | "vin" | "defleeted" | "parkingLocation" | "vehicleImageSrc" | "wialonUnitId" | "locationId" | "categoryCostId">> & {
+    update: (updatedVehicleData: ReplaceAttributes<import("./shared/typings").DatePropsToUnix<Partial<Pick<import("./shared/typings").VehicleAttributes, "clientId" | "bookingChargeCount" | "bookingCharge" | "bookingChargeUnit" | "brand" | "model" | "plateNumber" | "vin" | "defleeted" | "parkingLocation" | "vehicleImageSrc" | "wialonUnitId" | "locationId" | "categoryCostId">> & {
         categories?: number[] | undefined;
+    }>, {
+        vehicleImageSrc?: string | File | null | undefined;
     }>) => Promise<void>;
     destroy: () => Promise<void>;
     getBookings: () => Promise<Booking[]>;

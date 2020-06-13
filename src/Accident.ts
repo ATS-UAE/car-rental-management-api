@@ -8,8 +8,20 @@ import {
 	AccidentServerParamsPost,
 	AccidentServerParamsPatch,
 	AccidentServerResponsePatch,
-	AccidentServerResponseDelete
+	AccidentServerResponseDelete,
+	ReplaceAttributes
 } from "./shared/typings";
+import { constructFormDataPayload } from "./utils";
+
+type AccidentServerParamsPostFormData = ReplaceAttributes<
+	AccidentServerParamsPost,
+	{ accidentImageSrc?: File | string | null }
+>;
+
+type AccidentServerParamsPatchFormData = ReplaceAttributes<
+	AccidentServerParamsPatch,
+	{ accidentImageSrc?: File | string | null }
+>;
 
 export class Accident {
 	constructor(
@@ -36,11 +48,14 @@ export class Accident {
 
 	public static create = async (
 		login: Authenticated,
-		accidentData: AccidentServerParamsPost
+		accidentData: AccidentServerParamsPostFormData
 	) => {
 		const { data: responseData } = await login.api.post<
 			AccidentServerResponsePost
-		>(`${login.options.baseUrl}/accidents`, accidentData);
+		>(
+			`${login.options.baseUrl}/accidents`,
+			...constructFormDataPayload(accidentData)
+		);
 		const { data, ...meta } = responseData;
 		return new Accident(login, data, meta);
 	};
@@ -56,12 +71,14 @@ export class Accident {
 		return new Accident(login, data, meta);
 	};
 
-	public update = async (updatedVehicleData: AccidentServerParamsPatch) => {
+	public update = async (
+		updatedVehicleData: AccidentServerParamsPatchFormData
+	) => {
 		const { data: responseData } = await this.login.api.patch<
 			AccidentServerResponsePatch
 		>(
 			`${this.login.options.baseUrl}/accidents/${this.data.id}`,
-			updatedVehicleData
+			...constructFormDataPayload(updatedVehicleData)
 		);
 		const { data, ...meta } = responseData;
 		this.data = data;

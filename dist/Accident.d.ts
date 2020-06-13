@@ -1,5 +1,5 @@
 import { Authenticated } from "./Authenticated";
-import { AccidentServerResponseGet, ExtractServerResponseData, ServerResponseMeta } from "./shared/typings";
+import { AccidentServerResponseGet, ExtractServerResponseData, ServerResponseMeta, ReplaceAttributes } from "./shared/typings";
 export declare class Accident {
     private login;
     data: ExtractServerResponseData<AccidentServerResponseGet>;
@@ -7,8 +7,12 @@ export declare class Accident {
     constructor(login: Authenticated, data: ExtractServerResponseData<AccidentServerResponseGet>, meta: ServerResponseMeta);
     static getOne: (login: Authenticated, accidentId: number) => Promise<Accident>;
     static getAll: (login: Authenticated) => Promise<Accident[]>;
-    static create: (login: Authenticated, accidentData: import("./shared/typings").DatePropsToUnix<import("./shared/typings").UseParameters<Pick<import("./shared/typings").AccidentAttributes, "message" | "accidentImageSrc" | "accidentVideoSrc" | "lat" | "lng" | "userId" | "vehicleId" | "bookingId">, "message" | "userId" | "vehicleId" | "bookingId", "accidentImageSrc" | "accidentVideoSrc" | "lat" | "lng">>) => Promise<Accident>;
+    static create: (login: Authenticated, accidentData: ReplaceAttributes<import("./shared/typings").DatePropsToUnix<import("./shared/typings").UseParameters<Pick<import("./shared/typings").AccidentAttributes, "message" | "accidentImageSrc" | "accidentVideoSrc" | "lat" | "lng" | "userId" | "vehicleId" | "bookingId">, "message" | "userId" | "vehicleId" | "bookingId", "accidentImageSrc" | "accidentVideoSrc" | "lat" | "lng">>, {
+        accidentImageSrc?: string | File | null | undefined;
+    }>) => Promise<Accident>;
     static destroy: (login: Authenticated, accidentId: number) => Promise<Accident>;
-    update: (updatedVehicleData: import("./shared/typings").DatePropsToUnix<Partial<Pick<import("./shared/typings").AccidentAttributes, "message" | "accidentImageSrc" | "accidentVideoSrc" | "lat" | "lng" | "userId" | "vehicleId" | "bookingId">>>) => Promise<void>;
+    update: (updatedVehicleData: ReplaceAttributes<import("./shared/typings").DatePropsToUnix<Partial<Pick<import("./shared/typings").AccidentAttributes, "message" | "accidentImageSrc" | "accidentVideoSrc" | "lat" | "lng" | "userId" | "vehicleId" | "bookingId">>>, {
+        accidentImageSrc?: string | File | null | undefined;
+    }>) => Promise<void>;
     destroy: () => Promise<void>;
 }

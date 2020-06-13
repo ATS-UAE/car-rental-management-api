@@ -14,12 +14,24 @@ import {
 	BookingServerResponseGet,
 	WialonUnitServerResponseGet,
 	CategoryServerResponseGetAll,
-	CategoryServerResponseGet
+	CategoryServerResponseGet,
+	ReplaceAttributes
 } from "./shared/typings";
 import { Booking } from "./Booking";
 import { getBookingStatus } from "./shared/utils";
 import { WialonUnit } from "./WialonUnit";
 import { Category } from "./Category";
+import { constructFormDataPayload } from "./utils";
+
+type VehicleServerParamsPatchFormData = ReplaceAttributes<
+	VehicleServerParamsPatch,
+	{ vehicleImageSrc?: File | null | string }
+>;
+
+type VehicleServerParamsPostFormData = ReplaceAttributes<
+	VehicleServerParamsPost,
+	{ vehicleImageSrc?: File | null | string }
+>;
 
 interface IsVehicleAvailableForBookingFunction {
 	(bookings: Booking[]): boolean;
@@ -84,11 +96,14 @@ export class Vehicle {
 
 	public static create = async (
 		login: Authenticated,
-		vehicleData: VehicleServerParamsPost
+		vehicleData: VehicleServerParamsPostFormData
 	) => {
 		const { data: responseData } = await login.api.post<
 			VehicleServerResponsePost
-		>(`${login.options.baseUrl}/vehicles`, vehicleData);
+		>(
+			`${login.options.baseUrl}/vehicles`,
+			...constructFormDataPayload(vehicleData)
+		);
 		const { data, ...meta } = responseData;
 		return new Vehicle(login, data, meta);
 	};
@@ -96,21 +111,26 @@ export class Vehicle {
 	public static update = async (
 		login: Authenticated,
 		vehicleId: number,
-		vehicleData: VehicleServerParamsPatch
+		vehicleData: VehicleServerParamsPatchFormData
 	) => {
 		const { data: responseData } = await login.api.patch<
 			VehicleServerResponsePatch
-		>(`${login.options.baseUrl}/vehicles/${vehicleId}`, vehicleData);
+		>(
+			`${login.options.baseUrl}/vehicles/${vehicleId}`,
+			...constructFormDataPayload(vehicleData)
+		);
 		const { data, ...meta } = responseData;
 		return new Vehicle(login, data, meta);
 	};
 
-	public update = async (updatedVehicleData: VehicleServerParamsPatch) => {
+	public update = async (
+		updatedVehicleData: VehicleServerParamsPatchFormData
+	) => {
 		const { data: responseData } = await this.login.api.patch<
 			VehicleServerResponsePatch
 		>(
 			`${this.login.options.baseUrl}/vehicles/${this.data.id}`,
-			updatedVehicleData
+			...constructFormDataPayload(updatedVehicleData)
 		);
 		const { data, ...meta } = responseData;
 		this.data = data;

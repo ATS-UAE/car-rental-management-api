@@ -9,9 +9,21 @@ import {
 	UserServerParamsPatch,
 	UserServerResponsePatch,
 	UserServerResponseDelete,
-	CategoryServerResponseGetAll
+	CategoryServerResponseGetAll,
+	ReplaceAttributes
 } from "./shared/typings";
 import { Category } from "./Category";
+import { constructFormDataPayload } from "./utils";
+
+type UserServerParamsPostFormData = ReplaceAttributes<
+	UserServerParamsPost,
+	{ userImageSrc?: File | null | string }
+>;
+
+type UserServerParamsPatchFormData = ReplaceAttributes<
+	UserServerParamsPatch,
+	{ userImageSrc?: File | null | string }
+>;
 
 export class User {
 	constructor(
@@ -38,21 +50,26 @@ export class User {
 
 	public static create = async (
 		login: Authenticated,
-		userData: UserServerParamsPost
+		userData: UserServerParamsPostFormData
 	) => {
 		const { data: responseData } = await login.api.post<
 			UserServerResponsePost
-		>(`${login.options.baseUrl}/users`, userData);
+		>(
+			`${login.options.baseUrl}/users`,
+			...constructFormDataPayload(userData)
+		);
 		const { data, ...meta } = responseData;
 		return new User(login, data, meta);
 	};
 
-	public update = async (updatedVehicleData: UserServerParamsPatch) => {
+	public update = async (
+		updatedVehicleData: UserServerParamsPatchFormData
+	) => {
 		const { data: responseData } = await this.login.api.patch<
 			UserServerResponsePatch
 		>(
 			`${this.login.options.baseUrl}/users/${this.data.id}`,
-			updatedVehicleData
+			...constructFormDataPayload(updatedVehicleData)
 		);
 		const { data, ...meta } = responseData;
 		this.data = data;
@@ -62,11 +79,14 @@ export class User {
 	public static update = async (
 		login: Authenticated,
 		userId: number,
-		updatedVehicleData: UserServerParamsPatch
+		updatedVehicleData: UserServerParamsPatchFormData
 	) => {
 		const { data: responseData } = await login.api.patch<
 			UserServerResponsePatch
-		>(`${login.options.baseUrl}/users/${userId}`, updatedVehicleData);
+		>(
+			`${login.options.baseUrl}/users/${userId}`,
+			...constructFormDataPayload(updatedVehicleData)
+		);
 		const { data, ...meta } = responseData;
 		return new User(login, data, meta);
 	};

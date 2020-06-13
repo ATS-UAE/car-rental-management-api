@@ -46,12 +46,20 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var typings_1 = require("./shared/typings");
 var Booking_1 = require("./Booking");
 var utils_1 = require("./shared/utils");
 var WialonUnit_1 = require("./WialonUnit");
 var Category_1 = require("./Category");
+var utils_2 = require("./utils");
 var Vehicle = /** @class */ (function () {
     function Vehicle(login, data, meta) {
         var _this = this;
@@ -60,11 +68,12 @@ var Vehicle = /** @class */ (function () {
         this.meta = meta;
         this.update = function (updatedVehicleData) { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.patch(this.login.options.baseUrl + "/vehicles/" + this.data.id, updatedVehicleData)];
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (_a = this.login.api).patch.apply(_a, __spreadArrays([this.login.options.baseUrl + "/vehicles/" + this.data.id], utils_2.constructFormDataPayload(updatedVehicleData)))];
                     case 1:
-                        responseData = (_a.sent()).data;
+                        responseData = (_b.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
                         this.data = data;
                         this.meta = meta;
@@ -202,11 +211,12 @@ var Vehicle = /** @class */ (function () {
     }); };
     Vehicle.create = function (login, vehicleData) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.post(login.options.baseUrl + "/vehicles", vehicleData)];
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, (_a = login.api).post.apply(_a, __spreadArrays([login.options.baseUrl + "/vehicles"], utils_2.constructFormDataPayload(vehicleData)))];
                 case 1:
-                    responseData = (_a.sent()).data;
+                    responseData = (_b.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
                     return [2 /*return*/, new Vehicle(login, data, meta)];
             }
@@ -214,11 +224,12 @@ var Vehicle = /** @class */ (function () {
     }); };
     Vehicle.update = function (login, vehicleId, vehicleData) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.patch(login.options.baseUrl + "/vehicles/" + vehicleId, vehicleData)];
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, (_a = login.api).patch.apply(_a, __spreadArrays([login.options.baseUrl + "/vehicles/" + vehicleId], utils_2.constructFormDataPayload(vehicleData)))];
                 case 1:
-                    responseData = (_a.sent()).data;
+                    responseData = (_b.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
                     return [2 /*return*/, new Vehicle(login, data, meta)];
             }
