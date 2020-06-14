@@ -4,6 +4,10 @@ import {
 	VehicleGetAllOptions,
 	VehicleServerParamsPatchFormData
 } from "./Vehicle";
+import {
+	VehicleServerParamsPost,
+	VehicleServerResponseDelete
+} from "./shared/typings";
 
 export class VehicleFactory extends Authenticated {
 	public getOne = (id: number) => {
@@ -19,5 +23,17 @@ export class VehicleFactory extends Authenticated {
 		updateVehicleData: VehicleServerParamsPatchFormData
 	) => {
 		return Vehicle.update(this, id, updateVehicleData);
+	};
+
+	public create = (vehicleData: VehicleServerParamsPost) => {
+		return Vehicle.create(this, vehicleData);
+	};
+
+	public destroy = async (id: number) => {
+		const { data: responseData } = await this.api.delete<
+			VehicleServerResponseDelete
+		>(`${this.options.baseUrl}/vehicle/${id}`);
+		const { data, ...meta } = responseData;
+		return new Vehicle(this, data, meta);
 	};
 }
