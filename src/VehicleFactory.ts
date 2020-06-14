@@ -2,12 +2,10 @@ import { Authenticated } from "./Authenticated";
 import {
 	Vehicle,
 	VehicleGetAllOptions,
-	VehicleServerParamsPatchFormData
+	VehicleServerParamsPatchFormData,
+	VehicleServerParamsPostFormData
 } from "./Vehicle";
-import {
-	VehicleServerParamsPost,
-	VehicleServerResponseDelete
-} from "./shared/typings";
+import { VehicleServerResponseDelete } from "./shared/typings";
 
 export class VehicleFactory extends Authenticated {
 	public getOne = (id: number) => {
@@ -25,7 +23,7 @@ export class VehicleFactory extends Authenticated {
 		return Vehicle.update(this, id, updateVehicleData);
 	};
 
-	public create = (vehicleData: VehicleServerParamsPost) => {
+	public create = (vehicleData: VehicleServerParamsPostFormData) => {
 		return Vehicle.create(this, vehicleData);
 	};
 
