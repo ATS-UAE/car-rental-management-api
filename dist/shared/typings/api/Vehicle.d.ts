@@ -5,7 +5,7 @@ export declare type VehicleServerResponseGetAll = ServerResponse<DatePropsToUnix
 export declare type VehicleServerParamsPatch = DatePropsToUnix<Partial<RemoveImmutableSequelizeProperties<VehicleAttributes>> & {
     categories?: number[];
 }>;
-export declare type VehicleServerParamsPost = DatePropsToUnix<UseParameters<RemoveImmutableSequelizeProperties<VehicleAttributes>, "brand" | "model" | "plateNumber" | "vin", "wialonUnitId" | "bookingCharge" | "bookingChargeCount" | "bookingChargeUnit" | "clientId" | "defleeted" | "vehicleImageSrc" | "parkingLocation" | "locationId"> & {
+export declare type VehicleServerParamsPost = DatePropsToUnix<UseParameters<RemoveImmutableSequelizeProperties<VehicleAttributes>, "brand" | "model" | "plateNumber" | "vin", "wialonUnitId" | "bookingCharge" | "bookingChargeCount" | "bookingChargeUnit" | "clientId" | "defleeted" | "vehicleImageSrc" | "parkingLocation" | "categoryCostId" | "locationId"> & {
     categories?: number[];
 }>;
 export declare type VehicleServerResponsePost = VehicleServerResponseGet;
