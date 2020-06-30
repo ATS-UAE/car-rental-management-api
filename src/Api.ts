@@ -10,6 +10,7 @@ import { ClientFactory } from "./ClientFactory";
 import { CategoryFactory } from "./CategoryFactory";
 import { WialonUnitFactory } from "./WialonUnitFactory";
 import { VehicleCategoryFactory } from "./VehicleCategoryFactory";
+import { InviteFactory } from "./InviteFactory";
 
 export interface LoginOptions extends ApiOptions {
 	username: string;
@@ -127,6 +128,13 @@ export class Api extends Authenticated {
 	);
 
 	public vehicleCategory = new VehicleCategoryFactory(
+		this.api,
+		this.options,
+		this.data,
+		this.meta
+	);
+
+	public invite = new InviteFactory(
 		this.api,
 		this.options,
 		this.data,
