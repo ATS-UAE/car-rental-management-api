@@ -22,7 +22,7 @@ var InviteFactory = /** @class */ (function (_super) {
     __extends(InviteFactory, _super);
     function InviteFactory() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.invite = function (inviteOptions) {
+        _this.send = function (inviteOptions) {
             return axios_1.default.post(_this.options.baseUrl + "/api/carbooking/invites", inviteOptions);
         };
         return _this;

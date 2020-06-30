@@ -8,6 +8,7 @@ import { ClientFactory } from "./ClientFactory";
 import { CategoryFactory } from "./CategoryFactory";
 import { WialonUnitFactory } from "./WialonUnitFactory";
 import { VehicleCategoryFactory } from "./VehicleCategoryFactory";
+import { InviteFactory } from "./InviteFactory";
 export interface LoginOptions extends ApiOptions {
     username: string;
     password: string;
@@ -32,4 +33,5 @@ export declare class Api extends Authenticated {
     category: CategoryFactory;
     wialonUnit: WialonUnitFactory;
     vehicleCategory: VehicleCategoryFactory;
+    invite: InviteFactory;
 }
