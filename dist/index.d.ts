@@ -19,4 +19,5 @@ export * from "./Category";
 export * from "./CategoryFactory";
 export * from "./VehicleCategory";
 export * from "./VehicleCategoryFactory";
+export * from "./InviteFactory";
 export default Api;
