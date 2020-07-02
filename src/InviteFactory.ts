@@ -4,7 +4,7 @@ import { InviteServerParamsPost, ServerResponse } from "./shared/typings";
 
 export class InviteFactory extends Authenticated {
 	public send = (inviteOptions: InviteServerParamsPost) => {
-		return axios.post<ServerResponse<null>>(
+		return this.api.post<ServerResponse<null>>(
 			`${this.options.baseUrl}/invites`,
 			inviteOptions
 		);
