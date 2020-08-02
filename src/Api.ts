@@ -1,5 +1,10 @@
 import axios, { AxiosInstance } from "axios";
-import { AuthServerResponseGet, ServerResponseMeta } from "./shared/typings";
+import {
+	AuthServerResponseGet,
+	ServerResponseMeta,
+	UserSignUpOptions,
+	ReplaceAttributes
+} from "./shared/typings";
 import { Authenticated, ApiOptions } from "./Authenticated";
 import { VehicleFactory } from "./VehicleFactory";
 import { BookingFactory } from "./BookingFactory";
@@ -11,12 +16,18 @@ import { CategoryFactory } from "./CategoryFactory";
 import { WialonUnitFactory } from "./WialonUnitFactory";
 import { VehicleCategoryFactory } from "./VehicleCategoryFactory";
 import { InviteFactory } from "./InviteFactory";
+import { constructFormDataPayload } from "./utils";
 
 export interface LoginOptions extends ApiOptions {
 	username: string;
 	password: string;
 	remember?: boolean;
 }
+
+export type UserSignUpOptionsFormData = ReplaceAttributes<
+	UserSignUpOptions,
+	{ userImageSrc?: File | null | string }
+>;
 
 export class Api extends Authenticated {
 	private constructor(
@@ -47,6 +58,18 @@ export class Api extends Authenticated {
 		);
 		const { data, ...meta } = response.data;
 		return new Api(api, { baseUrl }, data, meta);
+	};
+
+	public static signUp = async (
+		newUser: UserSignUpOptionsFormData,
+		{ baseUrl }: ApiOptions
+	) => {
+		const api = axios.create({
+			withCredentials: true
+		});
+		await api.post(`${baseUrl}/users`, {
+			...constructFormDataPayload(newUser)
+		});
 	};
 
 	public logout = async () => {
