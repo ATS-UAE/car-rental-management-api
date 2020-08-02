@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Authenticated } from "./Authenticated";
 import { InviteServerParamsPost, ServerResponse } from "./shared/typings";
 
