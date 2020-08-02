@@ -1,3 +1,4 @@
+import { UserSignUpOptions, ReplaceAttributes } from "./shared/typings";
 import { Authenticated, ApiOptions } from "./Authenticated";
 import { VehicleFactory } from "./VehicleFactory";
 import { BookingFactory } from "./BookingFactory";
@@ -14,9 +15,15 @@ export interface LoginOptions extends ApiOptions {
     password: string;
     remember?: boolean;
 }
+export declare type UserSignUpOptionsFormData = ReplaceAttributes<UserSignUpOptions, {
+    userImageSrc?: File | null | string;
+}>;
 export declare class Api extends Authenticated {
     private constructor();
     static login: ({ username, password, baseUrl, remember }: LoginOptions) => Promise<Api>;
+    static signUp: (newUser: ReplaceAttributes<UserSignUpOptions, {
+        userImageSrc?: string | File | null | undefined;
+    }>, { baseUrl }: ApiOptions) => Promise<void>;
     logout: () => Promise<void>;
     /** Check if the cookie stored by the browser is still valid. */
     static checkCookie: ({ baseUrl }: {

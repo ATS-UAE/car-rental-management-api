@@ -12,6 +12,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -75,6 +86,7 @@ var CategoryFactory_1 = require("./CategoryFactory");
 var WialonUnitFactory_1 = require("./WialonUnitFactory");
 var VehicleCategoryFactory_1 = require("./VehicleCategoryFactory");
 var InviteFactory_1 = require("./InviteFactory");
+var utils_1 = require("./utils");
 var Api = /** @class */ (function (_super) {
     __extends(Api, _super);
     function Api(api, options, data, meta) {
@@ -135,6 +147,24 @@ var Api = /** @class */ (function (_super) {
                         response = _c.sent();
                         _b = response.data, data = _b.data, meta = __rest(_b, ["data"]);
                         return [2 /*return*/, new Api(api, { baseUrl: baseUrl }, data, meta)];
+                }
+            });
+        });
+    };
+    Api.signUp = function (newUser, _a) {
+        var baseUrl = _a.baseUrl;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var api;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        api = axios_1.default.create({
+                            withCredentials: true
+                        });
+                        return [4 /*yield*/, api.post(baseUrl + "/users", __assign({}, utils_1.constructFormDataPayload(newUser)))];
+                    case 1:
+                        _b.sent();
+                        return [2 /*return*/];
                 }
             });
         });
