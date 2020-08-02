@@ -8,7 +8,7 @@ export const constructFormDataPayload = (payload: {
 		const value: unknown = payload[key];
 		if (value instanceof Blob) {
 			formData.append(key, value);
-		} else {
+		} else if (value !== undefined) {
 			formData.append(key, JSON.stringify(value));
 		}
 	});
