@@ -5,18 +5,18 @@ import {
 	ServerResponseMeta,
 	UserServerResponseGetAll,
 	UserServerResponsePost,
-	UserServerParamsPost,
 	UserServerParamsPatch,
 	UserServerResponsePatch,
 	UserServerResponseDelete,
 	CategoryServerResponseGetAll,
-	ReplaceAttributes
+	ReplaceAttributes,
+	UserCreateOptions
 } from "./shared/typings";
 import { Category } from "./Category";
 import { constructFormDataPayload } from "./utils";
 
 export type UserServerParamsPostFormData = ReplaceAttributes<
-	UserServerParamsPost,
+	UserCreateOptions,
 	{ userImageSrc?: File | null | string }
 >;
 
