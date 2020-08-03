@@ -67,9 +67,10 @@ export class Api extends Authenticated {
 		const api = axios.create({
 			withCredentials: true
 		});
-		await api.post(`${baseUrl}/users`, {
+		await api.post(
+			`${baseUrl}/users`,
 			...constructFormDataPayload(newUser)
-		});
+		);
 	};
 
 	public logout = async () => {
