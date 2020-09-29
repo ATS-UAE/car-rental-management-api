@@ -1,6 +1,6 @@
+import { PartialKeys } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { Accident, AccidentServerParamsPostFormData } from "./Accident";
-import { PartialKeys } from "./shared/typings";
 
 export class AccidentFactory extends Authenticated {
 	public getOne = (id: number) => {

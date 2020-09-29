@@ -1,5 +1,5 @@
-import { Authenticated } from "./Authenticated";
 import {
+	getBookingStatus,
 	VehicleServerResponseGet,
 	ExtractServerResponseData,
 	ServerResponseMeta,
@@ -16,9 +16,9 @@ import {
 	CategoryServerResponseGetAll,
 	CategoryServerResponseGet,
 	ReplaceAttributes
-} from "./shared/typings";
+} from "car-rental-management-shared";
+import { Authenticated } from "./Authenticated";
 import { Booking } from "./Booking";
-import { getBookingStatus } from "./shared/utils";
 import { WialonUnit } from "./WialonUnit";
 import { Category } from "./Category";
 import { constructFormDataPayload } from "./utils";

@@ -1,3 +1,4 @@
+import { VehicleServerResponseDelete } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import {
 	Vehicle,
@@ -5,7 +6,6 @@ import {
 	VehicleServerParamsPatchFormData,
 	VehicleServerParamsPostFormData
 } from "./Vehicle";
-import { VehicleServerResponseDelete } from "./shared/typings";
 
 export class VehicleFactory extends Authenticated {
 	public getOne = (id: number) => {

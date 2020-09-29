@@ -1,4 +1,4 @@
-import { ServerResponse } from "../../shared/typings";
+import { ServerResponse } from "car-rental-management-shared";
 
 export const createServerResponse = <T>(
 	code: number,

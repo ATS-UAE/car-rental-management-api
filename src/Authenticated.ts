@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { ServerResponseMeta, AuthServerResponseGet } from "./shared/typings";
+import { ServerResponseMeta, AuthServerResponseGet } from "car-rental-management-shared";
 
 export interface ApiOptions {
 	baseUrl: string;

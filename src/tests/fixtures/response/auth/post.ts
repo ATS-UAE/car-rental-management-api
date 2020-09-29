@@ -1,4 +1,4 @@
-import { AuthServerResponseGet, Role } from "../../../../shared/typings";
+import { AuthServerResponseGet, Role } from "car-rental-management-shared";
 
 export default (): AuthServerResponseGet => ({
 	code: 200,
