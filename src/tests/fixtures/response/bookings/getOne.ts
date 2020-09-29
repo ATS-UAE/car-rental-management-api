@@ -1,10 +1,10 @@
-import { createServerResponse } from "../../../utils/createServerResponse";
 import {
 	BookingServerResponseGet,
 	BookingChargeUnit,
 	ServerResponseMeta,
 	BookingType
-} from "../../../../shared/typings";
+} from "car-rental-management-shared";
+import { createServerResponse } from "../../../utils/createServerResponse";
 
 export const getOne = (
 	vehicleData: Partial<BookingServerResponseGet["data"]> = {},

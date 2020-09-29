@@ -1,11 +1,11 @@
-import { Authenticated } from "./Authenticated";
-import { Booking } from "./Booking";
 import {
 	BookingServerParamsPost,
 	PartialKeys,
 	BookingServerParamsPatch,
 	BookingServerResponseDelete
-} from "./shared/typings";
+} from "car-rental-management-shared";
+import { Authenticated } from "./Authenticated";
+import { Booking } from "./Booking";
 
 export class BookingFactory extends Authenticated {
 	public getOne = (id: number) => {

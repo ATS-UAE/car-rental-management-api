@@ -1,10 +1,10 @@
-import { Authenticated } from "./Authenticated";
-import { Client } from "./Client";
 import {
 	ClientServerParamsPost,
 	ClientServerParamsPatch,
 	ClientServerResponseDelete
-} from "./shared/typings";
+} from "car-rental-management-shared";
+import { Authenticated } from "./Authenticated";
+import { Client } from "./Client";
 
 export class ClientFactory extends Authenticated {
 	public getOne = (id: number) => {

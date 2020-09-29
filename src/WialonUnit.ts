@@ -1,10 +1,10 @@
-import { Authenticated } from "./Authenticated";
 import {
 	WialonUnitServerResponseGet,
 	ExtractServerResponseData,
 	ServerResponseMeta,
 	WialonUnitServerResponseGetAll
-} from "./shared/typings";
+} from "car-rental-management-shared";
+import { Authenticated } from "./Authenticated";
 
 export class WialonUnit {
 	constructor(

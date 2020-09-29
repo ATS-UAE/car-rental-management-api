@@ -1,8 +1,8 @@
-import { createServerResponse } from "../../../utils/createServerResponse";
 import {
 	ServerResponseMeta,
 	BookingServerResponseGetAll
-} from "../../../../shared/typings";
+} from "car-rental-management-shared";
+import { createServerResponse } from "../../../utils/createServerResponse";
 import { getOne } from "./getOne";
 
 export const getAll = (

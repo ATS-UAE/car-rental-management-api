@@ -1,4 +1,3 @@
-import { Authenticated } from "./Authenticated";
 import {
 	UserServerResponseGet,
 	ExtractServerResponseData,
@@ -11,7 +10,8 @@ import {
 	CategoryServerResponseGetAll,
 	ReplaceAttributes,
 	UserCreateOptions
-} from "./shared/typings";
+} from "car-rental-management-shared";
+import { Authenticated } from "./Authenticated";
 import { Category } from "./Category";
 import { constructFormDataPayload } from "./utils";
 

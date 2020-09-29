@@ -1,15 +1,15 @@
 import moxios from "moxios";
-import { getOne as bookingGetResponse } from "./fixtures/response/bookings/getOne";
-import { getAll as bookingGetAllResponse } from "./fixtures/response/bookings/getAll";
-import { BASE_URL } from "./fixtures";
-import { createApiInstance } from "./utils/createApiInstance";
-import { Booking } from "../Booking";
 import {
 	BookingServerParamsPost,
 	BookingType,
 	BookingServerResponseDelete,
 	BookingServerParamsPatch
-} from "../shared/typings";
+} from "car-rental-management-shared";
+import { getOne as bookingGetResponse } from "./fixtures/response/bookings/getOne";
+import { getAll as bookingGetAllResponse } from "./fixtures/response/bookings/getAll";
+import { BASE_URL } from "./fixtures";
+import { createApiInstance } from "./utils/createApiInstance";
+import { Booking } from "../Booking";
 import { createBookingInstance } from "./utils/createBookingInstance";
 import { createServerResponse } from "./utils/createServerResponse";
 

@@ -1,4 +1,3 @@
-import { Authenticated } from "./Authenticated";
 import {
 	AccidentServerResponseGet,
 	ExtractServerResponseData,
@@ -10,7 +9,8 @@ import {
 	AccidentServerResponsePatch,
 	AccidentServerResponseDelete,
 	ReplaceAttributes
-} from "./shared/typings";
+} from "car-rental-management-shared";
+import { Authenticated } from "./Authenticated";
 import { constructFormDataPayload } from "./utils";
 
 export type AccidentServerParamsPostFormData = ReplaceAttributes<

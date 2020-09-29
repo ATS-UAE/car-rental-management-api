@@ -1,10 +1,10 @@
-import { Authenticated } from "./Authenticated";
 import {
 	ExtractServerResponseData,
 	ServerResponseMeta,
 	VehicleCategoryServerResponseGetAll,
 	FlattenIfArray
-} from "./shared/typings";
+} from "car-rental-management-shared";
+import { Authenticated } from "./Authenticated";
 
 export class VehicleCategory {
 	constructor(

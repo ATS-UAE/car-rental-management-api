@@ -1,10 +1,10 @@
-import { Authenticated } from "./Authenticated";
-import { Category } from "./Category";
 import {
 	CategoryServerParamsPost,
 	CategoryServerParamsPatch,
 	CategoryServerResponseDelete
-} from "./shared/typings";
+} from "car-rental-management-shared";
+import { Authenticated } from "./Authenticated";
+import { Category } from "./Category";
 
 export class CategoryFactory extends Authenticated {
 	public getOne = (id: number) => {

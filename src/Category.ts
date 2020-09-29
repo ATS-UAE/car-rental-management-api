@@ -1,4 +1,3 @@
-import { Authenticated } from "./Authenticated";
 import {
 	CategoryServerResponseGet,
 	ExtractServerResponseData,
@@ -9,7 +8,8 @@ import {
 	CategoryServerParamsPatch,
 	CategoryServerResponsePatch,
 	CategoryServerResponseDelete
-} from "./shared/typings";
+} from "car-rental-management-shared";
+import { Authenticated } from "./Authenticated";
 
 export class Category {
 	constructor(

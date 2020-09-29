@@ -1,4 +1,3 @@
-import { Authenticated } from "./Authenticated";
 import {
 	LocationServerResponseGet,
 	ExtractServerResponseData,
@@ -9,7 +8,8 @@ import {
 	LocationServerParamsPatch,
 	LocationServerResponsePatch,
 	LocationServerResponseDelete
-} from "./shared/typings";
+} from "car-rental-management-shared";
+import { Authenticated } from "./Authenticated";
 
 export class Location {
 	constructor(

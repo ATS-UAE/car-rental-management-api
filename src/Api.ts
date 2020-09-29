@@ -4,7 +4,7 @@ import {
 	ServerResponseMeta,
 	UserSignUpOptions,
 	ReplaceAttributes
-} from "./shared/typings";
+} from "car-rental-management-shared";
 import { Authenticated, ApiOptions } from "./Authenticated";
 import { VehicleFactory } from "./VehicleFactory";
 import { BookingFactory } from "./BookingFactory";

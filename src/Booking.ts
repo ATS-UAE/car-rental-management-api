@@ -1,5 +1,4 @@
 import moment from "moment";
-import { Authenticated } from "./Authenticated";
 import {
 	BookingServerResponseGet,
 	ExtractServerResponseData,
@@ -13,7 +12,8 @@ import {
 	BookingStatus,
 	VehicleServerResponseGet,
 	UserServerResponseGet
-} from "./shared/typings";
+} from "car-rental-management-shared";
+import { Authenticated } from "./Authenticated";
 import { Vehicle } from "./Vehicle";
 import { User } from "./User";
 

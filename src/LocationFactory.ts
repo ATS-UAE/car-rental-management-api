@@ -1,9 +1,9 @@
-import { Authenticated } from "./Authenticated";
-import { Location } from "./Location";
 import {
 	LocationServerParamsPost,
 	LocationServerParamsPatch
-} from "./shared/typings";
+} from "car-rental-management-shared";
+import { Authenticated } from "./Authenticated";
+import { Location } from "./Location";
 
 export class LocationFactory extends Authenticated {
 	public getOne = (id: number) => {

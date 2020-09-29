@@ -1,4 +1,3 @@
-import { Authenticated } from "./Authenticated";
 import {
 	ClientServerResponseGet,
 	ExtractServerResponseData,
@@ -12,7 +11,8 @@ import {
 	LocationServerResponseGetAll,
 	UserServerResponseGetAll,
 	VehicleServerResponseGetAll
-} from "./shared/typings";
+} from "car-rental-management-shared";
+import { Authenticated } from "./Authenticated";
 import { Location } from "./Location";
 import { User } from "./User";
 import { Vehicle, VehicleGetAllOptions } from "./Vehicle";
