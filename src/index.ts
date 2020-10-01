@@ -21,5 +21,6 @@ export * from "./CategoryFactory";
 export * from "./VehicleCategory";
 export * from "./VehicleCategoryFactory";
 export * from "./InviteFactory";
+export * from "./PushSubscription";
 
 export default Api;

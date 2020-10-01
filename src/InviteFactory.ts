@@ -1,4 +1,7 @@
-import { InviteServerParamsPost, ServerResponse } from "car-rental-management-shared";
+import {
+	InviteServerParamsPost,
+	ServerResponse
+} from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 
 export class InviteFactory extends Authenticated {
