@@ -16,6 +16,7 @@ import { CategoryFactory } from "./CategoryFactory";
 import { WialonUnitFactory } from "./WialonUnitFactory";
 import { VehicleCategoryFactory } from "./VehicleCategoryFactory";
 import { InviteFactory } from "./InviteFactory";
+import { PushSubscriptionFactory } from "./PushSubscriptionFactory";
 import { constructFormDataPayload } from "./utils";
 
 export interface LoginOptions extends ApiOptions {
@@ -159,6 +160,13 @@ export class Api extends Authenticated {
 	);
 
 	public invite = new InviteFactory(
+		this.api,
+		this.options,
+		this.data,
+		this.meta
+	);
+
+	public pushSubscription = new PushSubscriptionFactory(
 		this.api,
 		this.options,
 		this.data,

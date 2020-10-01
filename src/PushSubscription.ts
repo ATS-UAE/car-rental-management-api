@@ -4,10 +4,13 @@ import {
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 
-export class PushSubscription extends Authenticated {
-	public sendSubscription = (subscription: PushSubscriptionParamsPost) => {
-		this.api.post<PushSubscriptionResponsePost>(
-			`${this.options.baseUrl}/push_notifications/subscriptions`,
+export class PushSubscription {
+	public static sendSubscription = (
+		login: Authenticated,
+		subscription: PushSubscriptionParamsPost
+	) => {
+		login.api.post<PushSubscriptionResponsePost>(
+			`${login.options.baseUrl}/push_notifications/subscriptions`,
 			subscription
 		);
 	};
