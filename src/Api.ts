@@ -3,7 +3,9 @@ import {
 	AuthServerResponseGet,
 	ServerResponseMeta,
 	UserSignUpOptions,
-	ReplaceAttributes
+	ReplaceAttributes,
+	PushUnsubscribeParamsPost,
+	PushSubscriptionParamsPost
 } from "car-rental-management-shared";
 import { Authenticated, ApiOptions } from "./Authenticated";
 import { VehicleFactory } from "./VehicleFactory";
@@ -78,8 +80,21 @@ export class Api extends Authenticated {
 		await this.api.get(`${this.options.baseUrl}/auth/logout`);
 	};
 
-	/** Check if the cookie stored by the browser is still valid. */
+	public unsubscribePush = async (data: PushUnsubscribeParamsPost) => {
+		await this.api.post(
+			`${this.options.baseUrl}/push_notifications/unsubscribe`,
+			data
+		);
+	};
 
+	public subscribePush = async (data: PushSubscriptionParamsPost) => {
+		await this.api.post(
+			`${this.options.baseUrl}/push_notifications/subscribe`,
+			data
+		);
+	};
+
+	/** Check if the cookie stored by the browser is still valid. */
 	public static checkCookie = async ({ baseUrl }: { baseUrl: string }) => {
 		const api = axios.create({
 			withCredentials: true

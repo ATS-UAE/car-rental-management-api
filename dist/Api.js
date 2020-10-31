@@ -98,6 +98,26 @@ var Api = /** @class */ (function (_super) {
                 }
             });
         }); };
+        _this.unsubscribePush = function (data) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.post(this.options.baseUrl + "/push_notifications/unsubscribe", data)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        }); };
+        _this.subscribePush = function (data) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.post(this.options.baseUrl + "/push_notifications/subscribe", data)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        }); };
         /** Check current axios instance has a valid cookie. */
         _this.validate = function () { return __awaiter(_this, void 0, void 0, function () {
             var response, _a, data, meta;

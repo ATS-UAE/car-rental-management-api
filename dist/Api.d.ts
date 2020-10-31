@@ -1,4 +1,4 @@
-import { UserSignUpOptions, ReplaceAttributes } from "car-rental-management-shared";
+import { UserSignUpOptions, ReplaceAttributes, PushUnsubscribeParamsPost, PushSubscriptionParamsPost } from "car-rental-management-shared";
 import { Authenticated, ApiOptions } from "./Authenticated";
 import { VehicleFactory } from "./VehicleFactory";
 import { BookingFactory } from "./BookingFactory";
@@ -26,6 +26,8 @@ export declare class Api extends Authenticated {
         userImageSrc?: string | File | null | undefined;
     }>, { baseUrl }: ApiOptions) => Promise<void>;
     logout: () => Promise<void>;
+    unsubscribePush: (data: PushUnsubscribeParamsPost) => Promise<void>;
+    subscribePush: (data: PushSubscriptionParamsPost) => Promise<void>;
     /** Check if the cookie stored by the browser is still valid. */
     static checkCookie: ({ baseUrl }: {
         baseUrl: string;
