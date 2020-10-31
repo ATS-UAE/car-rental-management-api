@@ -111,7 +111,7 @@ var Api = /** @class */ (function (_super) {
         _this.subscribePush = function (data) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.post(this.options.baseUrl + "/push_notifications/subscribe", data)];
+                    case 0: return [4 /*yield*/, this.api.post(this.options.baseUrl + "/push_notifications/subscriptions", data)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
