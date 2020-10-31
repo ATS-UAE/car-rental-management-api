@@ -89,7 +89,7 @@ export class Api extends Authenticated {
 
 	public subscribePush = async (data: PushSubscriptionParamsPost) => {
 		await this.api.post(
-			`${this.options.baseUrl}/push_notifications/subscribe`,
+			`${this.options.baseUrl}/push_notifications/subscriptions`,
 			data
 		);
 	};
