@@ -7,9 +7,11 @@ import {
 	LocationServerParamsPost,
 	LocationServerParamsPatch,
 	LocationServerResponsePatch,
-	LocationServerResponseDelete
+	LocationServerResponseDelete,
+	UserServerResponseGetAll
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
+import { User } from "./User";
 
 export class Location {
 	constructor(
@@ -79,5 +81,13 @@ export class Location {
 		const { data, ...meta } = responseData;
 		this.data = data;
 		this.meta = meta;
+	};
+
+	public getUsers = async () => {
+		const { data: responseData } = await this.login.api.delete<
+			UserServerResponseGetAll
+		>(`${this.login.options.baseUrl}/locations/${this.data.id}/users`);
+		const { data, ...meta } = responseData;
+		return data.map((user) => new User(this.login, user, meta));
 	};
 }
