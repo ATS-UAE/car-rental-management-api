@@ -55,6 +55,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Category_1 = require("./Category");
+var Location_1 = require("./Location");
 var utils_1 = require("./utils");
 var User = /** @class */ (function () {
     function User(login, data, meta) {
@@ -101,6 +102,19 @@ var User = /** @class */ (function () {
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
                         return [2 /*return*/, data.map(function (c) { return new Category_1.Category(_this.login, c, meta); })];
+                }
+            });
+        }); };
+        this.getLocations = function () { return __awaiter(_this, void 0, void 0, function () {
+            var responseData, data, meta;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.login.api.delete(this.login.options.baseUrl + "/users/" + this.data.id + "/locations")];
+                    case 1:
+                        responseData = (_a.sent()).data;
+                        data = responseData.data, meta = __rest(responseData, ["data"]);
+                        return [2 /*return*/, data.map(function (location) { return new Location_1.Location(_this.login, location, meta); })];
                 }
             });
         }); };

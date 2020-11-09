@@ -1,5 +1,6 @@
 import { LocationServerResponseGet, ExtractServerResponseData, ServerResponseMeta } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
+import { User } from "./User";
 export declare class Location {
     private login;
     data: ExtractServerResponseData<LocationServerResponseGet>;
@@ -11,4 +12,5 @@ export declare class Location {
     static update: (login: Authenticated, locationId: number, updatedVehicleData: import("car-rental-management-shared").DatePropsToUnix<Partial<Pick<import("car-rental-management-shared").LocationAttributes, "address" | "lat" | "lng" | "name" | "locationImageSrc">>>) => Promise<Location>;
     update: (updatedVehicleData: import("car-rental-management-shared").DatePropsToUnix<Partial<Pick<import("car-rental-management-shared").LocationAttributes, "address" | "lat" | "lng" | "name" | "locationImageSrc">>>) => Promise<void>;
     destroy: () => Promise<void>;
+    getUsers: () => Promise<User[]>;
 }

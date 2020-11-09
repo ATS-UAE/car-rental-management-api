@@ -47,6 +47,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var User_1 = require("./User");
 var Location = /** @class */ (function () {
     function Location(login, data, meta) {
         var _this = this;
@@ -78,6 +79,19 @@ var Location = /** @class */ (function () {
                         this.data = data;
                         this.meta = meta;
                         return [2 /*return*/];
+                }
+            });
+        }); };
+        this.getUsers = function () { return __awaiter(_this, void 0, void 0, function () {
+            var responseData, data, meta;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.login.api.delete(this.login.options.baseUrl + "/locations/" + this.data.id + "/users")];
+                    case 1:
+                        responseData = (_a.sent()).data;
+                        data = responseData.data, meta = __rest(responseData, ["data"]);
+                        return [2 /*return*/, data.map(function (user) { return new User_1.User(_this.login, user, meta); })];
                 }
             });
         }); };

@@ -1,6 +1,7 @@
 import { UserServerResponseGet, ExtractServerResponseData, ServerResponseMeta, UserServerParamsPatch, ReplaceAttributes, UserCreateOptions } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { Category } from "./Category";
+import { Location } from "./Location";
 export declare type UserServerParamsPostFormData = ReplaceAttributes<UserCreateOptions, {
     userImageSrc?: File | null | string;
 }>;
@@ -29,4 +30,5 @@ export declare class User {
     }>) => Promise<User>;
     destroy: () => Promise<void>;
     getCategories: () => Promise<Category[]>;
+    getLocations: () => Promise<Location[]>;
 }
