@@ -9,10 +9,12 @@ import {
 	UserServerResponseDelete,
 	CategoryServerResponseGetAll,
 	ReplaceAttributes,
-	UserCreateOptions
+	UserCreateOptions,
+	LocationServerResponseGetAll
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { Category } from "./Category";
+import { Location } from "./Location";
 import { constructFormDataPayload } from "./utils";
 
 export type UserServerParamsPostFormData = ReplaceAttributes<
@@ -106,5 +108,13 @@ export class User {
 		>(`${this.login.options.baseUrl}/users/${this.data.id}/categories`);
 		const { data, ...meta } = responseData;
 		return data.map((c) => new Category(this.login, c, meta));
+	};
+
+	public getLocations = async () => {
+		const { data: responseData } = await this.login.api.delete<
+			LocationServerResponseGetAll
+		>(`${this.login.options.baseUrl}/users/${this.data.id}/locations`);
+		const { data, ...meta } = responseData;
+		return data.map((location) => new Location(this.login, location, meta));
 	};
 }
