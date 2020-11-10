@@ -84,7 +84,7 @@ export class Location {
 	};
 
 	public getUsers = async () => {
-		const { data: responseData } = await this.login.api.delete<
+		const { data: responseData } = await this.login.api.get<
 			UserServerResponseGetAll
 		>(`${this.login.options.baseUrl}/locations/${this.data.id}/users`);
 		const { data, ...meta } = responseData;
