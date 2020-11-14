@@ -68,7 +68,7 @@ describe("Vehicle", function () {
                 case 2:
                     vehicle = _a.sent();
                     expect(vehicle instanceof Vehicle_1.Vehicle).toBe(true);
-                    expect(vehicle.data).toEqual(GET_ONE_RESPONSE.data);
+                    expect(vehicle.rawData).toEqual(GET_ONE_RESPONSE.data);
                     return [2 /*return*/];
             }
         });
@@ -87,7 +87,7 @@ describe("Vehicle", function () {
                     return [4 /*yield*/, api.vehicle.getAll()];
                 case 2:
                     vehicles = _a.sent();
-                    expect(vehicles.every(function (v, index) {
+                    expect(vehicles.getData().every(function (v, index) {
                         var matchesData = v.data === GET_ALL_RESPONSE.data[index];
                         return matchesData && v instanceof Vehicle_1.Vehicle;
                     })).toBe(true);

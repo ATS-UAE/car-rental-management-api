@@ -2,7 +2,6 @@ import {
 	getBookingStatus,
 	VehicleServerResponseGet,
 	ExtractServerResponseData,
-	ServerResponseMeta,
 	VehicleServerResponseGetAll,
 	VehicleServerResponsePost,
 	VehicleServerParamsPost,
@@ -22,6 +21,7 @@ import { Booking } from "./Booking";
 import { WialonUnit } from "./WialonUnit";
 import { Category } from "./Category";
 import { constructFormDataPayload } from "./utils";
+import { ServerResponse } from "./ServerResponse";
 
 export type VehicleServerParamsPatchFormData = ReplaceAttributes<
 	VehicleServerParamsPatch,
@@ -47,8 +47,7 @@ export interface VehicleGetAllOptions {
 export class Vehicle {
 	constructor(
 		private login: Authenticated,
-		public data: ExtractServerResponseData<VehicleServerResponseGet>,
-		public meta: ServerResponseMeta
+		public data: ExtractServerResponseData<VehicleServerResponseGet>
 	) {}
 
 	public static checkAvailabilityFromBookings = (
@@ -76,7 +75,7 @@ export class Vehicle {
 			VehicleServerResponseGet
 		>(`${login.options.baseUrl}/vehicles/${vehicleId}`);
 		const { data, ...meta } = responseData;
-		return new Vehicle(login, data, meta);
+		return new ServerResponse(data, () => new Vehicle(login, data), meta);
 	};
 
 	public static getAll = async (
@@ -91,7 +90,11 @@ export class Vehicle {
 			VehicleServerResponseGetAll
 		>(url);
 		const { data, ...meta } = responseData;
-		return data.map((v) => new Vehicle(login, v, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((v) => new Vehicle(login, v)),
+			meta
+		);
 	};
 
 	public static create = async (
@@ -105,7 +108,7 @@ export class Vehicle {
 			...constructFormDataPayload(vehicleData)
 		);
 		const { data, ...meta } = responseData;
-		return new Vehicle(login, data, meta);
+		return new ServerResponse(data, () => new Vehicle(login, data), meta);
 	};
 
 	public static update = async (
@@ -120,7 +123,7 @@ export class Vehicle {
 			...constructFormDataPayload(vehicleData)
 		);
 		const { data, ...meta } = responseData;
-		return new Vehicle(login, data, meta);
+		return new ServerResponse(data, () => new Vehicle(login, data), meta);
 	};
 
 	public update = async (
@@ -133,8 +136,11 @@ export class Vehicle {
 			...constructFormDataPayload(updatedVehicleData)
 		);
 		const { data, ...meta } = responseData;
-		this.data = data;
-		this.meta = meta;
+		return new ServerResponse(
+			data,
+			() => new Vehicle(this.login, data),
+			meta
+		);
 	};
 
 	public destroy = async () => {
@@ -142,8 +148,11 @@ export class Vehicle {
 			VehicleServerResponseDelete
 		>(`${this.login.options.baseUrl}/vehicles/${this.data.id}`);
 		const { data, ...meta } = responseData;
-		this.data = data;
-		this.meta = meta;
+		return new ServerResponse(
+			data,
+			() => new Vehicle(this.login, data),
+			meta
+		);
 	};
 
 	public getBookings = async () => {
@@ -153,7 +162,11 @@ export class Vehicle {
 
 		const { data, ...meta } = responseData;
 
-		return data.map((b) => new Booking(this.login, b, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((b) => new Booking(this.login, b)),
+			meta
+		);
 	};
 
 	public getWialonUnit = async () => {
@@ -163,7 +176,7 @@ export class Vehicle {
 
 		const { data, ...meta } = responseData;
 
-		return new WialonUnit(data, meta);
+		return new ServerResponse(data, () => new WialonUnit(data), meta);
 	};
 
 	public getCategoryCost = async () => {
@@ -175,7 +188,11 @@ export class Vehicle {
 
 		const { data, ...meta } = responseData;
 
-		return new Category(this.login, data, meta);
+		return new ServerResponse(
+			data,
+			() => new Category(this.login, data),
+			meta
+		);
 	};
 
 	public getCategories = async () => {
@@ -185,7 +202,11 @@ export class Vehicle {
 
 		const { data, ...meta } = responseData;
 
-		return data.map((c) => new Category(this.login, c, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((c) => new Category(this.login, c)),
+			meta
+		);
 	};
 
 	public isVehicleAvailableForBooking = ((
@@ -211,7 +232,7 @@ export class Vehicle {
 				return false;
 			}
 			return Vehicle.checkAvailabilityFromBookings(
-				vehicleBookings.map((vehicle) => vehicle.data)
+				vehicleBookings.rawData.map((vehicle) => vehicle)
 			);
 		});
 	}) as IsVehicleAvailableForBookingFunction;

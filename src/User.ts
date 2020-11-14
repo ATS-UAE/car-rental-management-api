@@ -1,7 +1,6 @@
 import {
 	UserServerResponseGet,
 	ExtractServerResponseData,
-	ServerResponseMeta,
 	UserServerResponseGetAll,
 	UserServerResponsePost,
 	UserServerParamsPatch,
@@ -15,6 +14,7 @@ import {
 import { Authenticated } from "./Authenticated";
 import { Category } from "./Category";
 import { Location } from "./Location";
+import { ServerResponse } from "./ServerResponse";
 import { constructFormDataPayload } from "./utils";
 
 export type UserServerParamsPostFormData = ReplaceAttributes<
@@ -30,8 +30,7 @@ export type UserServerParamsPatchFormData = ReplaceAttributes<
 export class User {
 	constructor(
 		private login: Authenticated,
-		public data: ExtractServerResponseData<UserServerResponseGet>,
-		public meta: ServerResponseMeta
+		public data: ExtractServerResponseData<UserServerResponseGet>
 	) {}
 
 	public static getOne = async (login: Authenticated, userId: number) => {
@@ -39,7 +38,7 @@ export class User {
 			UserServerResponseGet
 		>(`${login.options.baseUrl}/users/${userId}`);
 		const { data, ...meta } = responseData;
-		return new User(login, data, meta);
+		return new ServerResponse(data, () => new User(login, data), meta);
 	};
 
 	public static getAll = async (login: Authenticated) => {
@@ -47,7 +46,11 @@ export class User {
 			UserServerResponseGetAll
 		>(`${login.options.baseUrl}/users`);
 		const { data, ...meta } = responseData;
-		return data.map((v) => new User(login, v, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((v) => new User(login, v)),
+			meta
+		);
 	};
 
 	public static create = async (
@@ -61,7 +64,7 @@ export class User {
 			...constructFormDataPayload(userData)
 		);
 		const { data, ...meta } = responseData;
-		return new User(login, data, meta);
+		return new ServerResponse(data, () => new User(login, data), meta);
 	};
 
 	public update = async (
@@ -74,8 +77,7 @@ export class User {
 			...constructFormDataPayload(updatedVehicleData)
 		);
 		const { data, ...meta } = responseData;
-		this.data = data;
-		this.meta = meta;
+		return new ServerResponse(data, () => new User(this.login, data), meta);
 	};
 
 	public static update = async (
@@ -90,7 +92,7 @@ export class User {
 			...constructFormDataPayload(updatedVehicleData)
 		);
 		const { data, ...meta } = responseData;
-		return new User(login, data, meta);
+		return new ServerResponse(data, () => new User(login, data), meta);
 	};
 
 	public destroy = async () => {
@@ -98,8 +100,7 @@ export class User {
 			UserServerResponseDelete
 		>(`${this.login.options.baseUrl}/users/${this.data.id}`);
 		const { data, ...meta } = responseData;
-		this.data = data;
-		this.meta = meta;
+		return new ServerResponse(data, () => new User(this.login, data), meta);
 	};
 
 	public getCategories = async () => {
@@ -107,7 +108,11 @@ export class User {
 			CategoryServerResponseGetAll
 		>(`${this.login.options.baseUrl}/users/${this.data.id}/categories`);
 		const { data, ...meta } = responseData;
-		return data.map((c) => new Category(this.login, c, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((c) => new Category(this.login, c)),
+			meta
+		);
 	};
 
 	public getLocations = async () => {
@@ -115,6 +120,10 @@ export class User {
 			LocationServerResponseGetAll
 		>(`${this.login.options.baseUrl}/users/${this.data.id}/locations`);
 		const { data, ...meta } = responseData;
-		return data.map((location) => new Location(this.login, location, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((location) => new Location(this.login, location)),
+			meta
+		);
 	};
 }

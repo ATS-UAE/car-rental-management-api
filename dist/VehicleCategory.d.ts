@@ -1,9 +1,9 @@
-import { ExtractServerResponseData, ServerResponseMeta, VehicleCategoryServerResponseGetAll, FlattenIfArray } from "car-rental-management-shared";
+import { ExtractServerResponseData, VehicleCategoryServerResponseGetAll, FlattenIfArray } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
+import { ServerResponse } from "./ServerResponse";
 export declare class VehicleCategory {
     private login;
     data: FlattenIfArray<ExtractServerResponseData<VehicleCategoryServerResponseGetAll>>;
-    meta: ServerResponseMeta;
-    constructor(login: Authenticated, data: FlattenIfArray<ExtractServerResponseData<VehicleCategoryServerResponseGetAll>>, meta: ServerResponseMeta);
-    static getAll: (login: Authenticated) => Promise<VehicleCategory[]>;
+    constructor(login: Authenticated, data: FlattenIfArray<ExtractServerResponseData<VehicleCategoryServerResponseGetAll>>);
+    static getAll: (login: Authenticated) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").VehicleCategoryAttributes>[], VehicleCategory[]>>;
 }

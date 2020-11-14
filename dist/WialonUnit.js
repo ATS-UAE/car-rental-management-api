@@ -47,10 +47,10 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var ServerResponse_1 = require("./ServerResponse");
 var WialonUnit = /** @class */ (function () {
-    function WialonUnit(data, meta) {
+    function WialonUnit(data) {
         this.data = data;
-        this.meta = meta;
     }
     WialonUnit.getOne = function (login, bookingId) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;
@@ -60,7 +60,7 @@ var WialonUnit = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new WialonUnit(data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new WialonUnit(data); }, meta)];
             }
         });
     }); };
@@ -72,7 +72,7 @@ var WialonUnit = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, data.map(function (v) { return new WialonUnit(v, meta); })];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (v) { return new WialonUnit(v); }); }, meta)];
             }
         });
     }); };

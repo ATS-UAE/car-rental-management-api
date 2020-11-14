@@ -1,7 +1,6 @@
 import {
 	CategoryServerResponseGet,
 	ExtractServerResponseData,
-	ServerResponseMeta,
 	CategoryServerResponseGetAll,
 	CategoryServerResponsePost,
 	CategoryServerParamsPost,
@@ -10,12 +9,12 @@ import {
 	CategoryServerResponseDelete
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
+import { ServerResponse } from "./ServerResponse";
 
 export class Category {
 	constructor(
 		private login: Authenticated,
-		public data: ExtractServerResponseData<CategoryServerResponseGet>,
-		public meta: ServerResponseMeta
+		public data: ExtractServerResponseData<CategoryServerResponseGet>
 	) {}
 
 	public static getOne = async (login: Authenticated, userId: number) => {
@@ -23,7 +22,7 @@ export class Category {
 			CategoryServerResponseGet
 		>(`${login.options.baseUrl}/categories/${userId}`);
 		const { data, ...meta } = responseData;
-		return new Category(login, data, meta);
+		return new ServerResponse(data, () => new Category(login, data), meta);
 	};
 
 	public static getAll = async (login: Authenticated) => {
@@ -31,7 +30,11 @@ export class Category {
 			CategoryServerResponseGetAll
 		>(`${login.options.baseUrl}/categories`);
 		const { data, ...meta } = responseData;
-		return data.map((v) => new Category(login, v, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((v) => new Category(login, v)),
+			meta
+		);
 	};
 
 	public static create = async (
@@ -42,7 +45,7 @@ export class Category {
 			CategoryServerResponsePost
 		>(`${login.options.baseUrl}/categories`, userData);
 		const { data, ...meta } = responseData;
-		return new Category(login, data, meta);
+		return new ServerResponse(data, () => new Category(login, data), meta);
 	};
 
 	public update = async (updatedVehicleData: CategoryServerParamsPatch) => {
@@ -53,8 +56,11 @@ export class Category {
 			updatedVehicleData
 		);
 		const { data, ...meta } = responseData;
-		this.data = data;
-		this.meta = meta;
+		return new ServerResponse(
+			data,
+			() => new Category(this.login, data),
+			meta
+		);
 	};
 
 	public static update = async (
@@ -66,7 +72,7 @@ export class Category {
 			CategoryServerResponsePatch
 		>(`${login.options.baseUrl}/categories/${userId}`, updatedVehicleData);
 		const { data, ...meta } = responseData;
-		return new Category(login, data, meta);
+		return new ServerResponse(data, () => new Category(login, data), meta);
 	};
 
 	public destroy = async () => {
@@ -74,7 +80,10 @@ export class Category {
 			CategoryServerResponseDelete
 		>(`${this.login.options.baseUrl}/categories/${this.data.id}`);
 		const { data, ...meta } = responseData;
-		this.data = data;
-		this.meta = meta;
+		return new ServerResponse(
+			data,
+			() => new Category(this.login, data),
+			meta
+		);
 	};
 }

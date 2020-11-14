@@ -1,7 +1,6 @@
 import {
 	LocationServerResponseGet,
 	ExtractServerResponseData,
-	ServerResponseMeta,
 	LocationServerResponseGetAll,
 	LocationServerResponsePost,
 	LocationServerParamsPost,
@@ -12,12 +11,12 @@ import {
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { User } from "./User";
+import { ServerResponse } from "./ServerResponse";
 
 export class Location {
 	constructor(
 		private login: Authenticated,
-		public data: ExtractServerResponseData<LocationServerResponseGet>,
-		public meta: ServerResponseMeta
+		public data: ExtractServerResponseData<LocationServerResponseGet>
 	) {}
 
 	public static getOne = async (login: Authenticated, locationId: number) => {
@@ -25,7 +24,7 @@ export class Location {
 			LocationServerResponseGet
 		>(`${login.options.baseUrl}/locations/${locationId}`);
 		const { data, ...meta } = responseData;
-		return new Location(login, data, meta);
+		return new ServerResponse(data, () => new Location(login, data), meta);
 	};
 
 	public static getAll = async (login: Authenticated) => {
@@ -33,7 +32,11 @@ export class Location {
 			LocationServerResponseGetAll
 		>(`${login.options.baseUrl}/locations`);
 		const { data, ...meta } = responseData;
-		return data.map((v) => new Location(login, v, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((v) => new Location(login, v)),
+			meta
+		);
 	};
 
 	public static create = async (
@@ -44,7 +47,7 @@ export class Location {
 			LocationServerResponsePost
 		>(`${login.options.baseUrl}/locations`, locationData);
 		const { data, ...meta } = responseData;
-		return new Location(login, data, meta);
+		return new ServerResponse(data, () => new Location(login, data), meta);
 	};
 
 	public static update = async (
@@ -59,7 +62,7 @@ export class Location {
 			updatedVehicleData
 		);
 		const { data, ...meta } = responseData;
-		return new Location(login, data, meta);
+		return new ServerResponse(data, () => new Location(login, data), meta);
 	};
 
 	public update = async (updatedVehicleData: LocationServerParamsPatch) => {
@@ -70,8 +73,11 @@ export class Location {
 			updatedVehicleData
 		);
 		const { data, ...meta } = responseData;
-		this.data = data;
-		this.meta = meta;
+		return new ServerResponse(
+			data,
+			() => new Location(this.login, data),
+			meta
+		);
 	};
 
 	public destroy = async () => {
@@ -79,8 +85,11 @@ export class Location {
 			LocationServerResponseDelete
 		>(`${this.login.options.baseUrl}/locations/${this.data.id}`);
 		const { data, ...meta } = responseData;
-		this.data = data;
-		this.meta = meta;
+		return new ServerResponse(
+			data,
+			() => new Location(this.login, data),
+			meta
+		);
 	};
 
 	public getUsers = async () => {
@@ -88,6 +97,10 @@ export class Location {
 			UserServerResponseGetAll
 		>(`${this.login.options.baseUrl}/locations/${this.data.id}/users`);
 		const { data, ...meta } = responseData;
-		return data.map((user) => new User(this.login, user, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((user) => new User(this.login, user)),
+			meta
+		);
 	};
 }

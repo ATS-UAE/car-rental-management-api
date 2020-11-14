@@ -2,7 +2,6 @@ import moment from "moment";
 import {
 	BookingServerResponseGet,
 	ExtractServerResponseData,
-	ServerResponseMeta,
 	BookingServerResponseGetAll,
 	BookingServerResponsePost,
 	BookingServerParamsPost,
@@ -16,12 +15,12 @@ import {
 import { Authenticated } from "./Authenticated";
 import { Vehicle } from "./Vehicle";
 import { User } from "./User";
+import { ServerResponse } from "./ServerResponse";
 
 export class Booking {
 	constructor(
 		private login: Authenticated,
-		public data: ExtractServerResponseData<BookingServerResponseGet>,
-		public meta: ServerResponseMeta
+		public data: ExtractServerResponseData<BookingServerResponseGet>
 	) {}
 
 	public static getOne = async (login: Authenticated, bookingId: number) => {
@@ -29,7 +28,7 @@ export class Booking {
 			BookingServerResponseGet
 		>(`${login.options.baseUrl}/bookings/${bookingId}`);
 		const { data, ...meta } = responseData;
-		return new Booking(login, data, meta);
+		return new ServerResponse(data, () => new Booking(login, data), meta);
 	};
 
 	public static getAll = async (login: Authenticated) => {
@@ -37,7 +36,11 @@ export class Booking {
 			BookingServerResponseGetAll
 		>(`${login.options.baseUrl}/bookings`);
 		const { data, ...meta } = responseData;
-		return data.map((v) => new Booking(login, v, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((v) => new Booking(login, v)),
+			meta
+		);
 	};
 
 	public static create = async (
@@ -48,7 +51,7 @@ export class Booking {
 			BookingServerResponsePost
 		>(`${login.options.baseUrl}/bookings`, bookingData);
 		const { data, ...meta } = responseData;
-		return new Booking(login, data, meta);
+		return new ServerResponse(data, () => new Booking(login, data), meta);
 	};
 
 	public static update = async (
@@ -60,7 +63,7 @@ export class Booking {
 			BookingServerResponsePatch
 		>(`${login.options.baseUrl}/bookings/${bookingId}`, updatedVehicleData);
 		const { data, ...meta } = responseData;
-		return new Booking(login, data, meta);
+		return new ServerResponse(data, () => new Booking(login, data), meta);
 	};
 
 	public update = async (updatedVehicleData: BookingServerParamsPatch) => {
@@ -71,8 +74,11 @@ export class Booking {
 			updatedVehicleData
 		);
 		const { data, ...meta } = responseData;
-		this.data = data;
-		this.meta = meta;
+		return new ServerResponse(
+			data,
+			() => new Booking(this.login, data),
+			meta
+		);
 	};
 
 	public approve = async () => this.update({ approved: true });
@@ -84,8 +90,11 @@ export class Booking {
 			BookingServerResponseDelete
 		>(`${this.login.options.baseUrl}/bookings/${this.data.id}`);
 		const { data, ...meta } = responseData;
-		this.data = data;
-		this.meta = meta;
+		return new ServerResponse(
+			data,
+			() => new Booking(this.login, data),
+			meta
+		);
 	};
 
 	public getBookingStatus = (): BookingStatus => {
@@ -119,7 +128,11 @@ export class Booking {
 			VehicleServerResponseGet
 		>(`${this.login.options.baseUrl}/bookings/${this.data.id}/vehicle`);
 		const { data, ...meta } = responseData;
-		return new Vehicle(this.login, data, meta);
+		return new ServerResponse(
+			data,
+			() => new Vehicle(this.login, data),
+			meta
+		);
 	};
 
 	public getUser = async () => {
@@ -127,6 +140,6 @@ export class Booking {
 			UserServerResponseGet
 		>(`${this.login.options.baseUrl}/bookings/${this.data.id}/user`);
 		const { data, ...meta } = responseData;
-		return new User(this.login, data, meta);
+		return new ServerResponse(data, () => new User(this.login, data), meta);
 	};
 }

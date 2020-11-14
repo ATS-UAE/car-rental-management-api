@@ -1,7 +1,6 @@
 import {
 	AccidentServerResponseGet,
 	ExtractServerResponseData,
-	ServerResponseMeta,
 	AccidentServerResponseGetAll,
 	AccidentServerResponsePost,
 	AccidentServerParamsPost,
@@ -11,6 +10,7 @@ import {
 	ReplaceAttributes
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
+import { ServerResponse } from "./ServerResponse";
 import { constructFormDataPayload } from "./utils";
 
 export type AccidentServerParamsPostFormData = ReplaceAttributes<
@@ -26,8 +26,7 @@ export type AccidentServerParamsPatchFormData = ReplaceAttributes<
 export class Accident {
 	constructor(
 		private login: Authenticated,
-		public data: ExtractServerResponseData<AccidentServerResponseGet>,
-		public meta: ServerResponseMeta
+		public data: ExtractServerResponseData<AccidentServerResponseGet>
 	) {}
 
 	public static getOne = async (login: Authenticated, accidentId: number) => {
@@ -35,7 +34,7 @@ export class Accident {
 			AccidentServerResponseGet
 		>(`${login.options.baseUrl}/accidents/${accidentId}`);
 		const { data, ...meta } = responseData;
-		return new Accident(login, data, meta);
+		return new ServerResponse(data, () => new Accident(login, data), meta);
 	};
 
 	public static getAll = async (login: Authenticated) => {
@@ -43,7 +42,11 @@ export class Accident {
 			AccidentServerResponseGetAll
 		>(`${login.options.baseUrl}/accidents`);
 		const { data, ...meta } = responseData;
-		return data.map((v) => new Accident(login, v, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((v) => new Accident(login, v)),
+			meta
+		);
 	};
 
 	public static create = async (
@@ -57,7 +60,7 @@ export class Accident {
 			...constructFormDataPayload(accidentData)
 		);
 		const { data, ...meta } = responseData;
-		return new Accident(login, data, meta);
+		return new ServerResponse(data, () => new Accident(login, data), meta);
 	};
 
 	public static destroy = async (
@@ -68,7 +71,7 @@ export class Accident {
 			AccidentServerResponseDelete
 		>(`${login.options.baseUrl}/accidents/${accidentId}`);
 		const { data, ...meta } = responseData;
-		return new Accident(login, data, meta);
+		return new ServerResponse(data, () => new Accident(login, data), meta);
 	};
 
 	public update = async (
@@ -81,8 +84,11 @@ export class Accident {
 			...constructFormDataPayload(updatedVehicleData)
 		);
 		const { data, ...meta } = responseData;
-		this.data = data;
-		this.meta = meta;
+		return new ServerResponse(
+			data,
+			() => new Accident(this.login, data),
+			meta
+		);
 	};
 
 	public destroy = async () => {
@@ -90,7 +96,10 @@ export class Accident {
 			AccidentServerResponseDelete
 		>(`${this.login.options.baseUrl}/accidents/${this.data.id}`);
 		const { data, ...meta } = responseData;
-		this.data = data;
-		this.meta = meta;
+		return new ServerResponse(
+			data,
+			() => new Accident(this.login, data),
+			meta
+		);
 	};
 }

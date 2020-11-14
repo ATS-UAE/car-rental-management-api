@@ -54,39 +54,37 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var ServerResponse_1 = require("./ServerResponse");
 var utils_1 = require("./utils");
 var Accident = /** @class */ (function () {
-    function Accident(login, data, meta) {
+    function Accident(login, data) {
         var _this = this;
         this.login = login;
         this.data = data;
-        this.meta = meta;
         this.update = function (updatedVehicleData) { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
             var _a;
+            var _this = this;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (_a = this.login.api).patch.apply(_a, __spreadArrays([this.login.options.baseUrl + "/accidents/" + this.data.id], utils_1.constructFormDataPayload(updatedVehicleData)))];
                     case 1:
                         responseData = (_b.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        this.data = data;
-                        this.meta = meta;
-                        return [2 /*return*/];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Accident(_this.login, data); }, meta)];
                 }
             });
         }); };
         this.destroy = function () { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.login.api.delete(this.login.options.baseUrl + "/accidents/" + this.data.id)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        this.data = data;
-                        this.meta = meta;
-                        return [2 /*return*/];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Accident(_this.login, data); }, meta)];
                 }
             });
         }); };
@@ -99,7 +97,7 @@ var Accident = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new Accident(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Accident(login, data); }, meta)];
             }
         });
     }); };
@@ -111,7 +109,7 @@ var Accident = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, data.map(function (v) { return new Accident(login, v, meta); })];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (v) { return new Accident(login, v); }); }, meta)];
             }
         });
     }); };
@@ -124,7 +122,7 @@ var Accident = /** @class */ (function () {
                 case 1:
                     responseData = (_b.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new Accident(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Accident(login, data); }, meta)];
             }
         });
     }); };
@@ -136,7 +134,7 @@ var Accident = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new Accident(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Accident(login, data); }, meta)];
             }
         });
     }); };

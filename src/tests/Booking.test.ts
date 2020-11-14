@@ -32,7 +32,7 @@ describe("Booking", () => {
 			});
 			const booking = await api.booking.getOne(VEHICLE_ID);
 			expect(booking instanceof Booking).toBe(true);
-			expect(booking.data).toEqual(GET_ONE_RESPONSE.data);
+			expect(booking.rawData).toEqual(GET_ONE_RESPONSE.data);
 		});
 		it("Gets all bookings.", async () => {
 			const api = await createApiInstance();
@@ -42,7 +42,7 @@ describe("Booking", () => {
 			});
 			const bookings = await api.booking.getAll();
 			expect(
-				bookings.every((v, index) => {
+				bookings.getData().every((v, index) => {
 					const matchesData = v.data === GET_ALL_RESPONSE.data[index];
 					return matchesData && v instanceof Booking;
 				})
@@ -74,7 +74,7 @@ describe("Booking", () => {
 				...newBooking
 			});
 			expect(booking instanceof Booking).toBe(true);
-			expect(booking.data).toEqual(data);
+			expect(booking.rawData).toEqual(data);
 			expect(booking.meta).toEqual(meta);
 		});
 		it("Creates a booking for me.", async () => {
@@ -90,7 +90,7 @@ describe("Booking", () => {
 			const { data, ...meta } = GET_ONE_RESPONSE;
 			const booking = await api.booking.create(newBooking);
 			expect(booking instanceof Booking).toBe(true);
-			expect(booking.data).toEqual(data);
+			expect(booking.rawData).toEqual(data);
 			expect(booking.meta).toEqual(meta);
 		});
 	});
@@ -102,18 +102,18 @@ describe("Booking", () => {
 				200,
 				[],
 				true,
-				`Booking with ID ${booking.data.id}`,
-				bookingGetResponse(booking.data).data
+				`Booking with ID ${booking.rawData.id}`,
+				bookingGetResponse(booking.rawData).data
 			);
 			moxios.stubOnce(
 				"delete",
-				`${BASE_URL}/bookings/${booking.data.id}`,
+				`${BASE_URL}/bookings/${booking.rawData.id}`,
 				{
 					response: DELETE_RESPONSE
 				}
 			);
 			// We only need this function to resolve to pass the test.
-			await expect(booking.destroy()).resolves.toBeUndefined();
+			await expect(booking.getData().destroy()).resolves.toBeUndefined();
 		});
 	});
 
@@ -128,19 +128,19 @@ describe("Booking", () => {
 				200,
 				[],
 				true,
-				`Booking with ID ${booking.data.id}`,
+				`Booking with ID ${booking.rawData.id}`,
 				bookingGetResponse(PATCH_PARAMS).data
 			);
 			moxios.stubOnce(
 				"patch",
-				`${BASE_URL}/bookings/${booking.data.id}`,
+				`${BASE_URL}/bookings/${booking.rawData.id}`,
 				{
 					response: PATCH_RESPONSE
 				}
 			);
-			await booking.update(PATCH_PARAMS);
+			await booking.getData().update(PATCH_PARAMS);
 			const { data, ...meta } = PATCH_RESPONSE;
-			expect(booking.data).toEqual(data);
+			expect(booking.rawData).toEqual(data);
 			expect(booking.meta).toEqual(meta);
 		});
 		it("Approves the booking", async () => {
@@ -149,21 +149,21 @@ describe("Booking", () => {
 				200,
 				[],
 				true,
-				`Booking with ID ${booking.data.id}`,
+				`Booking with ID ${booking.rawData.id}`,
 				bookingGetResponse({
-					...booking.data,
+					...booking.rawData,
 					approved: true
 				}).data
 			);
 			moxios.stubOnce(
 				"patch",
-				`${BASE_URL}/bookings/${booking.data.id}`,
+				`${BASE_URL}/bookings/${booking.rawData.id}`,
 				{
 					response: PATCH_RESPONSE
 				}
 			);
-			await booking.approve();
-			expect(booking.data.approved).toBe(true);
+			await booking.getData().approve();
+			expect(booking.rawData.approved).toBe(true);
 		});
 		it("Denies a booking.", async () => {
 			const booking = await createBookingInstance({ approved: null });
@@ -171,21 +171,21 @@ describe("Booking", () => {
 				200,
 				[],
 				true,
-				`Booking with ID ${booking.data.id}`,
+				`Booking with ID ${booking.rawData.id}`,
 				bookingGetResponse({
-					...booking.data,
+					...booking.rawData,
 					approved: false
 				}).data
 			);
 			moxios.stubOnce(
 				"patch",
-				`${BASE_URL}/bookings/${booking.data.id}`,
+				`${BASE_URL}/bookings/${booking.rawData.id}`,
 				{
 					response: PATCH_RESPONSE
 				}
 			);
-			await booking.deny();
-			expect(booking.data.approved).toBe(false);
+			await booking.getData().deny();
+			expect(booking.rawData.approved).toBe(false);
 		});
 	});
 });

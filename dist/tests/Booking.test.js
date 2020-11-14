@@ -94,7 +94,7 @@ describe("Booking", function () {
                     case 2:
                         booking = _a.sent();
                         expect(booking instanceof Booking_1.Booking).toBe(true);
-                        expect(booking.data).toEqual(GET_ONE_RESPONSE.data);
+                        expect(booking.rawData).toEqual(GET_ONE_RESPONSE.data);
                         return [2 /*return*/];
                 }
             });
@@ -113,7 +113,7 @@ describe("Booking", function () {
                         return [4 /*yield*/, api.booking.getAll()];
                     case 2:
                         bookings = _a.sent();
-                        expect(bookings.every(function (v, index) {
+                        expect(bookings.getData().every(function (v, index) {
                             var matchesData = v.data === GET_ALL_RESPONSE.data[index];
                             return matchesData && v instanceof Booking_1.Booking;
                         })).toBe(true);
@@ -146,7 +146,7 @@ describe("Booking", function () {
                     case 2:
                         booking = _a.sent();
                         expect(booking instanceof Booking_1.Booking).toBe(true);
-                        expect(booking.data).toEqual(data);
+                        expect(booking.rawData).toEqual(data);
                         expect(booking.meta).toEqual(meta);
                         return [2 /*return*/];
                 }
@@ -169,7 +169,7 @@ describe("Booking", function () {
                     case 2:
                         booking = _a.sent();
                         expect(booking instanceof Booking_1.Booking).toBe(true);
-                        expect(booking.data).toEqual(data);
+                        expect(booking.rawData).toEqual(data);
                         expect(booking.meta).toEqual(meta);
                         return [2 /*return*/];
                 }
@@ -184,12 +184,12 @@ describe("Booking", function () {
                     case 0: return [4 /*yield*/, createBookingInstance_1.createBookingInstance()];
                     case 1:
                         booking = _a.sent();
-                        DELETE_RESPONSE = createServerResponse_1.createServerResponse(200, [], true, "Booking with ID " + booking.data.id, getOne_1.getOne(booking.data).data);
-                        moxios_1.default.stubOnce("delete", fixtures_1.BASE_URL + "/bookings/" + booking.data.id, {
+                        DELETE_RESPONSE = createServerResponse_1.createServerResponse(200, [], true, "Booking with ID " + booking.rawData.id, getOne_1.getOne(booking.rawData).data);
+                        moxios_1.default.stubOnce("delete", fixtures_1.BASE_URL + "/bookings/" + booking.rawData.id, {
                             response: DELETE_RESPONSE
                         });
                         // We only need this function to resolve to pass the test.
-                        return [4 /*yield*/, expect(booking.destroy()).resolves.toBeUndefined()];
+                        return [4 /*yield*/, expect(booking.getData().destroy()).resolves.toBeUndefined()];
                     case 2:
                         // We only need this function to resolve to pass the test.
                         _a.sent();
@@ -210,15 +210,15 @@ describe("Booking", function () {
                             vehicleId: 25,
                             approved: false
                         };
-                        PATCH_RESPONSE = createServerResponse_1.createServerResponse(200, [], true, "Booking with ID " + booking.data.id, getOne_1.getOne(PATCH_PARAMS).data);
-                        moxios_1.default.stubOnce("patch", fixtures_1.BASE_URL + "/bookings/" + booking.data.id, {
+                        PATCH_RESPONSE = createServerResponse_1.createServerResponse(200, [], true, "Booking with ID " + booking.rawData.id, getOne_1.getOne(PATCH_PARAMS).data);
+                        moxios_1.default.stubOnce("patch", fixtures_1.BASE_URL + "/bookings/" + booking.rawData.id, {
                             response: PATCH_RESPONSE
                         });
-                        return [4 /*yield*/, booking.update(PATCH_PARAMS)];
+                        return [4 /*yield*/, booking.getData().update(PATCH_PARAMS)];
                     case 2:
                         _a.sent();
                         data = PATCH_RESPONSE.data, meta = __rest(PATCH_RESPONSE, ["data"]);
-                        expect(booking.data).toEqual(data);
+                        expect(booking.rawData).toEqual(data);
                         expect(booking.meta).toEqual(meta);
                         return [2 /*return*/];
                 }
@@ -231,14 +231,14 @@ describe("Booking", function () {
                     case 0: return [4 /*yield*/, createBookingInstance_1.createBookingInstance({ approved: null })];
                     case 1:
                         booking = _a.sent();
-                        PATCH_RESPONSE = createServerResponse_1.createServerResponse(200, [], true, "Booking with ID " + booking.data.id, getOne_1.getOne(__assign(__assign({}, booking.data), { approved: true })).data);
-                        moxios_1.default.stubOnce("patch", fixtures_1.BASE_URL + "/bookings/" + booking.data.id, {
+                        PATCH_RESPONSE = createServerResponse_1.createServerResponse(200, [], true, "Booking with ID " + booking.rawData.id, getOne_1.getOne(__assign(__assign({}, booking.rawData), { approved: true })).data);
+                        moxios_1.default.stubOnce("patch", fixtures_1.BASE_URL + "/bookings/" + booking.rawData.id, {
                             response: PATCH_RESPONSE
                         });
-                        return [4 /*yield*/, booking.approve()];
+                        return [4 /*yield*/, booking.getData().approve()];
                     case 2:
                         _a.sent();
-                        expect(booking.data.approved).toBe(true);
+                        expect(booking.rawData.approved).toBe(true);
                         return [2 /*return*/];
                 }
             });
@@ -250,14 +250,14 @@ describe("Booking", function () {
                     case 0: return [4 /*yield*/, createBookingInstance_1.createBookingInstance({ approved: null })];
                     case 1:
                         booking = _a.sent();
-                        PATCH_RESPONSE = createServerResponse_1.createServerResponse(200, [], true, "Booking with ID " + booking.data.id, getOne_1.getOne(__assign(__assign({}, booking.data), { approved: false })).data);
-                        moxios_1.default.stubOnce("patch", fixtures_1.BASE_URL + "/bookings/" + booking.data.id, {
+                        PATCH_RESPONSE = createServerResponse_1.createServerResponse(200, [], true, "Booking with ID " + booking.rawData.id, getOne_1.getOne(__assign(__assign({}, booking.rawData), { approved: false })).data);
+                        moxios_1.default.stubOnce("patch", fixtures_1.BASE_URL + "/bookings/" + booking.rawData.id, {
                             response: PATCH_RESPONSE
                         });
-                        return [4 /*yield*/, booking.deny()];
+                        return [4 /*yield*/, booking.getData().deny()];
                     case 2:
                         _a.sent();
-                        expect(booking.data.approved).toBe(false);
+                        expect(booking.rawData.approved).toBe(false);
                         return [2 /*return*/];
                 }
             });

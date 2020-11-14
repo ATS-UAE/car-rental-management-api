@@ -21,7 +21,7 @@ describe("Vehicle", () => {
 		});
 		const vehicle = await api.vehicle.getOne(VEHICLE_ID);
 		expect(vehicle instanceof Vehicle).toBe(true);
-		expect(vehicle.data).toEqual(GET_ONE_RESPONSE.data);
+		expect(vehicle.rawData).toEqual(GET_ONE_RESPONSE.data);
 	});
 
 	it("Gets all vehicles.", async () => {
@@ -32,7 +32,7 @@ describe("Vehicle", () => {
 		});
 		const vehicles = await api.vehicle.getAll();
 		expect(
-			vehicles.every((v, index) => {
+			vehicles.getData().every((v, index) => {
 				const matchesData = v.data === GET_ALL_RESPONSE.data[index];
 				return matchesData && v instanceof Vehicle;
 			})

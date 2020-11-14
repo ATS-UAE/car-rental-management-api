@@ -1,5 +1,6 @@
 import { VehicleServerResponseDelete } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
+import { ServerResponse } from "./ServerResponse";
 import {
 	Vehicle,
 	VehicleGetAllOptions,
@@ -32,6 +33,6 @@ export class VehicleFactory extends Authenticated {
 			VehicleServerResponseDelete
 		>(`${this.options.baseUrl}/vehicle/${id}`);
 		const { data, ...meta } = responseData;
-		return new Vehicle(this, data, meta);
+		return new ServerResponse(data, () => new Vehicle(this, data), meta);
 	};
 }

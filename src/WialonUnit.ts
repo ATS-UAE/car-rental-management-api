@@ -1,15 +1,14 @@
 import {
 	WialonUnitServerResponseGet,
 	ExtractServerResponseData,
-	ServerResponseMeta,
 	WialonUnitServerResponseGetAll
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
+import { ServerResponse } from "./ServerResponse";
 
 export class WialonUnit {
 	constructor(
-		public data: ExtractServerResponseData<WialonUnitServerResponseGet>,
-		public meta: ServerResponseMeta
+		public data: ExtractServerResponseData<WialonUnitServerResponseGet>
 	) {}
 
 	public static getOne = async (login: Authenticated, bookingId: number) => {
@@ -17,7 +16,7 @@ export class WialonUnit {
 			WialonUnitServerResponseGet
 		>(`${login.options.baseUrl}/wialon_units/${bookingId}`);
 		const { data, ...meta } = responseData;
-		return new WialonUnit(data, meta);
+		return new ServerResponse(data, () => new WialonUnit(data), meta);
 	};
 
 	public static getAll = async (login: Authenticated) => {
@@ -25,6 +24,10 @@ export class WialonUnit {
 			WialonUnitServerResponseGetAll
 		>(`${login.options.baseUrl}/wialon_units`);
 		const { data, ...meta } = responseData;
-		return data.map((v) => new WialonUnit(v, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((v) => new WialonUnit(v)),
+			meta
+		);
 	};
 }

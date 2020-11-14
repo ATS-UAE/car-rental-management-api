@@ -54,23 +54,22 @@ var moment_1 = __importDefault(require("moment"));
 var car_rental_management_shared_1 = require("car-rental-management-shared");
 var Vehicle_1 = require("./Vehicle");
 var User_1 = require("./User");
+var ServerResponse_1 = require("./ServerResponse");
 var Booking = /** @class */ (function () {
-    function Booking(login, data, meta) {
+    function Booking(login, data) {
         var _this = this;
         this.login = login;
         this.data = data;
-        this.meta = meta;
         this.update = function (updatedVehicleData) { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.login.api.patch(this.login.options.baseUrl + "/bookings/" + this.data.id, updatedVehicleData)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        this.data = data;
-                        this.meta = meta;
-                        return [2 /*return*/];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Booking(_this.login, data); }, meta)];
                 }
             });
         }); };
@@ -82,15 +81,14 @@ var Booking = /** @class */ (function () {
         }); }); };
         this.destroy = function () { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.login.api.delete(this.login.options.baseUrl + "/bookings/" + this.data.id)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        this.data = data;
-                        this.meta = meta;
-                        return [2 /*return*/];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Booking(_this.login, data); }, meta)];
                 }
             });
         }); };
@@ -120,25 +118,27 @@ var Booking = /** @class */ (function () {
         };
         this.getVehicle = function () { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/bookings/" + this.data.id + "/vehicle")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, new Vehicle_1.Vehicle(this.login, data, meta)];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Vehicle_1.Vehicle(_this.login, data); }, meta)];
                 }
             });
         }); };
         this.getUser = function () { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/bookings/" + this.data.id + "/user")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, new User_1.User(this.login, data, meta)];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new User_1.User(_this.login, data); }, meta)];
                 }
             });
         }); };
@@ -151,7 +151,7 @@ var Booking = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new Booking(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Booking(login, data); }, meta)];
             }
         });
     }); };
@@ -163,7 +163,7 @@ var Booking = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, data.map(function (v) { return new Booking(login, v, meta); })];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (v) { return new Booking(login, v); }); }, meta)];
             }
         });
     }); };
@@ -175,7 +175,7 @@ var Booking = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new Booking(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Booking(login, data); }, meta)];
             }
         });
     }); };
@@ -187,7 +187,7 @@ var Booking = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new Booking(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Booking(login, data); }, meta)];
             }
         });
     }); };

@@ -1,7 +1,6 @@
 import {
 	ClientServerResponseGet,
 	ExtractServerResponseData,
-	ServerResponseMeta,
 	ClientServerResponseGetAll,
 	ClientServerResponsePost,
 	ClientServerParamsPost,
@@ -14,14 +13,14 @@ import {
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { Location } from "./Location";
+import { ServerResponse } from "./ServerResponse";
 import { User } from "./User";
 import { Vehicle, VehicleGetAllOptions } from "./Vehicle";
 
 export class Client {
 	constructor(
 		private login: Authenticated,
-		public data: ExtractServerResponseData<ClientServerResponseGet>,
-		public meta: ServerResponseMeta
+		public data: ExtractServerResponseData<ClientServerResponseGet>
 	) {}
 
 	public static getOne = async (login: Authenticated, clientId: number) => {
@@ -29,7 +28,7 @@ export class Client {
 			ClientServerResponseGet
 		>(`${login.options.baseUrl}/clients/${clientId}`);
 		const { data, ...meta } = responseData;
-		return new Client(login, data, meta);
+		return new ServerResponse(data, () => new Client(login, data), meta);
 	};
 
 	public static getAll = async (login: Authenticated) => {
@@ -37,7 +36,11 @@ export class Client {
 			ClientServerResponseGetAll
 		>(`${login.options.baseUrl}/clients`);
 		const { data, ...meta } = responseData;
-		return data.map((v) => new Client(login, v, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((v) => new Client(login, v)),
+			meta
+		);
 	};
 
 	public static create = async (
@@ -48,7 +51,7 @@ export class Client {
 			ClientServerResponsePost
 		>(`${login.options.baseUrl}/clients`, clientData);
 		const { data, ...meta } = responseData;
-		return new Client(login, data, meta);
+		return new ServerResponse(data, () => new Client(login, data), meta);
 	};
 
 	public static update = async (
@@ -60,7 +63,7 @@ export class Client {
 			ClientServerResponsePatch
 		>(`${login.options.baseUrl}/clients/${clientId}`, updatedVehicleData);
 		const { data, ...meta } = responseData;
-		return new Client(login, data, meta);
+		return new ServerResponse(data, () => new Client(login, data), meta);
 	};
 
 	public update = async (updatedVehicleData: ClientServerParamsPatch) => {
@@ -71,8 +74,11 @@ export class Client {
 			updatedVehicleData
 		);
 		const { data, ...meta } = responseData;
-		this.data = data;
-		this.meta = meta;
+		return new ServerResponse(
+			data,
+			() => new Client(this.login, data),
+			meta
+		);
 	};
 
 	public destroy = async () => {
@@ -80,8 +86,11 @@ export class Client {
 			ClientServerResponseDelete
 		>(`${this.login.options.baseUrl}/clients/${this.data.id}`);
 		const { data, ...meta } = responseData;
-		this.data = data;
-		this.meta = meta;
+		return new ServerResponse(
+			data,
+			() => new Client(this.login, data),
+			meta
+		);
 	};
 
 	public getLocations = async () => {
@@ -89,7 +98,11 @@ export class Client {
 			LocationServerResponseGetAll
 		>(`${this.login.options.baseUrl}/clients/${this.data.id}/locations`);
 		const { data, ...meta } = responseData;
-		return data.map((item) => new Location(this.login, item, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((item) => new Location(this.login, item)),
+			meta
+		);
 	};
 
 	public getUsers = async () => {
@@ -97,7 +110,11 @@ export class Client {
 			UserServerResponseGetAll
 		>(`${this.login.options.baseUrl}/clients/${this.data.id}/users`);
 		const { data, ...meta } = responseData;
-		return data.map((item) => new User(this.login, item, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((item) => new User(this.login, item)),
+			meta
+		);
 	};
 
 	public getVehicles = async (options?: VehicleGetAllOptions) => {
@@ -109,6 +126,10 @@ export class Client {
 			VehicleServerResponseGetAll
 		>(url);
 		const { data, ...meta } = responseData;
-		return data.map((item) => new Vehicle(this.login, item, meta));
+		return new ServerResponse(
+			data,
+			() => data.map((item) => new Vehicle(this.login, item)),
+			meta
+		);
 	};
 }

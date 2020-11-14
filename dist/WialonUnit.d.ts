@@ -1,9 +1,9 @@
-import { WialonUnitServerResponseGet, ExtractServerResponseData, ServerResponseMeta } from "car-rental-management-shared";
+import { WialonUnitServerResponseGet, ExtractServerResponseData } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
+import { ServerResponse } from "./ServerResponse";
 export declare class WialonUnit {
     data: ExtractServerResponseData<WialonUnitServerResponseGet>;
-    meta: ServerResponseMeta;
-    constructor(data: ExtractServerResponseData<WialonUnitServerResponseGet>, meta: ServerResponseMeta);
-    static getOne: (login: Authenticated, bookingId: number) => Promise<WialonUnit>;
-    static getAll: (login: Authenticated) => Promise<WialonUnit[]>;
+    constructor(data: ExtractServerResponseData<WialonUnitServerResponseGet>);
+    static getOne: (login: Authenticated, bookingId: number) => Promise<ServerResponse<import("car-rental-management-shared").WialonUnitAttributes, WialonUnit>>;
+    static getAll: (login: Authenticated) => Promise<ServerResponse<import("car-rental-management-shared").WialonUnitAttributes[], WialonUnit[]>>;
 }

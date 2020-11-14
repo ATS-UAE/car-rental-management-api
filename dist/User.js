@@ -56,39 +56,37 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var Category_1 = require("./Category");
 var Location_1 = require("./Location");
+var ServerResponse_1 = require("./ServerResponse");
 var utils_1 = require("./utils");
 var User = /** @class */ (function () {
-    function User(login, data, meta) {
+    function User(login, data) {
         var _this = this;
         this.login = login;
         this.data = data;
-        this.meta = meta;
         this.update = function (updatedVehicleData) { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
             var _a;
+            var _this = this;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (_a = this.login.api).patch.apply(_a, __spreadArrays([this.login.options.baseUrl + "/users/" + this.data.id], utils_1.constructFormDataPayload(updatedVehicleData)))];
                     case 1:
                         responseData = (_b.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        this.data = data;
-                        this.meta = meta;
-                        return [2 /*return*/];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new User(_this.login, data); }, meta)];
                 }
             });
         }); };
         this.destroy = function () { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.login.api.delete(this.login.options.baseUrl + "/users/" + this.data.id)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        this.data = data;
-                        this.meta = meta;
-                        return [2 /*return*/];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new User(_this.login, data); }, meta)];
                 }
             });
         }); };
@@ -101,7 +99,7 @@ var User = /** @class */ (function () {
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, data.map(function (c) { return new Category_1.Category(_this.login, c, meta); })];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (c) { return new Category_1.Category(_this.login, c); }); }, meta)];
                 }
             });
         }); };
@@ -114,7 +112,7 @@ var User = /** @class */ (function () {
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, data.map(function (location) { return new Location_1.Location(_this.login, location, meta); })];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (location) { return new Location_1.Location(_this.login, location); }); }, meta)];
                 }
             });
         }); };
@@ -127,7 +125,7 @@ var User = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new User(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new User(login, data); }, meta)];
             }
         });
     }); };
@@ -139,7 +137,7 @@ var User = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, data.map(function (v) { return new User(login, v, meta); })];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (v) { return new User(login, v); }); }, meta)];
             }
         });
     }); };
@@ -152,7 +150,7 @@ var User = /** @class */ (function () {
                 case 1:
                     responseData = (_b.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new User(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new User(login, data); }, meta)];
             }
         });
     }); };
@@ -165,7 +163,7 @@ var User = /** @class */ (function () {
                 case 1:
                     responseData = (_b.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new User(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new User(login, data); }, meta)];
             }
         });
     }); };

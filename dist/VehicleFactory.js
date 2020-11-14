@@ -61,6 +61,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Authenticated_1 = require("./Authenticated");
+var ServerResponse_1 = require("./ServerResponse");
 var Vehicle_1 = require("./Vehicle");
 var VehicleFactory = /** @class */ (function (_super) {
     __extends(VehicleFactory, _super);
@@ -80,13 +81,14 @@ var VehicleFactory = /** @class */ (function (_super) {
         };
         _this.destroy = function (id) { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.api.delete(this.options.baseUrl + "/vehicle/" + id)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, new Vehicle_1.Vehicle(this, data, meta)];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Vehicle_1.Vehicle(_this, data); }, meta)];
                 }
             });
         }); };

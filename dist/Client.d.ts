@@ -1,20 +1,20 @@
-import { ClientServerResponseGet, ExtractServerResponseData, ServerResponseMeta, ClientServerParamsPatch } from "car-rental-management-shared";
+import { ClientServerResponseGet, ExtractServerResponseData, ClientServerParamsPatch } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { Location } from "./Location";
+import { ServerResponse } from "./ServerResponse";
 import { User } from "./User";
 import { Vehicle, VehicleGetAllOptions } from "./Vehicle";
 export declare class Client {
     private login;
     data: ExtractServerResponseData<ClientServerResponseGet>;
-    meta: ServerResponseMeta;
-    constructor(login: Authenticated, data: ExtractServerResponseData<ClientServerResponseGet>, meta: ServerResponseMeta);
-    static getOne: (login: Authenticated, clientId: number) => Promise<Client>;
-    static getAll: (login: Authenticated) => Promise<Client[]>;
-    static create: (login: Authenticated, clientData: import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").UseParameters<Pick<import("car-rental-management-shared").ClientAttributes, "name">, "name", never>>) => Promise<Client>;
-    static update: (login: Authenticated, clientId: number, updatedVehicleData: ClientServerParamsPatch) => Promise<Client>;
-    update: (updatedVehicleData: ClientServerParamsPatch) => Promise<void>;
-    destroy: () => Promise<void>;
-    getLocations: () => Promise<Location[]>;
-    getUsers: () => Promise<User[]>;
-    getVehicles: (options?: VehicleGetAllOptions | undefined) => Promise<Vehicle[]>;
+    constructor(login: Authenticated, data: ExtractServerResponseData<ClientServerResponseGet>);
+    static getOne: (login: Authenticated, clientId: number) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").ClientAttributes>, Client>>;
+    static getAll: (login: Authenticated) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").ClientAttributes>[], Client[]>>;
+    static create: (login: Authenticated, clientData: import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").UseParameters<Pick<import("car-rental-management-shared").ClientAttributes, "name">, "name", never>>) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").ClientAttributes>, Client>>;
+    static update: (login: Authenticated, clientId: number, updatedVehicleData: ClientServerParamsPatch) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").ClientAttributes>, Client>>;
+    update: (updatedVehicleData: ClientServerParamsPatch) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").ClientAttributes>, Client>>;
+    destroy: () => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").ClientAttributes>, Client>>;
+    getLocations: () => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").LocationAttributes>[], Location[]>>;
+    getUsers: () => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<Pick<import("car-rental-management-shared").UserAttributes, "blocked" | "id" | "username" | "firstName" | "lastName" | "email" | "mobileNumber" | "lastLogin" | "userImageSrc" | "licenseImageSrc" | "emailConfirmed" | "clientId" | "role" | "timeZone" | "createdAt" | "updatedAt">>[], User[]>>;
+    getVehicles: (options?: VehicleGetAllOptions | undefined) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").VehicleAttributes>>[], Vehicle[]>>;
 }

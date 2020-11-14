@@ -48,37 +48,35 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var User_1 = require("./User");
+var ServerResponse_1 = require("./ServerResponse");
 var Location = /** @class */ (function () {
-    function Location(login, data, meta) {
+    function Location(login, data) {
         var _this = this;
         this.login = login;
         this.data = data;
-        this.meta = meta;
         this.update = function (updatedVehicleData) { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.login.api.patch(this.login.options.baseUrl + "/locations/" + this.data.id, updatedVehicleData)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        this.data = data;
-                        this.meta = meta;
-                        return [2 /*return*/];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Location(_this.login, data); }, meta)];
                 }
             });
         }); };
         this.destroy = function () { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.login.api.delete(this.login.options.baseUrl + "/locations/" + this.data.id)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        this.data = data;
-                        this.meta = meta;
-                        return [2 /*return*/];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Location(_this.login, data); }, meta)];
                 }
             });
         }); };
@@ -91,7 +89,7 @@ var Location = /** @class */ (function () {
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, data.map(function (user) { return new User_1.User(_this.login, user, meta); })];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (user) { return new User_1.User(_this.login, user); }); }, meta)];
                 }
             });
         }); };
@@ -104,7 +102,7 @@ var Location = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new Location(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Location(login, data); }, meta)];
             }
         });
     }); };
@@ -116,7 +114,7 @@ var Location = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, data.map(function (v) { return new Location(login, v, meta); })];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (v) { return new Location(login, v); }); }, meta)];
             }
         });
     }); };
@@ -128,7 +126,7 @@ var Location = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new Location(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Location(login, data); }, meta)];
             }
         });
     }); };
@@ -140,7 +138,7 @@ var Location = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new Location(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Location(login, data); }, meta)];
             }
         });
     }); };

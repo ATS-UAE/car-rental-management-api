@@ -59,38 +59,36 @@ var Booking_1 = require("./Booking");
 var WialonUnit_1 = require("./WialonUnit");
 var Category_1 = require("./Category");
 var utils_1 = require("./utils");
+var ServerResponse_1 = require("./ServerResponse");
 var Vehicle = /** @class */ (function () {
-    function Vehicle(login, data, meta) {
+    function Vehicle(login, data) {
         var _this = this;
         this.login = login;
         this.data = data;
-        this.meta = meta;
         this.update = function (updatedVehicleData) { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
             var _a;
+            var _this = this;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (_a = this.login.api).patch.apply(_a, __spreadArrays([this.login.options.baseUrl + "/vehicles/" + this.data.id], utils_1.constructFormDataPayload(updatedVehicleData)))];
                     case 1:
                         responseData = (_b.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        this.data = data;
-                        this.meta = meta;
-                        return [2 /*return*/];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Vehicle(_this.login, data); }, meta)];
                 }
             });
         }); };
         this.destroy = function () { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.login.api.delete(this.login.options.baseUrl + "/vehicles/" + this.data.id)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        this.data = data;
-                        this.meta = meta;
-                        return [2 /*return*/];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Vehicle(_this.login, data); }, meta)];
                 }
             });
         }); };
@@ -103,7 +101,7 @@ var Vehicle = /** @class */ (function () {
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, data.map(function (b) { return new Booking_1.Booking(_this.login, b, meta); })];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (b) { return new Booking_1.Booking(_this.login, b); }); }, meta)];
                 }
             });
         }); };
@@ -115,19 +113,20 @@ var Vehicle = /** @class */ (function () {
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, new WialonUnit_1.WialonUnit(data, meta)];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new WialonUnit_1.WialonUnit(data); }, meta)];
                 }
             });
         }); };
         this.getCategoryCost = function () { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/vehicles/" + this.data.id + "/category_cost")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, new Category_1.Category(this.login, data, meta)];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Category_1.Category(_this.login, data); }, meta)];
                 }
             });
         }); };
@@ -140,7 +139,7 @@ var Vehicle = /** @class */ (function () {
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, data.map(function (c) { return new Category_1.Category(_this.login, c, meta); })];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (c) { return new Category_1.Category(_this.login, c); }); }, meta)];
                 }
             });
         }); };
@@ -160,7 +159,7 @@ var Vehicle = /** @class */ (function () {
                 if (_this.data.defleeted === true) {
                     return false;
                 }
-                return Vehicle.checkAvailabilityFromBookings(vehicleBookings.map(function (vehicle) { return vehicle.data; }));
+                return Vehicle.checkAvailabilityFromBookings(vehicleBookings.rawData.map(function (vehicle) { return vehicle; }));
             });
         });
     }
@@ -187,7 +186,7 @@ var Vehicle = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new Vehicle(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Vehicle(login, data); }, meta)];
             }
         });
     }); };
@@ -204,7 +203,7 @@ var Vehicle = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, data.map(function (v) { return new Vehicle(login, v, meta); })];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (v) { return new Vehicle(login, v); }); }, meta)];
             }
         });
     }); };
@@ -217,7 +216,7 @@ var Vehicle = /** @class */ (function () {
                 case 1:
                     responseData = (_b.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new Vehicle(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Vehicle(login, data); }, meta)];
             }
         });
     }); };
@@ -230,7 +229,7 @@ var Vehicle = /** @class */ (function () {
                 case 1:
                     responseData = (_b.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new Vehicle(login, data, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Vehicle(login, data); }, meta)];
             }
         });
     }); };

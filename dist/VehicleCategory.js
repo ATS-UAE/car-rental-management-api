@@ -47,11 +47,11 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var ServerResponse_1 = require("./ServerResponse");
 var VehicleCategory = /** @class */ (function () {
-    function VehicleCategory(login, data, meta) {
+    function VehicleCategory(login, data) {
         this.login = login;
         this.data = data;
-        this.meta = meta;
     }
     VehicleCategory.getAll = function (login) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;
@@ -61,7 +61,7 @@ var VehicleCategory = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, data.map(function (v) { return new VehicleCategory(login, v, meta); })];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (v) { return new VehicleCategory(login, v); }); }, meta)];
             }
         });
     }); };
