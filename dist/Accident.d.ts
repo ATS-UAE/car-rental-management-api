@@ -21,4 +21,5 @@ export declare class Accident {
         accidentImageSrc?: string | File | null | undefined;
     }>) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").AccidentAttributes>, Accident>>;
     destroy: () => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").AccidentAttributes>, Accident>>;
+    toObject: () => import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").AccidentAttributes>;
 }

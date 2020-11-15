@@ -126,6 +126,9 @@ var Client = /** @class */ (function () {
                 }
             });
         }); };
+        this.toObject = function () {
+            return _this.data;
+        };
     }
     Client.getOne = function (login, clientId) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;

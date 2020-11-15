@@ -25,6 +25,9 @@ var WialonUnitFactory = /** @class */ (function (_super) {
         _this.getAll = function () {
             return WialonUnit_1.WialonUnit.getAll(_this);
         };
+        _this.fromObject = function (data) {
+            return new WialonUnit_1.WialonUnit(data);
+        };
         return _this;
     }
     return WialonUnitFactory;

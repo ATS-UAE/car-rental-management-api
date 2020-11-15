@@ -236,4 +236,8 @@ export class Vehicle {
 			);
 		});
 	}) as IsVehicleAvailableForBookingFunction;
+
+	public toObject = () => {
+		return this.data;
+	};
 }

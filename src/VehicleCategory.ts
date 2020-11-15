@@ -25,4 +25,8 @@ export class VehicleCategory {
 			meta
 		);
 	};
+
+	public toObject = () => {
+		return this.data;
+	};
 }

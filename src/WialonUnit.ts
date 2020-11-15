@@ -30,4 +30,8 @@ export class WialonUnit {
 			meta
 		);
 	};
+
+	public toObject = () => {
+		return this.data;
+	};
 }

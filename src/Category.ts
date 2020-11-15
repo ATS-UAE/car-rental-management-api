@@ -86,4 +86,8 @@ export class Category {
 			meta
 		);
 	};
+
+	public toObject = () => {
+		return this.data;
+	};
 }

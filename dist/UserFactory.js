@@ -31,6 +31,9 @@ var UserFactory = /** @class */ (function (_super) {
         _this.update = function (userId, userData) {
             return User_1.User.update(_this, userId, userData);
         };
+        _this.fromObject = function (data) {
+            return new User_1.User(_this, data);
+        };
         return _this;
     }
     return UserFactory;

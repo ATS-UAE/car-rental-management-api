@@ -50,8 +50,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var ServerResponse_1 = require("./ServerResponse");
 var VehicleCategory = /** @class */ (function () {
     function VehicleCategory(login, data) {
+        var _this = this;
         this.login = login;
         this.data = data;
+        this.toObject = function () {
+            return _this.data;
+        };
     }
     VehicleCategory.getAll = function (login) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;

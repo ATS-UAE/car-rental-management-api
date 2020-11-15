@@ -50,7 +50,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var ServerResponse_1 = require("./ServerResponse");
 var WialonUnit = /** @class */ (function () {
     function WialonUnit(data) {
+        var _this = this;
         this.data = data;
+        this.toObject = function () {
+            return _this.data;
+        };
     }
     WialonUnit.getOne = function (login, bookingId) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;

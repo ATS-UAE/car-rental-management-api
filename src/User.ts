@@ -126,4 +126,8 @@ export class User {
 			meta
 		);
 	};
+
+	public toObject = () => {
+		return this.data;
+	};
 }

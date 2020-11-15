@@ -2,7 +2,8 @@ import {
 	BookingServerParamsPost,
 	PartialKeys,
 	BookingServerParamsPatch,
-	BookingServerResponseDelete
+	BookingServerResponseDelete,
+	BookingServerResponseGet
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { Booking } from "./Booking";
@@ -37,5 +38,9 @@ export class BookingFactory extends Authenticated {
 			BookingServerResponseDelete
 		>(`${this.options.baseUrl}/bookings/${id}`);
 		return responseData;
+	};
+
+	public fromObject = (data: BookingServerResponseGet["data"]) => {
+		return new Booking(this, data);
 	};
 }

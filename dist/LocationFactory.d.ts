@@ -6,4 +6,5 @@ export declare class LocationFactory extends Authenticated {
     getAll: () => Promise<import("./ServerResponse").ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").LocationAttributes>[], Location[]>>;
     create: (locationData: LocationServerParamsPost) => Promise<import("./ServerResponse").ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").LocationAttributes>, Location>>;
     update: (id: number, updatedBookingData: LocationServerParamsPatch) => Promise<import("./ServerResponse").ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").LocationAttributes>, Location>>;
+    fromObject: (data: import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").LocationAttributes>) => Location;
 }

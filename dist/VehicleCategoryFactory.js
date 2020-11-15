@@ -22,6 +22,9 @@ var VehicleCategoryFactory = /** @class */ (function (_super) {
         _this.getAll = function () {
             return VehicleCategory_1.VehicleCategory.getAll(_this);
         };
+        _this.fromObject = function (data) {
+            return new VehicleCategory_1.VehicleCategory(_this, data);
+        };
         return _this;
     }
     return VehicleCategoryFactory;

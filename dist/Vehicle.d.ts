@@ -47,5 +47,6 @@ export declare class Vehicle {
     getCategoryCost: () => Promise<ServerResponse<import("car-rental-management-shared").CategoryRelationAttributes, Category>>;
     getCategories: () => Promise<ServerResponse<import("car-rental-management-shared").CategoryRelationAttributes[], Category[]>>;
     isVehicleAvailableForBooking: IsVehicleAvailableForBookingFunction;
+    toObject: () => import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").VehicleAttributes>;
 }
 export {};

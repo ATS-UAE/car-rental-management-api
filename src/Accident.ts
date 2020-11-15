@@ -102,4 +102,8 @@ export class Accident {
 			meta
 		);
 	};
+
+	public toObject = () => {
+		return this.data;
+	};
 }

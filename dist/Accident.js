@@ -88,6 +88,9 @@ var Accident = /** @class */ (function () {
                 }
             });
         }); };
+        this.toObject = function () {
+            return _this.data;
+        };
     }
     Accident.getOne = function (login, accidentId) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;

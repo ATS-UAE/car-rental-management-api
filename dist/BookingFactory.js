@@ -89,6 +89,9 @@ var BookingFactory = /** @class */ (function (_super) {
                 }
             });
         }); };
+        _this.fromObject = function (data) {
+            return new Booking_1.Booking(_this, data);
+        };
         return _this;
     }
     return BookingFactory;

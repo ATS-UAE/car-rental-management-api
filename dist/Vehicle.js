@@ -162,6 +162,9 @@ var Vehicle = /** @class */ (function () {
                 return Vehicle.checkAvailabilityFromBookings(vehicleBookings.rawData.map(function (vehicle) { return vehicle; }));
             });
         });
+        this.toObject = function () {
+            return _this.data;
+        };
     }
     Vehicle.checkAvailabilityFromBookings = function (bookings) {
         return bookings.every(function (booking) {

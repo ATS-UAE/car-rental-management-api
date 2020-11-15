@@ -11,4 +11,5 @@ export declare class Category {
     update: (updatedVehicleData: import("car-rental-management-shared").DatePropsToUnix<Partial<Pick<import("car-rental-management-shared").CategoryAttributes, "clientId" | "name" | "bookingChargeCount" | "bookingCharge" | "bookingChargeUnit">>>) => Promise<ServerResponse<import("car-rental-management-shared").CategoryRelationAttributes, Category>>;
     static update: (login: Authenticated, userId: number, updatedVehicleData: import("car-rental-management-shared").DatePropsToUnix<Partial<Pick<import("car-rental-management-shared").CategoryAttributes, "clientId" | "name" | "bookingChargeCount" | "bookingCharge" | "bookingChargeUnit">>>) => Promise<ServerResponse<import("car-rental-management-shared").CategoryRelationAttributes, Category>>;
     destroy: () => Promise<ServerResponse<import("car-rental-management-shared").CategoryRelationAttributes, Category>>;
+    toObject: () => import("car-rental-management-shared").CategoryRelationAttributes;
 }

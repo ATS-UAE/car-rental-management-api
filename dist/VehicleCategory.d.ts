@@ -6,4 +6,5 @@ export declare class VehicleCategory {
     data: FlattenIfArray<ExtractServerResponseData<VehicleCategoryServerResponseGetAll>>;
     constructor(login: Authenticated, data: FlattenIfArray<ExtractServerResponseData<VehicleCategoryServerResponseGetAll>>);
     static getAll: (login: Authenticated) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").VehicleCategoryAttributes>[], VehicleCategory[]>>;
+    toObject: () => import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").VehicleCategoryAttributes>;
 }

@@ -8,4 +8,5 @@ export declare class AccidentFactory extends Authenticated {
         accidentImageSrc?: string | File | null | undefined;
     }>, "userId">) => Promise<import("./ServerResponse").ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").AccidentAttributes>, Accident>>;
     destroy: (accidentId: number) => Promise<import("./ServerResponse").ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").AccidentAttributes>, Accident>>;
+    fromObject: (data: import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").AccidentAttributes>) => Accident;
 }

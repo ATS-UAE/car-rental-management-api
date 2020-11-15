@@ -1,3 +1,4 @@
+import { UserServerResponseGet } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import {
 	User,
@@ -23,5 +24,9 @@ export class UserFactory extends Authenticated {
 		userData: UserServerParamsPatchFormData
 	) => {
 		return User.update(this, userId, userData);
+	};
+
+	public fromObject = (data: UserServerResponseGet["data"]) => {
+		return new User(this, data);
 	};
 }

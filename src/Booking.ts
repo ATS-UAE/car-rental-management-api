@@ -142,4 +142,8 @@ export class Booking {
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new User(this.login, data), meta);
 	};
+
+	public toObject = () => {
+		return this.data;
+	};
 }

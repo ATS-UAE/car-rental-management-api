@@ -6,4 +6,5 @@ export declare class WialonUnit {
     constructor(data: ExtractServerResponseData<WialonUnitServerResponseGet>);
     static getOne: (login: Authenticated, bookingId: number) => Promise<ServerResponse<import("car-rental-management-shared").WialonUnitAttributes, WialonUnit>>;
     static getAll: (login: Authenticated) => Promise<ServerResponse<import("car-rental-management-shared").WialonUnitAttributes[], WialonUnit[]>>;
+    toObject: () => import("car-rental-management-shared").WialonUnitAttributes;
 }

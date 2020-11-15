@@ -116,6 +116,9 @@ var User = /** @class */ (function () {
                 }
             });
         }); };
+        this.toObject = function () {
+            return _this.data;
+        };
     }
     User.getOne = function (login, userId) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;

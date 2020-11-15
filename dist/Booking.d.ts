@@ -18,4 +18,5 @@ export declare class Booking {
     getBookingStatus: () => BookingStatus;
     getVehicle: () => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").VehicleAttributes>, Vehicle>>;
     getUser: () => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<Pick<import("car-rental-management-shared").UserAttributes, "blocked" | "id" | "username" | "firstName" | "lastName" | "email" | "mobileNumber" | "lastLogin" | "userImageSrc" | "licenseImageSrc" | "emailConfirmed" | "clientId" | "role" | "timeZone" | "createdAt" | "updatedAt">>, User>>;
+    toObject: () => import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").BookingAttributes>;
 }

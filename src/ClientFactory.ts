@@ -1,7 +1,8 @@
 import {
 	ClientServerParamsPost,
 	ClientServerParamsPatch,
-	ClientServerResponseDelete
+	ClientServerResponseDelete,
+	ClientServerResponseGet
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { Client } from "./Client";
@@ -31,5 +32,9 @@ export class ClientFactory extends Authenticated {
 			ClientServerResponseDelete
 		>(`${this.options.baseUrl}/clients/${id}`);
 		return responseData;
+	};
+
+	public fromObject = (data: ClientServerResponseGet["data"]) => {
+		return new Client(this, data);
 	};
 }

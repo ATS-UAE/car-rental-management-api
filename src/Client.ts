@@ -132,4 +132,8 @@ export class Client {
 			meta
 		);
 	};
+
+	public toObject = () => {
+		return this.data;
+	};
 }

@@ -1,6 +1,7 @@
 import {
 	LocationServerParamsPost,
-	LocationServerParamsPatch
+	LocationServerParamsPatch,
+	LocationServerResponseGet
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { Location } from "./Location";
@@ -23,5 +24,9 @@ export class LocationFactory extends Authenticated {
 		updatedBookingData: LocationServerParamsPatch
 	) => {
 		return Location.update(this, id, updatedBookingData);
+	};
+
+	public fromObject = (data: LocationServerResponseGet["data"]) => {
+		return new Location(this, data);
 	};
 }

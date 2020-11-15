@@ -103,4 +103,8 @@ export class Location {
 			meta
 		);
 	};
+
+	public toObject = () => {
+		return this.data;
+	};
 }

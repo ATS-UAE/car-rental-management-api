@@ -31,6 +31,9 @@ var LocationFactory = /** @class */ (function (_super) {
         _this.update = function (id, updatedBookingData) {
             return Location_1.Location.update(_this, id, updatedBookingData);
         };
+        _this.fromObject = function (data) {
+            return new Location_1.Location(_this, data);
+        };
         return _this;
     }
     return LocationFactory;

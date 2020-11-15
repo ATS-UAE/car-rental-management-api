@@ -78,6 +78,9 @@ var ClientFactory = /** @class */ (function (_super) {
                 }
             });
         }); };
+        _this.fromObject = function (data) {
+            return new Client_1.Client(_this, data);
+        };
         return _this;
     }
     return ClientFactory;

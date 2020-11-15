@@ -79,6 +79,9 @@ var Category = /** @class */ (function () {
                 }
             });
         }); };
+        this.toObject = function () {
+            return _this.data;
+        };
     }
     Category.getOne = function (login, userId) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;

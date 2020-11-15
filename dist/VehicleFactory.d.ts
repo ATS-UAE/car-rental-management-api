@@ -15,4 +15,5 @@ export declare class VehicleFactory extends Authenticated {
         vehicleImageSrc?: string | File | null | undefined;
     }>) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").VehicleAttributes>, Vehicle>>;
     destroy: (id: number) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").VehicleAttributes>, Vehicle>>;
+    fromObject: (data: import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").VehicleAttributes>) => Vehicle;
 }

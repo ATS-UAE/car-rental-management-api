@@ -1,4 +1,7 @@
-import { PartialKeys } from "car-rental-management-shared";
+import {
+	AccidentServerResponseGet,
+	PartialKeys
+} from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { Accident, AccidentServerParamsPostFormData } from "./Accident";
 
@@ -22,5 +25,9 @@ export class AccidentFactory extends Authenticated {
 
 	public destroy = (accidentId: number) => {
 		return Accident.destroy(this, accidentId);
+	};
+
+	public fromObject = (data: AccidentServerResponseGet["data"]) => {
+		return new Accident(this, data);
 	};
 }

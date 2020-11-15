@@ -42,6 +42,9 @@ var AccidentFactory = /** @class */ (function (_super) {
         _this.destroy = function (accidentId) {
             return Accident_1.Accident.destroy(_this, accidentId);
         };
+        _this.fromObject = function (data) {
+            return new Accident_1.Accident(_this, data);
+        };
         return _this;
     }
     return AccidentFactory;

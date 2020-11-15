@@ -1,7 +1,8 @@
 import {
 	CategoryServerParamsPost,
 	CategoryServerParamsPatch,
-	CategoryServerResponseDelete
+	CategoryServerResponseDelete,
+	CategoryServerResponseGet
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { Category } from "./Category";
@@ -31,5 +32,9 @@ export class CategoryFactory extends Authenticated {
 			CategoryServerResponseDelete
 		>(`${this.options.baseUrl}/categories/${id}`);
 		return responseData;
+	};
+
+	public fromObject = (data: CategoryServerResponseGet["data"]) => {
+		return new Category(this, data);
 	};
 }

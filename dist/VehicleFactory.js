@@ -92,6 +92,9 @@ var VehicleFactory = /** @class */ (function (_super) {
                 }
             });
         }); };
+        _this.fromObject = function (data) {
+            return new Vehicle_1.Vehicle(_this, data);
+        };
         return _this;
     }
     return VehicleFactory;
