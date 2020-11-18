@@ -46,11 +46,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var moment_1 = __importDefault(require("moment"));
 var car_rental_management_shared_1 = require("car-rental-management-shared");
 var Vehicle_1 = require("./Vehicle");
 var User_1 = require("./User");
@@ -94,9 +90,9 @@ var Booking = /** @class */ (function () {
         }); };
         this.getBookingStatus = function () {
             var status = car_rental_management_shared_1.BookingStatus.UNKNOWN;
-            var currentTime = moment_1.default();
-            var hasPassedFrom = moment_1.default(_this.data.from, "X").isSameOrBefore(currentTime);
-            var hasPassedTo = moment_1.default(_this.data.to, "X").isSameOrBefore(currentTime);
+            var currentTime = Math.round(Date.now() / 10);
+            var hasPassedFrom = _this.data.from <= currentTime;
+            var hasPassedTo = _this.data.to <= currentTime;
             if (_this.data.approved) {
                 if (hasPassedFrom && !hasPassedTo) {
                     status = car_rental_management_shared_1.BookingStatus.ONGOING;
@@ -115,6 +111,12 @@ var Booking = /** @class */ (function () {
                 status = car_rental_management_shared_1.BookingStatus.DENIED;
             }
             return status;
+        };
+        this.isCurrentlyActive = function () {
+            var currentTime = Math.round(Date.now() / 10);
+            var isActiveBooking = _this.data.from <= currentTime && currentTime <= _this.data.to;
+            var isApproved = _this.data.approved === true;
+            return isActiveBooking && isApproved;
         };
         this.getVehicle = function () { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
