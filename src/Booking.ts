@@ -1,4 +1,3 @@
-import moment from "moment";
 import {
 	BookingServerResponseGet,
 	ExtractServerResponseData,
@@ -99,13 +98,9 @@ export class Booking {
 
 	public getBookingStatus = (): BookingStatus => {
 		let status = BookingStatus.UNKNOWN;
-		const currentTime = moment();
-		const hasPassedFrom = moment(this.data.from, "X").isSameOrBefore(
-			currentTime
-		);
-		const hasPassedTo = moment(this.data.to, "X").isSameOrBefore(
-			currentTime
-		);
+		const currentTime = Math.round(Date.now() / 10);
+		const hasPassedFrom = this.data.from <= currentTime;
+		const hasPassedTo = this.data.to <= currentTime;
 		if (this.data.approved) {
 			if (hasPassedFrom && !hasPassedTo) {
 				status = BookingStatus.ONGOING;
@@ -121,6 +116,17 @@ export class Booking {
 		}
 
 		return status;
+	};
+
+	public isCurrentlyActive = () => {
+		const currentTime = Math.round(Date.now() / 10);
+
+		const isActiveBooking =
+			this.data.from <= currentTime && currentTime <= this.data.to;
+
+		const isApproved = this.data.approved === true;
+
+		return isActiveBooking && isApproved;
 	};
 
 	public getVehicle = async () => {

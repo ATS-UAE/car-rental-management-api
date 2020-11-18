@@ -45,7 +45,6 @@
 	},
 	"dependencies": {
 		"axios": "^0.19.2",
-		"car-rental-management-shared": "git+https://github.com/ATS-UAE/car-rental-management-shared.git",
-		"moment": "^2.25.3"
+		"car-rental-management-shared": "git+https://github.com/ATS-UAE/car-rental-management-shared.git"
 	}
 }
