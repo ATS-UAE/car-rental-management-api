@@ -1,6 +1,7 @@
 import {
 	ServerResponseMeta,
-	BookingServerResponseGetAll
+	BookingServerResponseGetAll,
+	StatusCode
 } from "car-rental-management-shared";
 import { createServerResponse } from "../../../utils/createServerResponse";
 import { getOne } from "./getOne";
@@ -9,7 +10,7 @@ export const getAll = (
 	meta: Partial<ServerResponseMeta> = {}
 ): BookingServerResponseGetAll => {
 	return createServerResponse(
-		meta.code || 200,
+		meta.code || StatusCode.SUCCESS,
 		meta.errors || [],
 		meta.success || true,
 		meta.message || "Success",

@@ -2,7 +2,8 @@ import {
 	BookingServerResponseGet,
 	BookingChargeUnit,
 	ServerResponseMeta,
-	BookingType
+	BookingType,
+	StatusCode
 } from "car-rental-management-shared";
 import { createServerResponse } from "../../../utils/createServerResponse";
 
@@ -11,7 +12,7 @@ export const getOne = (
 	meta: Partial<ServerResponseMeta> = {}
 ): BookingServerResponseGet => {
 	return createServerResponse(
-		meta.code || 200,
+		meta.code || StatusCode.SUCCESS,
 		meta.errors || [],
 		meta.success || true,
 		meta.message || "Success",

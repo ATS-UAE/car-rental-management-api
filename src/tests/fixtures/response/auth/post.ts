@@ -1,7 +1,11 @@
-import { AuthServerResponseGet, Role } from "car-rental-management-shared";
+import {
+	AuthServerResponseGet,
+	Role,
+	StatusCode
+} from "car-rental-management-shared";
 
 export default (): AuthServerResponseGet => ({
-	code: 200,
+	code: StatusCode.SUCCESS,
 	errors: [],
 	success: true,
 	message: "Logged in successfully",

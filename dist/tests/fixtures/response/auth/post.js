@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var car_rental_management_shared_1 = require("car-rental-management-shared");
 exports.default = (function () { return ({
-    code: 200,
+    code: car_rental_management_shared_1.StatusCode.SUCCESS,
     errors: [],
     success: true,
     message: "Logged in successfully",

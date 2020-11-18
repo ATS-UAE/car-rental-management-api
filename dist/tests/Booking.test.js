@@ -184,7 +184,7 @@ describe("Booking", function () {
                     case 0: return [4 /*yield*/, createBookingInstance_1.createBookingInstance()];
                     case 1:
                         booking = _a.sent();
-                        DELETE_RESPONSE = createServerResponse_1.createServerResponse(200, [], true, "Booking with ID " + booking.rawData.id, getOne_1.getOne(booking.rawData).data);
+                        DELETE_RESPONSE = createServerResponse_1.createServerResponse(car_rental_management_shared_1.StatusCode.SUCCESS, [], true, "Booking with ID " + booking.rawData.id, getOne_1.getOne(booking.rawData).data);
                         moxios_1.default.stubOnce("delete", fixtures_1.BASE_URL + "/bookings/" + booking.rawData.id, {
                             response: DELETE_RESPONSE
                         });
@@ -210,7 +210,7 @@ describe("Booking", function () {
                             vehicleId: 25,
                             approved: false
                         };
-                        PATCH_RESPONSE = createServerResponse_1.createServerResponse(200, [], true, "Booking with ID " + booking.rawData.id, getOne_1.getOne(PATCH_PARAMS).data);
+                        PATCH_RESPONSE = createServerResponse_1.createServerResponse(car_rental_management_shared_1.StatusCode.SUCCESS, [], true, "Booking with ID " + booking.rawData.id, getOne_1.getOne(PATCH_PARAMS).data);
                         moxios_1.default.stubOnce("patch", fixtures_1.BASE_URL + "/bookings/" + booking.rawData.id, {
                             response: PATCH_RESPONSE
                         });
@@ -231,7 +231,7 @@ describe("Booking", function () {
                     case 0: return [4 /*yield*/, createBookingInstance_1.createBookingInstance({ approved: null })];
                     case 1:
                         booking = _a.sent();
-                        PATCH_RESPONSE = createServerResponse_1.createServerResponse(200, [], true, "Booking with ID " + booking.rawData.id, getOne_1.getOne(__assign(__assign({}, booking.rawData), { approved: true })).data);
+                        PATCH_RESPONSE = createServerResponse_1.createServerResponse(car_rental_management_shared_1.StatusCode.SUCCESS, [], true, "Booking with ID " + booking.rawData.id, getOne_1.getOne(__assign(__assign({}, booking.rawData), { approved: true })).data);
                         moxios_1.default.stubOnce("patch", fixtures_1.BASE_URL + "/bookings/" + booking.rawData.id, {
                             response: PATCH_RESPONSE
                         });
@@ -250,7 +250,7 @@ describe("Booking", function () {
                     case 0: return [4 /*yield*/, createBookingInstance_1.createBookingInstance({ approved: null })];
                     case 1:
                         booking = _a.sent();
-                        PATCH_RESPONSE = createServerResponse_1.createServerResponse(200, [], true, "Booking with ID " + booking.rawData.id, getOne_1.getOne(__assign(__assign({}, booking.rawData), { approved: false })).data);
+                        PATCH_RESPONSE = createServerResponse_1.createServerResponse(car_rental_management_shared_1.StatusCode.SUCCESS, [], true, "Booking with ID " + booking.rawData.id, getOne_1.getOne(__assign(__assign({}, booking.rawData), { approved: false })).data);
                         moxios_1.default.stubOnce("patch", fixtures_1.BASE_URL + "/bookings/" + booking.rawData.id, {
                             response: PATCH_RESPONSE
                         });

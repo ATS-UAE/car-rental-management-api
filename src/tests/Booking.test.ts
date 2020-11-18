@@ -3,7 +3,8 @@ import {
 	BookingServerParamsPost,
 	BookingType,
 	BookingServerResponseDelete,
-	BookingServerParamsPatch
+	BookingServerParamsPatch,
+	StatusCode
 } from "car-rental-management-shared";
 import { getOne as bookingGetResponse } from "./fixtures/response/bookings/getOne";
 import { getAll as bookingGetAllResponse } from "./fixtures/response/bookings/getAll";
@@ -99,7 +100,7 @@ describe("Booking", () => {
 		it("Deletes a booking", async () => {
 			const booking = await createBookingInstance();
 			const DELETE_RESPONSE: BookingServerResponseDelete = createServerResponse(
-				200,
+				StatusCode.SUCCESS,
 				[],
 				true,
 				`Booking with ID ${booking.rawData.id}`,
@@ -125,7 +126,7 @@ describe("Booking", () => {
 				approved: false
 			};
 			const PATCH_RESPONSE: BookingServerResponseDelete = createServerResponse(
-				200,
+				StatusCode.SUCCESS,
 				[],
 				true,
 				`Booking with ID ${booking.rawData.id}`,
@@ -146,7 +147,7 @@ describe("Booking", () => {
 		it("Approves the booking", async () => {
 			const booking = await createBookingInstance({ approved: null });
 			const PATCH_RESPONSE: BookingServerResponseDelete = createServerResponse(
-				200,
+				StatusCode.SUCCESS,
 				[],
 				true,
 				`Booking with ID ${booking.rawData.id}`,
@@ -168,7 +169,7 @@ describe("Booking", () => {
 		it("Denies a booking.", async () => {
 			const booking = await createBookingInstance({ approved: null });
 			const PATCH_RESPONSE: BookingServerResponseDelete = createServerResponse(
-				200,
+				StatusCode.SUCCESS,
 				[],
 				true,
 				`Booking with ID ${booking.rawData.id}`,
