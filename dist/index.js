@@ -26,4 +26,5 @@ __export(require("./VehicleCategory"));
 __export(require("./VehicleCategoryFactory"));
 __export(require("./InviteFactory"));
 __export(require("./PushSubscription"));
+__export(require("./ServerResponse"));
 exports.default = Api_1.Api;
