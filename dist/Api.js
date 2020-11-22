@@ -118,6 +118,31 @@ var Api = /** @class */ (function (_super) {
                 }
             });
         }); };
+        _this.sendRequest = function (method, url, payload) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (method) {
+                    case "GET": {
+                        return [2 /*return*/, this.api.post(url)];
+                    }
+                    case "PATCH": {
+                        return [2 /*return*/, this.api.patch(url, payload)];
+                    }
+                    case "POST": {
+                        return [2 /*return*/, this.api.post(url, payload)];
+                    }
+                    case "PUT": {
+                        return [2 /*return*/, this.api.post(url, payload)];
+                    }
+                    case "DELETE": {
+                        return [2 /*return*/, this.api.post(url, payload)];
+                    }
+                    default: {
+                        throw new Error("Unknown method " + method);
+                    }
+                }
+                return [2 /*return*/];
+            });
+        }); };
         /** Check current axios instance has a valid cookie. */
         _this.validate = function () { return __awaiter(_this, void 0, void 0, function () {
             var response, _a, data, meta;

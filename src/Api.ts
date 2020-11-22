@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 import {
 	AuthServerResponseGet,
 	ServerResponseMeta,
@@ -31,6 +31,23 @@ export type UserSignUpOptionsFormData = ReplaceAttributes<
 	UserSignUpOptions,
 	{ userImageSrc?: File | null | string }
 >;
+
+type HttpMethods = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
+
+type WithPayloadHttpMethods = Exclude<HttpMethods, "GET">;
+
+type WithoutPayloadHttpMethods = Extract<HttpMethods, "GET">;
+export interface SendRequestFunction {
+	<Response>(method: WithoutPayloadHttpMethods, url: string): Promise<
+		Response
+	>;
+	<Response>(method: WithPayloadHttpMethods, url: string): Promise<Response>;
+	<Response, Payload>(
+		method: WithPayloadHttpMethods,
+		url: string,
+		payload: Payload
+	): Promise<Response>;
+}
 
 export class Api extends Authenticated {
 	private constructor(
@@ -92,6 +109,33 @@ export class Api extends Authenticated {
 			`${this.options.baseUrl}/push_notifications/subscriptions`,
 			data
 		);
+	};
+
+	public sendRequest: SendRequestFunction = async <Response, Payload>(
+		method: HttpMethods,
+		url: string,
+		payload?: Payload
+	): Promise<AxiosResponse<Response>> => {
+		switch (method) {
+			case "GET": {
+				return this.api.post<Response>(url);
+			}
+			case "PATCH": {
+				return this.api.patch<Response>(url, payload);
+			}
+			case "POST": {
+				return this.api.post<Response>(url, payload);
+			}
+			case "PUT": {
+				return this.api.post<Response>(url, payload);
+			}
+			case "DELETE": {
+				return this.api.post<Response>(url, payload);
+			}
+			default: {
+				throw new Error(`Unknown method ${method}`);
+			}
+		}
 	};
 
 	/** Check if the cookie stored by the browser is still valid. */

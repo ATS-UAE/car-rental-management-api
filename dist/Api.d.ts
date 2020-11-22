@@ -19,6 +19,14 @@ export interface LoginOptions extends ApiOptions {
 export declare type UserSignUpOptionsFormData = ReplaceAttributes<UserSignUpOptions, {
     userImageSrc?: File | null | string;
 }>;
+declare type HttpMethods = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
+declare type WithPayloadHttpMethods = Exclude<HttpMethods, "GET">;
+declare type WithoutPayloadHttpMethods = Extract<HttpMethods, "GET">;
+export interface SendRequestFunction {
+    <Response>(method: WithoutPayloadHttpMethods, url: string): Promise<Response>;
+    <Response>(method: WithPayloadHttpMethods, url: string): Promise<Response>;
+    <Response, Payload>(method: WithPayloadHttpMethods, url: string, payload: Payload): Promise<Response>;
+}
 export declare class Api extends Authenticated {
     private constructor();
     static login: ({ username, password, baseUrl, remember }: LoginOptions) => Promise<Api>;
@@ -28,6 +36,7 @@ export declare class Api extends Authenticated {
     logout: () => Promise<void>;
     unsubscribePush: (data: PushUnsubscribeParamsPost) => Promise<void>;
     subscribePush: (data: PushSubscriptionParamsPost) => Promise<void>;
+    sendRequest: SendRequestFunction;
     /** Check if the cookie stored by the browser is still valid. */
     static checkCookie: ({ baseUrl }: {
         baseUrl: string;
@@ -46,3 +55,4 @@ export declare class Api extends Authenticated {
     invite: InviteFactory;
     pushSubscription: PushSubscriptionFactory;
 }
+export {};
