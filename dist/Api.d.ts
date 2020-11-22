@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { UserSignUpOptions, ReplaceAttributes, PushUnsubscribeParamsPost, PushSubscriptionParamsPost } from "car-rental-management-shared";
 import { Authenticated, ApiOptions } from "./Authenticated";
 import { VehicleFactory } from "./VehicleFactory";
@@ -23,9 +24,9 @@ declare type HttpMethods = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
 declare type WithPayloadHttpMethods = Exclude<HttpMethods, "GET">;
 declare type WithoutPayloadHttpMethods = Extract<HttpMethods, "GET">;
 export interface SendRequestFunction {
-    <Response>(method: WithoutPayloadHttpMethods, url: string): Promise<Response>;
-    <Response>(method: WithPayloadHttpMethods, url: string): Promise<Response>;
-    <Response, Payload>(method: WithPayloadHttpMethods, url: string, payload: Payload): Promise<Response>;
+    <Response>(method: WithoutPayloadHttpMethods, url: string): Promise<AxiosResponse<Response>>;
+    <Response>(method: WithPayloadHttpMethods, url: string): Promise<AxiosResponse<Response>>;
+    <Response, Payload>(method: WithPayloadHttpMethods, url: string, payload: Payload): Promise<AxiosResponse<Response>>;
 }
 export declare class Api extends Authenticated {
     private constructor();

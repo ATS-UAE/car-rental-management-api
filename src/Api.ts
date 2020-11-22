@@ -39,14 +39,16 @@ type WithPayloadHttpMethods = Exclude<HttpMethods, "GET">;
 type WithoutPayloadHttpMethods = Extract<HttpMethods, "GET">;
 export interface SendRequestFunction {
 	<Response>(method: WithoutPayloadHttpMethods, url: string): Promise<
-		Response
+		AxiosResponse<Response>
 	>;
-	<Response>(method: WithPayloadHttpMethods, url: string): Promise<Response>;
+	<Response>(method: WithPayloadHttpMethods, url: string): Promise<
+		AxiosResponse<Response>
+	>;
 	<Response, Payload>(
 		method: WithPayloadHttpMethods,
 		url: string,
 		payload: Payload
-	): Promise<Response>;
+	): Promise<AxiosResponse<Response>>;
 }
 
 export class Api extends Authenticated {
