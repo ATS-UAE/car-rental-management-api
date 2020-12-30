@@ -8,11 +8,7 @@
 		"test:watch": "jest --watch --config jest.config.json",
 		"format": "prettier --write \"src/**/*.ts\"",
 		"lint": "eslint --fix --ext .js,.jsx,.ts,.tsx src --color --config .eslintrc",
-		"build": "rm -rf ./dist/* && tsc",
-		"prepare": "npm run build",
-		"prepublishOnly": "npm run test:run && npm run lint",
-		"preversion": "npm run lint && npm run format",
-		"postversion": "git push && git push --tags"
+		"build": "rm -rf ./dist/* && tsc"
 	},
 	"repository": {
 		"type": "git",
@@ -45,6 +41,6 @@
 	},
 	"dependencies": {
 		"axios": "^0.19.2",
-		"car-rental-management-shared": "git+https://github.com/ATS-UAE/car-rental-management-shared.git"
+		"car-rental-management-shared": "git+https://github.com/ATS-UAE/car-rental-management-shared.git#v3.0.3"
 	}
 }
