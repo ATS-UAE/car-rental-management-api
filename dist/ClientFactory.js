@@ -71,7 +71,7 @@ var ClientFactory = /** @class */ (function (_super) {
             var responseData;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.delete(this.options.baseUrl + "/clients/" + id)];
+                    case 0: return [4 /*yield*/, this.api.delete("/clients/" + id)];
                     case 1:
                         responseData = (_a.sent()).data;
                         return [2 /*return*/, responseData];

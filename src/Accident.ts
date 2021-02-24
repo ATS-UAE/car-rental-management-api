@@ -32,7 +32,7 @@ export class Accident {
 	public static getOne = async (login: Authenticated, accidentId: number) => {
 		const { data: responseData } = await login.api.get<
 			AccidentServerResponseGet
-		>(`${login.options.baseUrl}/accidents/${accidentId}`);
+		>(`/accidents/${accidentId}`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Accident(login, data), meta);
 	};
@@ -40,7 +40,7 @@ export class Accident {
 	public static getAll = async (login: Authenticated) => {
 		const { data: responseData } = await login.api.get<
 			AccidentServerResponseGetAll
-		>(`${login.options.baseUrl}/accidents`);
+		>(`/accidents`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -55,10 +55,7 @@ export class Accident {
 	) => {
 		const { data: responseData } = await login.api.post<
 			AccidentServerResponsePost
-		>(
-			`${login.options.baseUrl}/accidents`,
-			...constructFormDataPayload(accidentData)
-		);
+		>(`/accidents`, ...constructFormDataPayload(accidentData));
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Accident(login, data), meta);
 	};
@@ -69,7 +66,7 @@ export class Accident {
 	) => {
 		const { data: responseData } = await login.api.delete<
 			AccidentServerResponseDelete
-		>(`${login.options.baseUrl}/accidents/${accidentId}`);
+		>(`/accidents/${accidentId}`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Accident(login, data), meta);
 	};
@@ -80,7 +77,7 @@ export class Accident {
 		const { data: responseData } = await this.login.api.patch<
 			AccidentServerResponsePatch
 		>(
-			`${this.login.options.baseUrl}/accidents/${this.data.id}`,
+			`/accidents/${this.data.id}`,
 			...constructFormDataPayload(updatedVehicleData)
 		);
 		const { data, ...meta } = responseData;
@@ -94,7 +91,7 @@ export class Accident {
 	public destroy = async () => {
 		const { data: responseData } = await this.login.api.delete<
 			AccidentServerResponseDelete
-		>(`${this.login.options.baseUrl}/accidents/${this.data.id}`);
+		>(`/accidents/${this.data.id}`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,

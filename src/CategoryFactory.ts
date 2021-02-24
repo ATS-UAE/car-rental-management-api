@@ -30,7 +30,7 @@ export class CategoryFactory extends Authenticated {
 	public destroy = async (id: number) => {
 		const { data: responseData } = await this.api.delete<
 			CategoryServerResponseDelete
-		>(`${this.options.baseUrl}/categories/${id}`);
+		>(`/categories/${id}`);
 		return responseData;
 	};
 

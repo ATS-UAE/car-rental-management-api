@@ -30,7 +30,7 @@ export class ClientFactory extends Authenticated {
 	public destroy = async (id: number) => {
 		const { data: responseData } = await this.api.delete<
 			ClientServerResponseDelete
-		>(`${this.options.baseUrl}/clients/${id}`);
+		>(`/clients/${id}`);
 		return responseData;
 	};
 

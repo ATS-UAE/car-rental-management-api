@@ -36,7 +36,7 @@ export class User {
 	public static getOne = async (login: Authenticated, userId: number) => {
 		const { data: responseData } = await login.api.get<
 			UserServerResponseGet
-		>(`${login.options.baseUrl}/users/${userId}`);
+		>(`/users/${userId}`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new User(login, data), meta);
 	};
@@ -44,7 +44,7 @@ export class User {
 	public static getAll = async (login: Authenticated) => {
 		const { data: responseData } = await login.api.get<
 			UserServerResponseGetAll
-		>(`${login.options.baseUrl}/users`);
+		>(`/users`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -59,10 +59,7 @@ export class User {
 	) => {
 		const { data: responseData } = await login.api.post<
 			UserServerResponsePost
-		>(
-			`${login.options.baseUrl}/users`,
-			...constructFormDataPayload(userData)
-		);
+		>(`/users`, ...constructFormDataPayload(userData));
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new User(login, data), meta);
 	};
@@ -73,7 +70,7 @@ export class User {
 		const { data: responseData } = await this.login.api.patch<
 			UserServerResponsePatch
 		>(
-			`${this.login.options.baseUrl}/users/${this.data.id}`,
+			`/users/${this.data.id}`,
 			...constructFormDataPayload(updatedVehicleData)
 		);
 		const { data, ...meta } = responseData;
@@ -87,10 +84,7 @@ export class User {
 	) => {
 		const { data: responseData } = await login.api.patch<
 			UserServerResponsePatch
-		>(
-			`${login.options.baseUrl}/users/${userId}`,
-			...constructFormDataPayload(updatedVehicleData)
-		);
+		>(`/users/${userId}`, ...constructFormDataPayload(updatedVehicleData));
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new User(login, data), meta);
 	};
@@ -98,7 +92,7 @@ export class User {
 	public destroy = async () => {
 		const { data: responseData } = await this.login.api.delete<
 			UserServerResponseDelete
-		>(`${this.login.options.baseUrl}/users/${this.data.id}`);
+		>(`/users/${this.data.id}`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new User(this.login, data), meta);
 	};
@@ -106,7 +100,7 @@ export class User {
 	public getCategories = async () => {
 		const { data: responseData } = await this.login.api.get<
 			CategoryServerResponseGetAll
-		>(`${this.login.options.baseUrl}/users/${this.data.id}/categories`);
+		>(`/users/${this.data.id}/categories`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -118,7 +112,7 @@ export class User {
 	public getLocations = async () => {
 		const { data: responseData } = await this.login.api.get<
 			LocationServerResponseGetAll
-		>(`${this.login.options.baseUrl}/users/${this.data.id}/locations`);
+		>(`/users/${this.data.id}/locations`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,

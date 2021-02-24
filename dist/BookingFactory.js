@@ -82,7 +82,7 @@ var BookingFactory = /** @class */ (function (_super) {
             var responseData;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.delete(this.options.baseUrl + "/bookings/" + id)];
+                    case 0: return [4 /*yield*/, this.api.delete("/bookings/" + id)];
                     case 1:
                         responseData = (_a.sent()).data;
                         return [2 /*return*/, responseData];

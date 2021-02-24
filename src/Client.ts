@@ -26,7 +26,7 @@ export class Client {
 	public static getOne = async (login: Authenticated, clientId: number) => {
 		const { data: responseData } = await login.api.get<
 			ClientServerResponseGet
-		>(`${login.options.baseUrl}/clients/${clientId}`);
+		>(`/clients/${clientId}`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Client(login, data), meta);
 	};
@@ -34,7 +34,7 @@ export class Client {
 	public static getAll = async (login: Authenticated) => {
 		const { data: responseData } = await login.api.get<
 			ClientServerResponseGetAll
-		>(`${login.options.baseUrl}/clients`);
+		>(`/clients`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -49,7 +49,7 @@ export class Client {
 	) => {
 		const { data: responseData } = await login.api.post<
 			ClientServerResponsePost
-		>(`${login.options.baseUrl}/clients`, clientData);
+		>(`/clients`, clientData);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Client(login, data), meta);
 	};
@@ -61,7 +61,7 @@ export class Client {
 	) => {
 		const { data: responseData } = await login.api.patch<
 			ClientServerResponsePatch
-		>(`${login.options.baseUrl}/clients/${clientId}`, updatedVehicleData);
+		>(`/clients/${clientId}`, updatedVehicleData);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Client(login, data), meta);
 	};
@@ -69,10 +69,7 @@ export class Client {
 	public update = async (updatedVehicleData: ClientServerParamsPatch) => {
 		const { data: responseData } = await this.login.api.patch<
 			ClientServerResponsePatch
-		>(
-			`${this.login.options.baseUrl}/clients/${this.data.id}`,
-			updatedVehicleData
-		);
+		>(`/clients/${this.data.id}`, updatedVehicleData);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -84,7 +81,7 @@ export class Client {
 	public destroy = async () => {
 		const { data: responseData } = await this.login.api.delete<
 			ClientServerResponseDelete
-		>(`${this.login.options.baseUrl}/clients/${this.data.id}`);
+		>(`/clients/${this.data.id}`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -96,7 +93,7 @@ export class Client {
 	public getLocations = async () => {
 		const { data: responseData } = await this.login.api.get<
 			LocationServerResponseGetAll
-		>(`${this.login.options.baseUrl}/clients/${this.data.id}/locations`);
+		>(`/clients/${this.data.id}/locations`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -108,7 +105,7 @@ export class Client {
 	public getUsers = async () => {
 		const { data: responseData } = await this.login.api.get<
 			UserServerResponseGetAll
-		>(`${this.login.options.baseUrl}/clients/${this.data.id}/users`);
+		>(`/clients/${this.data.id}/users`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -118,7 +115,7 @@ export class Client {
 	};
 
 	public getVehicles = async (options?: VehicleGetAllOptions) => {
-		let url = `${this.login.options.baseUrl}/clients/${this.data.id}/vehicles`;
+		let url = `/clients/${this.data.id}/vehicles`;
 		if (options && options.from && options.to) {
 			url = `${url}/?from=${options.from}&to=${options.to}`;
 		}

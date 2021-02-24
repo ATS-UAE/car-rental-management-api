@@ -22,7 +22,7 @@ export class Location {
 	public static getOne = async (login: Authenticated, locationId: number) => {
 		const { data: responseData } = await login.api.get<
 			LocationServerResponseGet
-		>(`${login.options.baseUrl}/locations/${locationId}`);
+		>(`/locations/${locationId}`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Location(login, data), meta);
 	};
@@ -30,7 +30,7 @@ export class Location {
 	public static getAll = async (login: Authenticated) => {
 		const { data: responseData } = await login.api.get<
 			LocationServerResponseGetAll
-		>(`${login.options.baseUrl}/locations`);
+		>(`/locations`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -45,7 +45,7 @@ export class Location {
 	) => {
 		const { data: responseData } = await login.api.post<
 			LocationServerResponsePost
-		>(`${login.options.baseUrl}/locations`, locationData);
+		>(`/locations`, locationData);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Location(login, data), meta);
 	};
@@ -57,10 +57,7 @@ export class Location {
 	) => {
 		const { data: responseData } = await login.api.patch<
 			LocationServerResponsePatch
-		>(
-			`${login.options.baseUrl}/locations/${locationId}`,
-			updatedVehicleData
-		);
+		>(`/locations/${locationId}`, updatedVehicleData);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Location(login, data), meta);
 	};
@@ -68,10 +65,7 @@ export class Location {
 	public update = async (updatedVehicleData: LocationServerParamsPatch) => {
 		const { data: responseData } = await this.login.api.patch<
 			LocationServerResponsePatch
-		>(
-			`${this.login.options.baseUrl}/locations/${this.data.id}`,
-			updatedVehicleData
-		);
+		>(`/locations/${this.data.id}`, updatedVehicleData);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -83,7 +77,7 @@ export class Location {
 	public destroy = async () => {
 		const { data: responseData } = await this.login.api.delete<
 			LocationServerResponseDelete
-		>(`${this.login.options.baseUrl}/locations/${this.data.id}`);
+		>(`/locations/${this.data.id}`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -95,7 +89,7 @@ export class Location {
 	public getUsers = async () => {
 		const { data: responseData } = await this.login.api.get<
 			UserServerResponseGetAll
-		>(`${this.login.options.baseUrl}/locations/${this.data.id}/users`);
+		>(`/locations/${this.data.id}/users`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,

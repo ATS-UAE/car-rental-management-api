@@ -61,7 +61,7 @@ var VehicleCategory = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/vehicle_categories")];
+                case 0: return [4 /*yield*/, login.api.get("/vehicle_categories")];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);

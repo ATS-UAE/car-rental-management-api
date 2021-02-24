@@ -4,7 +4,7 @@ var PushSubscription = /** @class */ (function () {
     function PushSubscription() {
     }
     PushSubscription.sendSubscription = function (login, subscription) {
-        login.api.post(login.options.baseUrl + "/push_notifications/subscriptions", subscription);
+        login.api.post("/push_notifications/subscriptions", subscription);
     };
     return PushSubscription;
 }());

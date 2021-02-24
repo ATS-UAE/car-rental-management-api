@@ -1,8 +1,8 @@
-import { AxiosRequestConfig } from "axios";
+import type { RequesterConfig } from "../Requester";
 
 export const constructFormDataPayload = (payload: {
 	[key: string]: unknown;
-}): [FormData, AxiosRequestConfig] => {
+}): [FormData, RequesterConfig] => {
 	const formData = new FormData();
 	Object.keys(payload).forEach((key) => {
 		const value: unknown = payload[key];

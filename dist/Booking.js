@@ -56,12 +56,17 @@ var Booking = /** @class */ (function () {
         var _this = this;
         this.login = login;
         this.data = data;
+        this.isBookedToUser = function () { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.login.data.id === this.data.userId];
+            });
+        }); };
         this.update = function (updatedVehicleData) { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.patch(this.login.options.baseUrl + "/bookings/" + this.data.id, updatedVehicleData)];
+                    case 0: return [4 /*yield*/, this.login.api.patch("/bookings/" + this.data.id, updatedVehicleData)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -80,7 +85,7 @@ var Booking = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.delete(this.login.options.baseUrl + "/bookings/" + this.data.id)];
+                    case 0: return [4 /*yield*/, this.login.api.delete("/bookings/" + this.data.id)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -123,7 +128,7 @@ var Booking = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/bookings/" + this.data.id + "/vehicle")];
+                    case 0: return [4 /*yield*/, this.login.api.get("/bookings/" + this.data.id + "/vehicle")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -136,7 +141,7 @@ var Booking = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/bookings/" + this.data.id + "/user")];
+                    case 0: return [4 /*yield*/, this.login.api.get("/bookings/" + this.data.id + "/user")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -152,7 +157,7 @@ var Booking = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/bookings/" + bookingId)];
+                case 0: return [4 /*yield*/, login.api.get("/bookings/" + bookingId)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -164,7 +169,7 @@ var Booking = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/bookings")];
+                case 0: return [4 /*yield*/, login.api.get("/bookings")];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -176,7 +181,7 @@ var Booking = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.post(login.options.baseUrl + "/bookings", bookingData)];
+                case 0: return [4 /*yield*/, login.api.post("/bookings", bookingData)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -188,7 +193,7 @@ var Booking = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.patch(login.options.baseUrl + "/bookings/" + bookingId, updatedVehicleData)];
+                case 0: return [4 /*yield*/, login.api.patch("/bookings/" + bookingId, updatedVehicleData)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);

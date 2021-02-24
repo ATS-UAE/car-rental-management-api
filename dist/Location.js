@@ -59,7 +59,7 @@ var Location = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.patch(this.login.options.baseUrl + "/locations/" + this.data.id, updatedVehicleData)];
+                    case 0: return [4 /*yield*/, this.login.api.patch("/locations/" + this.data.id, updatedVehicleData)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -72,7 +72,7 @@ var Location = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.delete(this.login.options.baseUrl + "/locations/" + this.data.id)];
+                    case 0: return [4 /*yield*/, this.login.api.delete("/locations/" + this.data.id)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -85,7 +85,7 @@ var Location = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/locations/" + this.data.id + "/users")];
+                    case 0: return [4 /*yield*/, this.login.api.get("/locations/" + this.data.id + "/users")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -101,7 +101,7 @@ var Location = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/locations/" + locationId)];
+                case 0: return [4 /*yield*/, login.api.get("/locations/" + locationId)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -113,7 +113,7 @@ var Location = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/locations")];
+                case 0: return [4 /*yield*/, login.api.get("/locations")];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -125,7 +125,7 @@ var Location = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.post(login.options.baseUrl + "/locations", locationData)];
+                case 0: return [4 /*yield*/, login.api.post("/locations", locationData)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -137,7 +137,7 @@ var Location = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.patch(login.options.baseUrl + "/locations/" + locationId, updatedVehicleData)];
+                case 0: return [4 /*yield*/, login.api.patch("/locations/" + locationId, updatedVehicleData)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);

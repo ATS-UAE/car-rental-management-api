@@ -69,7 +69,7 @@ var User = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, (_a = this.login.api).patch.apply(_a, __spreadArrays([this.login.options.baseUrl + "/users/" + this.data.id], utils_1.constructFormDataPayload(updatedVehicleData)))];
+                    case 0: return [4 /*yield*/, (_a = this.login.api).patch.apply(_a, __spreadArrays(["/users/" + this.data.id], utils_1.constructFormDataPayload(updatedVehicleData)))];
                     case 1:
                         responseData = (_b.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -82,7 +82,7 @@ var User = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.delete(this.login.options.baseUrl + "/users/" + this.data.id)];
+                    case 0: return [4 /*yield*/, this.login.api.delete("/users/" + this.data.id)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -95,7 +95,7 @@ var User = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/users/" + this.data.id + "/categories")];
+                    case 0: return [4 /*yield*/, this.login.api.get("/users/" + this.data.id + "/categories")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -108,7 +108,7 @@ var User = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/users/" + this.data.id + "/locations")];
+                    case 0: return [4 /*yield*/, this.login.api.get("/users/" + this.data.id + "/locations")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -124,7 +124,7 @@ var User = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/users/" + userId)];
+                case 0: return [4 /*yield*/, login.api.get("/users/" + userId)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -136,7 +136,7 @@ var User = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/users")];
+                case 0: return [4 /*yield*/, login.api.get("/users")];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -149,7 +149,7 @@ var User = /** @class */ (function () {
         var _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, (_a = login.api).post.apply(_a, __spreadArrays([login.options.baseUrl + "/users"], utils_1.constructFormDataPayload(userData)))];
+                case 0: return [4 /*yield*/, (_a = login.api).post.apply(_a, __spreadArrays(["/users"], utils_1.constructFormDataPayload(userData)))];
                 case 1:
                     responseData = (_b.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -162,7 +162,7 @@ var User = /** @class */ (function () {
         var _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, (_a = login.api).patch.apply(_a, __spreadArrays([login.options.baseUrl + "/users/" + userId], utils_1.constructFormDataPayload(updatedVehicleData)))];
+                case 0: return [4 /*yield*/, (_a = login.api).patch.apply(_a, __spreadArrays(["/users/" + userId], utils_1.constructFormDataPayload(updatedVehicleData)))];
                 case 1:
                     responseData = (_b.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);

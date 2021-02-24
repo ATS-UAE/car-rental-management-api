@@ -66,11 +66,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var axios_1 = __importDefault(require("axios"));
 var Authenticated_1 = require("./Authenticated");
 var VehicleFactory_1 = require("./VehicleFactory");
 var BookingFactory_1 = require("./BookingFactory");
@@ -84,6 +80,7 @@ var VehicleCategoryFactory_1 = require("./VehicleCategoryFactory");
 var InviteFactory_1 = require("./InviteFactory");
 var PushSubscriptionFactory_1 = require("./PushSubscriptionFactory");
 var utils_1 = require("./utils");
+var Requester_1 = require("./Requester");
 var Api = /** @class */ (function (_super) {
     __extends(Api, _super);
     function Api(api, options, data, meta) {
@@ -91,7 +88,7 @@ var Api = /** @class */ (function (_super) {
         _this.logout = function () { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.get(this.options.baseUrl + "/auth/logout")];
+                    case 0: return [4 /*yield*/, this.api.get("/auth/logout")];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -101,7 +98,7 @@ var Api = /** @class */ (function (_super) {
         _this.unsubscribePush = function (data) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.post(this.options.baseUrl + "/push_notifications/unsubscribe", data)];
+                    case 0: return [4 /*yield*/, this.api.post("/push_notifications/unsubscribe", data)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -111,36 +108,11 @@ var Api = /** @class */ (function (_super) {
         _this.subscribePush = function (data) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.post(this.options.baseUrl + "/push_notifications/subscriptions", data)];
+                    case 0: return [4 /*yield*/, this.api.post("/push_notifications/subscriptions", data)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
                 }
-            });
-        }); };
-        _this.sendRequest = function (method, url, payload) { return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (method) {
-                    case "GET": {
-                        return [2 /*return*/, this.api.post(url)];
-                    }
-                    case "PATCH": {
-                        return [2 /*return*/, this.api.patch(url, payload)];
-                    }
-                    case "POST": {
-                        return [2 /*return*/, this.api.post(url, payload)];
-                    }
-                    case "PUT": {
-                        return [2 /*return*/, this.api.post(url, payload)];
-                    }
-                    case "DELETE": {
-                        return [2 /*return*/, this.api.post(url, payload)];
-                    }
-                    default: {
-                        throw new Error("Unknown method " + method);
-                    }
-                }
-                return [2 /*return*/];
             });
         }); };
         /** Check current axios instance has a valid cookie. */
@@ -148,7 +120,7 @@ var Api = /** @class */ (function (_super) {
             var response, _a, data, meta;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, this.api.get(this.options.baseUrl + "/auth/me")];
+                    case 0: return [4 /*yield*/, this.api.get("/auth/me")];
                     case 1:
                         response = _b.sent();
                         _a = response.data, data = _a.data, meta = __rest(_a, ["data"]);
@@ -178,10 +150,8 @@ var Api = /** @class */ (function (_super) {
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        api = axios_1.default.create({
-                            withCredentials: true
-                        });
-                        return [4 /*yield*/, api.post(baseUrl + "/auth/login", {
+                        api = new Requester_1.Requester(baseUrl);
+                        return [4 /*yield*/, api.post("/auth/login", {
                                 username: username,
                                 password: password,
                                 remember: remember
@@ -201,10 +171,8 @@ var Api = /** @class */ (function (_super) {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        api = axios_1.default.create({
-                            withCredentials: true
-                        });
-                        return [4 /*yield*/, api.post.apply(api, __spreadArrays([baseUrl + "/users"], utils_1.constructFormDataPayload(newUser)))];
+                        api = new Requester_1.Requester(baseUrl);
+                        return [4 /*yield*/, api.post.apply(api, __spreadArrays(["/users"], utils_1.constructFormDataPayload(newUser)))];
                     case 1:
                         _b.sent();
                         return [2 /*return*/];
@@ -220,10 +188,8 @@ var Api = /** @class */ (function (_super) {
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        api = axios_1.default.create({
-                            withCredentials: true
-                        });
-                        return [4 /*yield*/, api.get(baseUrl + "/auth/me")];
+                        api = new Requester_1.Requester(baseUrl);
+                        return [4 /*yield*/, api.get("/auth/me")];
                     case 1:
                         response = _c.sent();
                         _b = response.data, data = _b.data, meta = __rest(_b, ["data"]);

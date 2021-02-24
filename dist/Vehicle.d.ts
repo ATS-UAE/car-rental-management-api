@@ -1,4 +1,4 @@
-import { VehicleServerResponseGet, ExtractServerResponseData, VehicleServerParamsPost, VehicleServerParamsPatch, ReplaceAttributes } from "car-rental-management-shared";
+import { VehicleServerResponseGet, ExtractServerResponseData, VehicleServerParamsPost, VehicleServerParamsPatch, ReplaceAttributes, Role } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { Booking } from "./Booking";
 import { WialonUnit } from "./WialonUnit";
@@ -23,6 +23,7 @@ export declare class Vehicle {
     private login;
     data: ExtractServerResponseData<VehicleServerResponseGet>;
     constructor(login: Authenticated, data: ExtractServerResponseData<VehicleServerResponseGet>);
+    static ROLES_ALLOWED_TO_SEND_COMMANDS_WITHOUT_BOOKINGS: Role[];
     static checkAvailabilityFromBookings: (bookings: import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").BookingAttributes>[]) => boolean;
     static getOne: (login: Authenticated, vehicleId: number) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").VehicleAttributes>, Vehicle>>;
     static getAll: (login: Authenticated, options?: VehicleGetAllOptions | undefined) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").VehicleAttributes>>[], Vehicle[]>>;
@@ -47,6 +48,8 @@ export declare class Vehicle {
     getCategoryCost: () => Promise<ServerResponse<import("car-rental-management-shared").CategoryRelationAttributes, Category>>;
     getCategories: () => Promise<ServerResponse<import("car-rental-management-shared").CategoryRelationAttributes[], Category[]>>;
     isVehicleAvailableForBooking: IsVehicleAvailableForBookingFunction;
+    canUserSendCommand: () => Promise<boolean>;
+    isVehicleBookedToUser: () => Promise<boolean>;
     toObject: () => import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").VehicleAttributes>;
 }
 export {};

@@ -14,7 +14,8 @@ import {
 	WialonUnitServerResponseGet,
 	CategoryServerResponseGetAll,
 	CategoryServerResponseGet,
-	ReplaceAttributes
+	ReplaceAttributes,
+	Role
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { Booking } from "./Booking";
@@ -50,6 +51,12 @@ export class Vehicle {
 		public data: ExtractServerResponseData<VehicleServerResponseGet>
 	) {}
 
+	public static ROLES_ALLOWED_TO_SEND_COMMANDS_WITHOUT_BOOKINGS = [
+		Role.ADMIN,
+		Role.KEY_MANAGER,
+		Role.MASTER
+	];
+
 	public static checkAvailabilityFromBookings = (
 		bookings: ExtractServerResponseData<BookingServerResponseGet>[]
 	) => {
@@ -73,7 +80,7 @@ export class Vehicle {
 	public static getOne = async (login: Authenticated, vehicleId: number) => {
 		const { data: responseData } = await login.api.get<
 			VehicleServerResponseGet
-		>(`${login.options.baseUrl}/vehicles/${vehicleId}`);
+		>(`/vehicles/${vehicleId}`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Vehicle(login, data), meta);
 	};
@@ -82,7 +89,7 @@ export class Vehicle {
 		login: Authenticated,
 		options?: VehicleGetAllOptions
 	) => {
-		let url = `${login.options.baseUrl}/vehicles`;
+		let url = `/vehicles`;
 		if (options && options.from && options.to) {
 			url = `${url}/?from=${options.from}&to=${options.to}`;
 		}
@@ -103,10 +110,7 @@ export class Vehicle {
 	) => {
 		const { data: responseData } = await login.api.post<
 			VehicleServerResponsePost
-		>(
-			`${login.options.baseUrl}/vehicles`,
-			...constructFormDataPayload(vehicleData)
-		);
+		>(`/vehicles`, ...constructFormDataPayload(vehicleData));
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Vehicle(login, data), meta);
 	};
@@ -118,10 +122,7 @@ export class Vehicle {
 	) => {
 		const { data: responseData } = await login.api.patch<
 			VehicleServerResponsePatch
-		>(
-			`${login.options.baseUrl}/vehicles/${vehicleId}`,
-			...constructFormDataPayload(vehicleData)
-		);
+		>(`/vehicles/${vehicleId}`, ...constructFormDataPayload(vehicleData));
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Vehicle(login, data), meta);
 	};
@@ -132,7 +133,7 @@ export class Vehicle {
 		const { data: responseData } = await this.login.api.patch<
 			VehicleServerResponsePatch
 		>(
-			`${this.login.options.baseUrl}/vehicles/${this.data.id}`,
+			`/vehicles/${this.data.id}`,
 			...constructFormDataPayload(updatedVehicleData)
 		);
 		const { data, ...meta } = responseData;
@@ -146,7 +147,7 @@ export class Vehicle {
 	public destroy = async () => {
 		const { data: responseData } = await this.login.api.delete<
 			VehicleServerResponseDelete
-		>(`${this.login.options.baseUrl}/vehicles/${this.data.id}`);
+		>(`/vehicles/${this.data.id}`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -158,7 +159,7 @@ export class Vehicle {
 	public getBookings = async () => {
 		const { data: responseData } = await this.login.api.get<
 			BookingServerResponseGetAll
-		>(`${this.login.options.baseUrl}/vehicles/${this.data.id}/bookings`);
+		>(`/vehicles/${this.data.id}/bookings`);
 
 		const { data, ...meta } = responseData;
 
@@ -172,7 +173,7 @@ export class Vehicle {
 	public getWialonUnit = async () => {
 		const { data: responseData } = await this.login.api.get<
 			WialonUnitServerResponseGet
-		>(`${this.login.options.baseUrl}/vehicles/${this.data.id}/wialon_unit`);
+		>(`/vehicles/${this.data.id}/wialon_unit`);
 
 		const { data, ...meta } = responseData;
 
@@ -182,9 +183,7 @@ export class Vehicle {
 	public getCategoryCost = async () => {
 		const { data: responseData } = await this.login.api.get<
 			CategoryServerResponseGet
-		>(
-			`${this.login.options.baseUrl}/vehicles/${this.data.id}/category_cost`
-		);
+		>(`/vehicles/${this.data.id}/category_cost`);
 
 		const { data, ...meta } = responseData;
 
@@ -198,7 +197,7 @@ export class Vehicle {
 	public getCategories = async () => {
 		const { data: responseData } = await this.login.api.get<
 			CategoryServerResponseGetAll
-		>(`${this.login.options.baseUrl}/vehicles/${this.data.id}/categories`);
+		>(`/vehicles/${this.data.id}/categories`);
 
 		const { data, ...meta } = responseData;
 
@@ -236,6 +235,30 @@ export class Vehicle {
 			);
 		});
 	}) as IsVehicleAvailableForBookingFunction;
+
+	public canUserSendCommand = async () => {
+		const userRole = this.login.data.role;
+		const canUserRoleSendCommandWithoutBooking =
+			Vehicle.ROLES_ALLOWED_TO_SEND_COMMANDS_WITHOUT_BOOKINGS.indexOf(
+				userRole
+			) > 0;
+
+		if (canUserRoleSendCommandWithoutBooking) {
+			return true;
+		}
+		return this.isVehicleBookedToUser();
+	};
+
+	public isVehicleBookedToUser = async () => {
+		const bookingData = await Booking.getAll(this.login);
+		const userBookings = bookingData.getData();
+		return userBookings.some((booking) => {
+			if (booking.isBookedToUser()) {
+				return booking.isCurrentlyActive();
+			}
+			return false;
+		});
+	};
 
 	public toObject = () => {
 		return this.data;

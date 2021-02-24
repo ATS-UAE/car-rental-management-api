@@ -60,7 +60,7 @@ var WialonUnit = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/wialon_units/" + bookingId)];
+                case 0: return [4 /*yield*/, login.api.get("/wialon_units/" + bookingId)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -72,7 +72,7 @@ var WialonUnit = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/wialon_units")];
+                case 0: return [4 /*yield*/, login.api.get("/wialon_units")];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);

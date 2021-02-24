@@ -58,7 +58,7 @@ var Category = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.patch(this.login.options.baseUrl + "/categories/" + this.data.id, updatedVehicleData)];
+                    case 0: return [4 /*yield*/, this.login.api.patch("/categories/" + this.data.id, updatedVehicleData)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -71,7 +71,7 @@ var Category = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.delete(this.login.options.baseUrl + "/categories/" + this.data.id)];
+                    case 0: return [4 /*yield*/, this.login.api.delete("/categories/" + this.data.id)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -87,7 +87,7 @@ var Category = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/categories/" + userId)];
+                case 0: return [4 /*yield*/, login.api.get("/categories/" + userId)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -99,7 +99,7 @@ var Category = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/categories")];
+                case 0: return [4 /*yield*/, login.api.get("/categories")];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -111,7 +111,7 @@ var Category = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.post(login.options.baseUrl + "/categories", userData)];
+                case 0: return [4 /*yield*/, login.api.post("/categories", userData)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -123,7 +123,7 @@ var Category = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.patch(login.options.baseUrl + "/categories/" + userId, updatedVehicleData)];
+                case 0: return [4 /*yield*/, login.api.patch("/categories/" + userId, updatedVehicleData)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);

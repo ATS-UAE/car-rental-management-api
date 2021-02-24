@@ -25,7 +25,7 @@ export class Booking {
 	public static getOne = async (login: Authenticated, bookingId: number) => {
 		const { data: responseData } = await login.api.get<
 			BookingServerResponseGet
-		>(`${login.options.baseUrl}/bookings/${bookingId}`);
+		>(`/bookings/${bookingId}`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Booking(login, data), meta);
 	};
@@ -33,7 +33,7 @@ export class Booking {
 	public static getAll = async (login: Authenticated) => {
 		const { data: responseData } = await login.api.get<
 			BookingServerResponseGetAll
-		>(`${login.options.baseUrl}/bookings`);
+		>(`/bookings`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -48,7 +48,7 @@ export class Booking {
 	) => {
 		const { data: responseData } = await login.api.post<
 			BookingServerResponsePost
-		>(`${login.options.baseUrl}/bookings`, bookingData);
+		>(`/bookings`, bookingData);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Booking(login, data), meta);
 	};
@@ -60,18 +60,19 @@ export class Booking {
 	) => {
 		const { data: responseData } = await login.api.patch<
 			BookingServerResponsePatch
-		>(`${login.options.baseUrl}/bookings/${bookingId}`, updatedVehicleData);
+		>(`/bookings/${bookingId}`, updatedVehicleData);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Booking(login, data), meta);
+	};
+
+	public isBookedToUser = async () => {
+		return this.login.data.id === this.data.userId;
 	};
 
 	public update = async (updatedVehicleData: BookingServerParamsPatch) => {
 		const { data: responseData } = await this.login.api.patch<
 			BookingServerResponsePatch
-		>(
-			`${this.login.options.baseUrl}/bookings/${this.data.id}`,
-			updatedVehicleData
-		);
+		>(`/bookings/${this.data.id}`, updatedVehicleData);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -87,7 +88,7 @@ export class Booking {
 	public destroy = async () => {
 		const { data: responseData } = await this.login.api.delete<
 			BookingServerResponseDelete
-		>(`${this.login.options.baseUrl}/bookings/${this.data.id}`);
+		>(`/bookings/${this.data.id}`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -132,7 +133,7 @@ export class Booking {
 	public getVehicle = async () => {
 		const { data: responseData } = await this.login.api.get<
 			VehicleServerResponseGet
-		>(`${this.login.options.baseUrl}/bookings/${this.data.id}/vehicle`);
+		>(`/bookings/${this.data.id}/vehicle`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
@@ -144,7 +145,7 @@ export class Booking {
 	public getUser = async () => {
 		const { data: responseData } = await this.login.api.get<
 			UserServerResponseGet
-		>(`${this.login.options.baseUrl}/bookings/${this.data.id}/user`);
+		>(`/bookings/${this.data.id}/user`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new User(this.login, data), meta);
 	};

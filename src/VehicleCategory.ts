@@ -17,7 +17,7 @@ export class VehicleCategory {
 	public static getAll = async (login: Authenticated) => {
 		const { data: responseData } = await login.api.get<
 			VehicleCategoryServerResponseGetAll
-		>(`${login.options.baseUrl}/vehicle_categories`);
+		>(`/vehicle_categories`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,

@@ -1,4 +1,3 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
 import {
 	AuthServerResponseGet,
 	ServerResponseMeta,
@@ -20,6 +19,7 @@ import { VehicleCategoryFactory } from "./VehicleCategoryFactory";
 import { InviteFactory } from "./InviteFactory";
 import { PushSubscriptionFactory } from "./PushSubscriptionFactory";
 import { constructFormDataPayload } from "./utils";
+import { Requester } from "./Requester";
 
 export interface LoginOptions extends ApiOptions {
 	username: string;
@@ -32,28 +32,9 @@ export type UserSignUpOptionsFormData = ReplaceAttributes<
 	{ userImageSrc?: File | null | string }
 >;
 
-type HttpMethods = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
-
-type WithPayloadHttpMethods = Exclude<HttpMethods, "GET">;
-
-type WithoutPayloadHttpMethods = Extract<HttpMethods, "GET">;
-export interface SendRequestFunction {
-	<Response>(method: WithoutPayloadHttpMethods, url: string): Promise<
-		AxiosResponse<Response>
-	>;
-	<Response>(method: WithPayloadHttpMethods, url: string): Promise<
-		AxiosResponse<Response>
-	>;
-	<Response, Payload>(
-		method: WithPayloadHttpMethods,
-		url: string,
-		payload: Payload
-	): Promise<AxiosResponse<Response>>;
-}
-
 export class Api extends Authenticated {
 	private constructor(
-		api: AxiosInstance,
+		api: Requester,
 		options: ApiOptions,
 		data: AuthServerResponseGet["data"],
 		meta: ServerResponseMeta
@@ -67,17 +48,12 @@ export class Api extends Authenticated {
 		baseUrl,
 		remember
 	}: LoginOptions) => {
-		const api = axios.create({
-			withCredentials: true
+		const api = new Requester(baseUrl);
+		const response = await api.post<AuthServerResponseGet>(`/auth/login`, {
+			username,
+			password,
+			remember
 		});
-		const response = await api.post<AuthServerResponseGet>(
-			`${baseUrl}/auth/login`,
-			{
-				username,
-				password,
-				remember
-			}
-		);
 		const { data, ...meta } = response.data;
 		return new Api(api, { baseUrl }, data, meta);
 	};
@@ -86,66 +62,26 @@ export class Api extends Authenticated {
 		newUser: UserSignUpOptionsFormData,
 		{ baseUrl }: ApiOptions
 	) => {
-		const api = axios.create({
-			withCredentials: true
-		});
-		await api.post(
-			`${baseUrl}/users`,
-			...constructFormDataPayload(newUser)
-		);
+		const api = new Requester(baseUrl);
+		await api.post(`/users`, ...constructFormDataPayload(newUser));
 	};
 
 	public logout = async () => {
-		await this.api.get(`${this.options.baseUrl}/auth/logout`);
+		await this.api.get(`/auth/logout`);
 	};
 
 	public unsubscribePush = async (data: PushUnsubscribeParamsPost) => {
-		await this.api.post(
-			`${this.options.baseUrl}/push_notifications/unsubscribe`,
-			data
-		);
+		await this.api.post(`/push_notifications/unsubscribe`, data);
 	};
 
 	public subscribePush = async (data: PushSubscriptionParamsPost) => {
-		await this.api.post(
-			`${this.options.baseUrl}/push_notifications/subscriptions`,
-			data
-		);
-	};
-
-	public sendRequest: SendRequestFunction = async <Response, Payload>(
-		method: HttpMethods,
-		url: string,
-		payload?: Payload
-	): Promise<AxiosResponse<Response>> => {
-		switch (method) {
-			case "GET": {
-				return this.api.post<Response>(url);
-			}
-			case "PATCH": {
-				return this.api.patch<Response>(url, payload);
-			}
-			case "POST": {
-				return this.api.post<Response>(url, payload);
-			}
-			case "PUT": {
-				return this.api.post<Response>(url, payload);
-			}
-			case "DELETE": {
-				return this.api.post<Response>(url, payload);
-			}
-			default: {
-				throw new Error(`Unknown method ${method}`);
-			}
-		}
+		await this.api.post(`/push_notifications/subscriptions`, data);
 	};
 
 	/** Check if the cookie stored by the browser is still valid. */
 	public static checkCookie = async ({ baseUrl }: { baseUrl: string }) => {
-		const api = axios.create({
-			withCredentials: true
-		});
-		const response = await api.get(`${baseUrl}/auth/me`);
+		const api = new Requester(baseUrl);
+		const response = await api.get<AuthServerResponseGet>(`/auth/me`);
 		const { data, ...meta } = response.data;
 		return new Api(api, { baseUrl }, data, meta);
 	};
@@ -153,9 +89,7 @@ export class Api extends Authenticated {
 	/** Check current axios instance has a valid cookie. */
 
 	public validate = async () => {
-		const response = await this.api.get<AuthServerResponseGet>(
-			`${this.options.baseUrl}/auth/me`
-		);
+		const response = await this.api.get<AuthServerResponseGet>(`/auth/me`);
 
 		const { data, ...meta } = response.data;
 		this.data = data;

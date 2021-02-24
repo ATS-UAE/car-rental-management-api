@@ -71,7 +71,7 @@ var Vehicle = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, (_a = this.login.api).patch.apply(_a, __spreadArrays([this.login.options.baseUrl + "/vehicles/" + this.data.id], utils_1.constructFormDataPayload(updatedVehicleData)))];
+                    case 0: return [4 /*yield*/, (_a = this.login.api).patch.apply(_a, __spreadArrays(["/vehicles/" + this.data.id], utils_1.constructFormDataPayload(updatedVehicleData)))];
                     case 1:
                         responseData = (_b.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -84,7 +84,7 @@ var Vehicle = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.delete(this.login.options.baseUrl + "/vehicles/" + this.data.id)];
+                    case 0: return [4 /*yield*/, this.login.api.delete("/vehicles/" + this.data.id)];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -97,7 +97,7 @@ var Vehicle = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/vehicles/" + this.data.id + "/bookings")];
+                    case 0: return [4 /*yield*/, this.login.api.get("/vehicles/" + this.data.id + "/bookings")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -109,7 +109,7 @@ var Vehicle = /** @class */ (function () {
             var responseData, data, meta;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/vehicles/" + this.data.id + "/wialon_unit")];
+                    case 0: return [4 /*yield*/, this.login.api.get("/vehicles/" + this.data.id + "/wialon_unit")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -122,7 +122,7 @@ var Vehicle = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/vehicles/" + this.data.id + "/category_cost")];
+                    case 0: return [4 /*yield*/, this.login.api.get("/vehicles/" + this.data.id + "/category_cost")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -135,7 +135,7 @@ var Vehicle = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get(this.login.options.baseUrl + "/vehicles/" + this.data.id + "/categories")];
+                    case 0: return [4 /*yield*/, this.login.api.get("/vehicles/" + this.data.id + "/categories")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -162,10 +162,43 @@ var Vehicle = /** @class */ (function () {
                 return Vehicle.checkAvailabilityFromBookings(vehicleBookings.rawData.map(function (vehicle) { return vehicle; }));
             });
         });
+        this.canUserSendCommand = function () { return __awaiter(_this, void 0, void 0, function () {
+            var userRole, canUserRoleSendCommandWithoutBooking;
+            return __generator(this, function (_a) {
+                userRole = this.login.data.role;
+                canUserRoleSendCommandWithoutBooking = Vehicle.ROLES_ALLOWED_TO_SEND_COMMANDS_WITHOUT_BOOKINGS.indexOf(userRole) > 0;
+                if (canUserRoleSendCommandWithoutBooking) {
+                    return [2 /*return*/, true];
+                }
+                return [2 /*return*/, this.isVehicleBookedToUser()];
+            });
+        }); };
+        this.isVehicleBookedToUser = function () { return __awaiter(_this, void 0, void 0, function () {
+            var bookingData, userBookings;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, Booking_1.Booking.getAll(this.login)];
+                    case 1:
+                        bookingData = _a.sent();
+                        userBookings = bookingData.getData();
+                        return [2 /*return*/, userBookings.some(function (booking) {
+                                if (booking.isBookedToUser()) {
+                                    return booking.isCurrentlyActive();
+                                }
+                                return false;
+                            })];
+                }
+            });
+        }); };
         this.toObject = function () {
             return _this.data;
         };
     }
+    Vehicle.ROLES_ALLOWED_TO_SEND_COMMANDS_WITHOUT_BOOKINGS = [
+        car_rental_management_shared_1.Role.ADMIN,
+        car_rental_management_shared_1.Role.KEY_MANAGER,
+        car_rental_management_shared_1.Role.MASTER
+    ];
     Vehicle.checkAvailabilityFromBookings = function (bookings) {
         return bookings.every(function (booking) {
             var status = car_rental_management_shared_1.getBookingStatus({
@@ -185,7 +218,7 @@ var Vehicle = /** @class */ (function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get(login.options.baseUrl + "/vehicles/" + vehicleId)];
+                case 0: return [4 /*yield*/, login.api.get("/vehicles/" + vehicleId)];
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -198,7 +231,7 @@ var Vehicle = /** @class */ (function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    url = login.options.baseUrl + "/vehicles";
+                    url = "/vehicles";
                     if (options && options.from && options.to) {
                         url = url + "/?from=" + options.from + "&to=" + options.to;
                     }
@@ -215,7 +248,7 @@ var Vehicle = /** @class */ (function () {
         var _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, (_a = login.api).post.apply(_a, __spreadArrays([login.options.baseUrl + "/vehicles"], utils_1.constructFormDataPayload(vehicleData)))];
+                case 0: return [4 /*yield*/, (_a = login.api).post.apply(_a, __spreadArrays(["/vehicles"], utils_1.constructFormDataPayload(vehicleData)))];
                 case 1:
                     responseData = (_b.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
@@ -228,7 +261,7 @@ var Vehicle = /** @class */ (function () {
         var _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, (_a = login.api).patch.apply(_a, __spreadArrays([login.options.baseUrl + "/vehicles/" + vehicleId], utils_1.constructFormDataPayload(vehicleData)))];
+                case 0: return [4 /*yield*/, (_a = login.api).patch.apply(_a, __spreadArrays(["/vehicles/" + vehicleId], utils_1.constructFormDataPayload(vehicleData)))];
                 case 1:
                     responseData = (_b.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);

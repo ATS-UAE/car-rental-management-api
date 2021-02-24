@@ -10,7 +10,7 @@ export class PushSubscription {
 		subscription: PushSubscriptionParamsPost
 	) => {
 		login.api.post<PushSubscriptionResponsePost>(
-			`${login.options.baseUrl}/push_notifications/subscriptions`,
+			`/push_notifications/subscriptions`,
 			subscription
 		);
 	};

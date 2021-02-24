@@ -34,7 +34,7 @@ export class VehicleFactory extends Authenticated {
 	public destroy = async (id: number) => {
 		const { data: responseData } = await this.api.delete<
 			VehicleServerResponseDelete
-		>(`${this.options.baseUrl}/vehicle/${id}`);
+		>(`/vehicle/${id}`);
 		const { data, ...meta } = responseData;
 		return new ServerResponse(data, () => new Vehicle(this, data), meta);
 	};

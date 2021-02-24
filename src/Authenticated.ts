@@ -1,8 +1,8 @@
-import { AxiosInstance } from "axios";
 import {
 	ServerResponseMeta,
 	AuthServerResponseGet
 } from "car-rental-management-shared";
+import type { Requester } from "./Requester";
 
 export interface ApiOptions {
 	baseUrl: string;
@@ -13,7 +13,7 @@ export interface ApiOptions {
  */
 export class Authenticated {
 	protected constructor(
-		public api: AxiosInstance,
+		public api: Requester,
 		public options: ApiOptions,
 		public data: AuthServerResponseGet["data"],
 		public meta: ServerResponseMeta
