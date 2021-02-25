@@ -12,6 +12,6 @@ export class WialonUnitFactory extends Authenticated {
 	};
 
 	public fromObject = (data: WialonUnitServerResponseGet["data"]) => {
-		return new WialonUnit(data);
+		return new WialonUnit(this, data);
 	};
 }

@@ -49,9 +49,22 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var ServerResponse_1 = require("./ServerResponse");
 var WialonUnit = /** @class */ (function () {
-    function WialonUnit(data) {
+    function WialonUnit(login, data) {
         var _this = this;
+        this.login = login;
         this.data = data;
+        this.sendCommand = function (command) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.login.api.post("/wialon_units1/" + this.data.id, {
+                            command: command
+                        })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        }); };
         this.toObject = function () {
             return _this.data;
         };
@@ -64,7 +77,7 @@ var WialonUnit = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new WialonUnit(data); }, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new WialonUnit(login, data); }, meta)];
             }
         });
     }); };
@@ -76,7 +89,7 @@ var WialonUnit = /** @class */ (function () {
                 case 1:
                     responseData = (_a.sent()).data;
                     data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (v) { return new WialonUnit(v); }); }, meta)];
+                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (v) { return new WialonUnit(login, v); }); }, meta)];
             }
         });
     }); };

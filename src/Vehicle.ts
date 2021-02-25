@@ -177,7 +177,11 @@ export class Vehicle {
 
 		const { data, ...meta } = responseData;
 
-		return new ServerResponse(data, () => new WialonUnit(data), meta);
+		return new ServerResponse(
+			data,
+			() => new WialonUnit(this.login, data),
+			meta
+		);
 	};
 
 	public getCategoryCost = async () => {

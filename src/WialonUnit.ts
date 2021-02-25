@@ -1,13 +1,15 @@
 import {
 	WialonUnitServerResponseGet,
 	ExtractServerResponseData,
-	WialonUnitServerResponseGetAll
+	WialonUnitServerResponseGetAll,
+	WialonUnitCommand
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { ServerResponse } from "./ServerResponse";
 
 export class WialonUnit {
 	constructor(
+		private login: Authenticated,
 		public data: ExtractServerResponseData<WialonUnitServerResponseGet>
 	) {}
 
@@ -16,7 +18,11 @@ export class WialonUnit {
 			WialonUnitServerResponseGet
 		>(`/wialon_units/${bookingId}`);
 		const { data, ...meta } = responseData;
-		return new ServerResponse(data, () => new WialonUnit(data), meta);
+		return new ServerResponse(
+			data,
+			() => new WialonUnit(login, data),
+			meta
+		);
 	};
 
 	public static getAll = async (login: Authenticated) => {
@@ -26,9 +32,15 @@ export class WialonUnit {
 		const { data, ...meta } = responseData;
 		return new ServerResponse(
 			data,
-			() => data.map((v) => new WialonUnit(v)),
+			() => data.map((v) => new WialonUnit(login, v)),
 			meta
 		);
+	};
+
+	public sendCommand = async (command: WialonUnitCommand) => {
+		await this.login.api.post(`/wialon_units1/${this.data.id}`, {
+			command
+		});
 	};
 
 	public toObject = () => {

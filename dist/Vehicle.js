@@ -107,13 +107,14 @@ var Vehicle = /** @class */ (function () {
         }); };
         this.getWialonUnit = function () { return __awaiter(_this, void 0, void 0, function () {
             var responseData, data, meta;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.login.api.get("/vehicles/" + this.data.id + "/wialon_unit")];
                     case 1:
                         responseData = (_a.sent()).data;
                         data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new WialonUnit_1.WialonUnit(data); }, meta)];
+                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new WialonUnit_1.WialonUnit(_this.login, data); }, meta)];
                 }
             });
         }); };
