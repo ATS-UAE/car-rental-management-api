@@ -110,7 +110,7 @@ var Requester = /** @class */ (function () {
             });
         }); };
         this.buildUrl = function (path) {
-            return "" + path;
+            return "" + _this.baseUrl + path;
         };
         this.api = axios_1.default.create({
             withCredentials: true

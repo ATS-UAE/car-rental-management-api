@@ -78,6 +78,6 @@ export class Requester {
 	};
 
 	private buildUrl = (path: string) => {
-		return `${path}`;
+		return `${this.baseUrl}${path}`;
 	};
 }
