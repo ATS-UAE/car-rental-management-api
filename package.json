@@ -40,7 +40,7 @@
 		"typescript": "^3.8.3"
 	},
 	"dependencies": {
-		"axios": "^0.19.2",
+		"axios": "^0.21.1",
 		"car-rental-management-shared": "git+https://github.com/ATS-UAE/car-rental-management-shared.git#v3.1.1"
 	}
 }
