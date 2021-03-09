@@ -1,8 +1,7 @@
 import {
 	WialonUnitServerResponseGet,
 	ExtractServerResponseData,
-	WialonUnitServerResponseGetAll,
-	WialonUnitCommand
+	WialonUnitServerResponseGetAll
 } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { ServerResponse } from "./ServerResponse";
@@ -37,7 +36,7 @@ export class WialonUnit {
 		);
 	};
 
-	public sendCommand = async (command: WialonUnitCommand) => {
+	public sendCommand = async (command: string) => {
 		await this.login.api.post(`/wialon_units1/${this.data.id}`, {
 			command
 		});
