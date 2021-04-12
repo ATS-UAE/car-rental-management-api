@@ -14,7 +14,7 @@
 		"type": "git",
 		"url": "git+https://github.com/ATS-UAE/car-rental-management-api.git"
 	},
-	"author": "",
+	"author": "Ramil Amparo",
 	"license": "ISC",
 	"bugs": {
 		"url": "https://github.com/ATS-UAE/car-rental-management-api/issues"
