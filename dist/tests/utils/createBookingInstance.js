@@ -39,6 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createBookingInstance = void 0;
 var moxios_1 = __importDefault(require("moxios"));
 var createApiInstance_1 = require("./createApiInstance");
 var getOne_1 = require("../fixtures/response/bookings/getOne");

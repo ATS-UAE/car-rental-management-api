@@ -47,6 +47,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Location = void 0;
 var User_1 = require("./User");
 var ServerResponse_1 = require("./ServerResponse");
 var Location = /** @class */ (function () {

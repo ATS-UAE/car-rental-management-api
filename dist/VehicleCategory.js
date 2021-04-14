@@ -47,6 +47,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.VehicleCategory = void 0;
 var ServerResponse_1 = require("./ServerResponse");
 var VehicleCategory = /** @class */ (function () {
     function VehicleCategory(login, data) {

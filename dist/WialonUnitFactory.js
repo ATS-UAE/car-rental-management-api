@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.WialonUnitFactory = void 0;
 var Authenticated_1 = require("./Authenticated");
 var WialonUnit_1 = require("./WialonUnit");
 var WialonUnitFactory = /** @class */ (function (_super) {

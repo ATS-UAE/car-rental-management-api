@@ -60,6 +60,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.VehicleFactory = void 0;
 var Authenticated_1 = require("./Authenticated");
 var ServerResponse_1 = require("./ServerResponse");
 var Vehicle_1 = require("./Vehicle");

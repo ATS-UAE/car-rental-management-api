@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.InviteFactory = void 0;
 var Authenticated_1 = require("./Authenticated");
 var InviteFactory = /** @class */ (function (_super) {
     __extends(InviteFactory, _super);

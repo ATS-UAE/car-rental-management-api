@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.COOKIE_SESSION = exports.BASE_URL = exports.PASSWORD = exports.USERNAME = void 0;
 exports.USERNAME = "test-user";
 exports.PASSWORD = "test-password";
 exports.BASE_URL = "https://www.example.com/api";

@@ -24,6 +24,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AccidentFactory = void 0;
 var Authenticated_1 = require("./Authenticated");
 var Accident_1 = require("./Accident");
 var AccidentFactory = /** @class */ (function (_super) {

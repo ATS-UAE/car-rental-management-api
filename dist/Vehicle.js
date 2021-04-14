@@ -54,6 +54,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Vehicle = void 0;
 var car_rental_management_shared_1 = require("car-rental-management-shared");
 var Booking_1 = require("./Booking");
 var WialonUnit_1 = require("./WialonUnit");
@@ -144,25 +145,6 @@ var Vehicle = /** @class */ (function () {
                 }
             });
         }); };
-        this.isVehicleAvailableForBooking = (function (bookings) {
-            if (bookings) {
-                if (_this.data.defleeted === true) {
-                    return false;
-                }
-                return Vehicle.checkAvailabilityFromBookings(bookings.map(function (booking) {
-                    if (booking instanceof Booking_1.Booking) {
-                        return booking.data;
-                    }
-                    return booking;
-                }));
-            }
-            return _this.getBookings().then(function (vehicleBookings) {
-                if (_this.data.defleeted === true) {
-                    return false;
-                }
-                return Vehicle.checkAvailabilityFromBookings(vehicleBookings.rawData.map(function (vehicle) { return vehicle; }));
-            });
-        });
         this.canUserSendCommand = function () { return __awaiter(_this, void 0, void 0, function () {
             var userRole, canUserRoleSendCommandWithoutBooking;
             return __generator(this, function (_a) {
@@ -200,21 +182,6 @@ var Vehicle = /** @class */ (function () {
         car_rental_management_shared_1.Role.KEY_MANAGER,
         car_rental_management_shared_1.Role.MASTER
     ];
-    Vehicle.checkAvailabilityFromBookings = function (bookings) {
-        return bookings.every(function (booking) {
-            var status = car_rental_management_shared_1.getBookingStatus({
-                from: booking.from,
-                to: booking.to,
-                approved: booking.approved
-            });
-            if (status === car_rental_management_shared_1.BookingStatus.PENDING ||
-                status === car_rental_management_shared_1.BookingStatus.APPROVED ||
-                status === car_rental_management_shared_1.BookingStatus.ONGOING) {
-                return false;
-            }
-            return true;
-        });
-    };
     Vehicle.getOne = function (login, vehicleId) { return __awaiter(void 0, void 0, void 0, function () {
         var responseData, data, meta;
         return __generator(this, function (_a) {

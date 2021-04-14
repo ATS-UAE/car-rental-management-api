@@ -67,6 +67,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Api = void 0;
 var Authenticated_1 = require("./Authenticated");
 var VehicleFactory_1 = require("./VehicleFactory");
 var BookingFactory_1 = require("./BookingFactory");

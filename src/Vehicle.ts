@@ -1,5 +1,4 @@
 import {
-	getBookingStatus,
 	VehicleServerResponseGet,
 	ExtractServerResponseData,
 	VehicleServerResponseGetAll,
@@ -9,8 +8,6 @@ import {
 	VehicleServerResponsePatch,
 	VehicleServerResponseDelete,
 	BookingServerResponseGetAll,
-	BookingStatus,
-	BookingServerResponseGet,
 	WialonUnitServerResponseGet,
 	CategoryServerResponseGetAll,
 	CategoryServerResponseGet,
@@ -34,12 +31,6 @@ export type VehicleServerParamsPostFormData = ReplaceAttributes<
 	{ vehicleImageSrc?: File | null | string }
 >;
 
-interface IsVehicleAvailableForBookingFunction {
-	(bookings: Booking[]): boolean;
-	(bookings: ExtractServerResponseData<VehicleServerResponseGet>[]): boolean;
-	(): Promise<boolean>;
-}
-
 export interface VehicleGetAllOptions {
 	from: number;
 	to: number;
@@ -56,26 +47,6 @@ export class Vehicle {
 		Role.KEY_MANAGER,
 		Role.MASTER
 	];
-
-	public static checkAvailabilityFromBookings = (
-		bookings: ExtractServerResponseData<BookingServerResponseGet>[]
-	) => {
-		return bookings.every((booking) => {
-			const status = getBookingStatus({
-				from: booking.from,
-				to: booking.to,
-				approved: booking.approved
-			});
-			if (
-				status === BookingStatus.PENDING ||
-				status === BookingStatus.APPROVED ||
-				status === BookingStatus.ONGOING
-			) {
-				return false;
-			}
-			return true;
-		});
-	};
 
 	public static getOne = async (login: Authenticated, vehicleId: number) => {
 		const { data: responseData } = await login.api.get<
@@ -211,34 +182,6 @@ export class Vehicle {
 			meta
 		);
 	};
-
-	public isVehicleAvailableForBooking = ((
-		bookings?: Array<
-			Booking | ExtractServerResponseData<BookingServerResponseGet>
-		>
-	): boolean | Promise<boolean> => {
-		if (bookings) {
-			if (this.data.defleeted === true) {
-				return false;
-			}
-			return Vehicle.checkAvailabilityFromBookings(
-				bookings.map((booking) => {
-					if (booking instanceof Booking) {
-						return booking.data;
-					}
-					return booking;
-				})
-			);
-		}
-		return this.getBookings().then((vehicleBookings) => {
-			if (this.data.defleeted === true) {
-				return false;
-			}
-			return Vehicle.checkAvailabilityFromBookings(
-				vehicleBookings.rawData.map((vehicle) => vehicle)
-			);
-		});
-	}) as IsVehicleAvailableForBookingFunction;
 
 	public canUserSendCommand = async () => {
 		const userRole = this.login.data.role;

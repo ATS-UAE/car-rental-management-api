@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getOne = void 0;
 var car_rental_management_shared_1 = require("car-rental-management-shared");
 var createServerResponse_1 = require("../../../utils/createServerResponse");
 exports.getOne = function (vehicleData, meta) {

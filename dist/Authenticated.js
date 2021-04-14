@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Authenticated = void 0;
 /**
  * This class will hold the authentication data as well as the tools to communicate to the API server.
  */

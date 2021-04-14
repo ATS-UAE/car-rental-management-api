@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LocationFactory = void 0;
 var Authenticated_1 = require("./Authenticated");
 var Location_1 = require("./Location");
 var LocationFactory = /** @class */ (function (_super) {

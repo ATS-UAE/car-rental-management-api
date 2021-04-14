@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserFactory = void 0;
 var Authenticated_1 = require("./Authenticated");
 var User_1 = require("./User");
 var UserFactory = /** @class */ (function (_super) {

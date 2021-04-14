@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PushSubscription = void 0;
 var PushSubscription = /** @class */ (function () {
     function PushSubscription() {
     }

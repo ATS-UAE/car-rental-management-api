@@ -47,6 +47,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Booking = void 0;
 var car_rental_management_shared_1 = require("car-rental-management-shared");
 var Vehicle_1 = require("./Vehicle");
 var User_1 = require("./User");

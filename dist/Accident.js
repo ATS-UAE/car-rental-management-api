@@ -54,6 +54,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Accident = void 0;
 var ServerResponse_1 = require("./ServerResponse");
 var utils_1 = require("./utils");
 var Accident = /** @class */ (function () {

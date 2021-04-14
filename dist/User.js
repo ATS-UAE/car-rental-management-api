@@ -54,6 +54,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.User = void 0;
 var Category_1 = require("./Category");
 var Location_1 = require("./Location");
 var ServerResponse_1 = require("./ServerResponse");

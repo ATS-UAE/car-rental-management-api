@@ -49,6 +49,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ClientFactory = void 0;
 var Authenticated_1 = require("./Authenticated");
 var Client_1 = require("./Client");
 var ClientFactory = /** @class */ (function (_super) {

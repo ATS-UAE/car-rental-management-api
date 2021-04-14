@@ -1,4 +1,4 @@
-import { ClientServerResponseGet, ExtractServerResponseData, ClientServerParamsPatch } from "car-rental-management-shared";
+import { ClientServerResponseGet, ExtractServerResponseData, ClientServerParamsPost, ClientServerParamsPatch } from "car-rental-management-shared";
 import { Authenticated } from "./Authenticated";
 import { Location } from "./Location";
 import { ServerResponse } from "./ServerResponse";
@@ -10,7 +10,7 @@ export declare class Client {
     constructor(login: Authenticated, data: ExtractServerResponseData<ClientServerResponseGet>);
     static getOne: (login: Authenticated, clientId: number) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").ClientAttributes>, Client>>;
     static getAll: (login: Authenticated) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").ClientAttributes>[], Client[]>>;
-    static create: (login: Authenticated, clientData: import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").UseParameters<Pick<import("car-rental-management-shared").ClientAttributes, "name">, "name", never>>) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").ClientAttributes>, Client>>;
+    static create: (login: Authenticated, clientData: ClientServerParamsPost) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").ClientAttributes>, Client>>;
     static update: (login: Authenticated, clientId: number, updatedVehicleData: ClientServerParamsPatch) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").ClientAttributes>, Client>>;
     update: (updatedVehicleData: ClientServerParamsPatch) => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").ClientAttributes>, Client>>;
     destroy: () => Promise<ServerResponse<import("car-rental-management-shared").DatePropsToUnix<import("car-rental-management-shared").ClientAttributes>, Client>>;

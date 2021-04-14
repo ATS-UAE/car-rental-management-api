@@ -22,9 +22,7 @@ export declare type UserSignUpOptionsFormData = ReplaceAttributes<UserSignUpOpti
 export declare class Api extends Authenticated {
     private constructor();
     static login: ({ username, password, baseUrl, remember }: LoginOptions) => Promise<Api>;
-    static signUp: (newUser: ReplaceAttributes<UserSignUpOptions, {
-        userImageSrc?: string | File | null | undefined;
-    }>, { baseUrl }: ApiOptions) => Promise<void>;
+    static signUp: (newUser: UserSignUpOptionsFormData, { baseUrl }: ApiOptions) => Promise<void>;
     logout: () => Promise<void>;
     unsubscribePush: (data: PushUnsubscribeParamsPost) => Promise<void>;
     subscribePush: (data: PushSubscriptionParamsPost) => Promise<void>;

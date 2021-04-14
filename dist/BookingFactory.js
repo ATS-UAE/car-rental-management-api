@@ -60,6 +60,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BookingFactory = void 0;
 var Authenticated_1 = require("./Authenticated");
 var Booking_1 = require("./Booking");
 var BookingFactory = /** @class */ (function (_super) {
