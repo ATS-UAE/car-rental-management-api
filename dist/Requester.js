@@ -41,72 +41,103 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Requester = void 0;
 var axios_1 = __importDefault(require("axios"));
+var RequesterError_1 = require("./RequesterError");
 var Requester = /** @class */ (function () {
     function Requester(baseUrl) {
         var _this = this;
         this.baseUrl = baseUrl;
         this.get = function (path, config) { return __awaiter(_this, void 0, void 0, function () {
-            var response;
+            var response, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.get(this.buildUrl(path), config)];
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.api.get(this.buildUrl(path), config)];
                     case 1:
                         response = _a.sent();
                         return [2 /*return*/, {
                                 data: response.data
                             }];
+                    case 2:
+                        e_1 = _a.sent();
+                        throw new RequesterError_1.RequesterError(e_1);
+                    case 3: return [2 /*return*/];
                 }
             });
         }); };
         this.patch = function (path, body, config) { return __awaiter(_this, void 0, void 0, function () {
-            var response;
+            var response, e_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.patch(this.buildUrl(path), body, config)];
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.api.patch(this.buildUrl(path), body, config)];
                     case 1:
                         response = _a.sent();
                         return [2 /*return*/, {
                                 data: response.data
                             }];
+                    case 2:
+                        e_2 = _a.sent();
+                        throw new RequesterError_1.RequesterError(e_2);
+                    case 3: return [2 /*return*/];
                 }
             });
         }); };
         this.post = function (path, body, config) { return __awaiter(_this, void 0, void 0, function () {
-            var response;
+            var response, e_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.post(this.buildUrl(path), body, config)];
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.api.post(this.buildUrl(path), body, config)];
                     case 1:
                         response = _a.sent();
                         return [2 /*return*/, {
                                 data: response.data
                             }];
+                    case 2:
+                        e_3 = _a.sent();
+                        throw new RequesterError_1.RequesterError(e_3);
+                    case 3: return [2 /*return*/];
                 }
             });
         }); };
         this.put = function (path, body, config) { return __awaiter(_this, void 0, void 0, function () {
-            var response;
+            var response, e_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.post(this.buildUrl(path), body, config)];
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.api.post(this.buildUrl(path), body, config)];
                     case 1:
                         response = _a.sent();
                         return [2 /*return*/, {
                                 data: response.data
                             }];
+                    case 2:
+                        e_4 = _a.sent();
+                        throw new RequesterError_1.RequesterError(e_4);
+                    case 3: return [2 /*return*/];
                 }
             });
         }); };
         this.delete = function (path, config) { return __awaiter(_this, void 0, void 0, function () {
-            var response;
+            var response, e_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.delete(this.buildUrl(path), config)];
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.api.delete(this.buildUrl(path), config)];
                     case 1:
                         response = _a.sent();
                         return [2 /*return*/, {
                                 data: response.data
                             }];
+                    case 2:
+                        e_5 = _a.sent();
+                        throw new RequesterError_1.RequesterError(e_5);
+                    case 3: return [2 /*return*/];
                 }
             });
         }); };

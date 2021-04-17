@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { RequesterError } from "./RequesterError";
 
 export interface RequesterConfig {
 	headers: Record<string, string>;
@@ -21,13 +22,17 @@ export class Requester {
 		path: string,
 		config?: RequesterConfig
 	): Promise<RequesterResponse<ResponseData>> => {
-		const response = await this.api.get<ResponseData>(
-			this.buildUrl(path),
-			config
-		);
-		return {
-			data: response.data
-		};
+		try {
+			const response = await this.api.get<ResponseData>(
+				this.buildUrl(path),
+				config
+			);
+			return {
+				data: response.data
+			};
+		} catch (e) {
+			throw new RequesterError(e);
+		}
 	};
 
 	public patch = async <ResponseData>(
@@ -35,14 +40,18 @@ export class Requester {
 		body: unknown,
 		config?: RequesterConfig
 	): Promise<RequesterResponse<ResponseData>> => {
-		const response = await this.api.patch<ResponseData>(
-			this.buildUrl(path),
-			body,
-			config
-		);
-		return {
-			data: response.data
-		};
+		try {
+			const response = await this.api.patch<ResponseData>(
+				this.buildUrl(path),
+				body,
+				config
+			);
+			return {
+				data: response.data
+			};
+		} catch (e) {
+			throw new RequesterError(e);
+		}
 	};
 
 	public post = async <ResponseData>(
@@ -50,10 +59,18 @@ export class Requester {
 		body: unknown,
 		config?: RequesterConfig
 	): Promise<RequesterResponse<ResponseData>> => {
-		const response = await this.api.post(this.buildUrl(path), body, config);
-		return {
-			data: response.data
-		};
+		try {
+			const response = await this.api.post(
+				this.buildUrl(path),
+				body,
+				config
+			);
+			return {
+				data: response.data
+			};
+		} catch (e) {
+			throw new RequesterError(e);
+		}
 	};
 
 	public put = async <ResponseData>(
@@ -61,20 +78,32 @@ export class Requester {
 		body: unknown,
 		config?: RequesterConfig
 	): Promise<RequesterResponse<ResponseData>> => {
-		const response = await this.api.post(this.buildUrl(path), body, config);
-		return {
-			data: response.data
-		};
+		try {
+			const response = await this.api.post(
+				this.buildUrl(path),
+				body,
+				config
+			);
+			return {
+				data: response.data
+			};
+		} catch (e) {
+			throw new RequesterError(e);
+		}
 	};
 
 	public delete = async <ResponseData>(
 		path: string,
 		config?: RequesterConfig
 	): Promise<RequesterResponse<ResponseData>> => {
-		const response = await this.api.delete(this.buildUrl(path), config);
-		return {
-			data: response.data
-		};
+		try {
+			const response = await this.api.delete(this.buildUrl(path), config);
+			return {
+				data: response.data
+			};
+		} catch (e) {
+			throw new RequesterError(e);
+		}
 	};
 
 	private buildUrl = (path: string) => {
