@@ -1,6 +1,6 @@
 {
 	"name": "car-rental-management-api",
-	"version": "2.1.8",
+	"version": "3.0.0",
 	"description": "API wrapper for car-rental-management-server.",
 	"main": "dist/index.js",
 	"scripts": {
