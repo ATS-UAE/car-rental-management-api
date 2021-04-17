@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { ServerResponse } from "car-rental-management-shared";
-export declare class RequesterError extends Error {
+export declare class ApiError extends Error {
     private axiosError;
     constructor(axiosError: AxiosError<ServerResponse<null>>);
     get responseData(): import("axios").AxiosResponse<ServerResponse<null>> | null;

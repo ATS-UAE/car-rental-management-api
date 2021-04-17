@@ -23,5 +23,6 @@ export * from "./VehicleCategoryFactory";
 export * from "./InviteFactory";
 export * from "./PushSubscription";
 export * from "./ServerResponse";
+export * from "./ApiError";
 
 export default Api;

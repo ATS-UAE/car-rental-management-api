@@ -41,7 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Requester = void 0;
 var axios_1 = __importDefault(require("axios"));
-var RequesterError_1 = require("./RequesterError");
+var ApiError_1 = require("./ApiError");
 var Requester = /** @class */ (function () {
     function Requester(baseUrl) {
         var _this = this;
@@ -60,7 +60,7 @@ var Requester = /** @class */ (function () {
                             }];
                     case 2:
                         e_1 = _a.sent();
-                        throw new RequesterError_1.RequesterError(e_1);
+                        throw new ApiError_1.ApiError(e_1);
                     case 3: return [2 /*return*/];
                 }
             });
@@ -79,7 +79,7 @@ var Requester = /** @class */ (function () {
                             }];
                     case 2:
                         e_2 = _a.sent();
-                        throw new RequesterError_1.RequesterError(e_2);
+                        throw new ApiError_1.ApiError(e_2);
                     case 3: return [2 /*return*/];
                 }
             });
@@ -98,7 +98,7 @@ var Requester = /** @class */ (function () {
                             }];
                     case 2:
                         e_3 = _a.sent();
-                        throw new RequesterError_1.RequesterError(e_3);
+                        throw new ApiError_1.ApiError(e_3);
                     case 3: return [2 /*return*/];
                 }
             });
@@ -117,7 +117,7 @@ var Requester = /** @class */ (function () {
                             }];
                     case 2:
                         e_4 = _a.sent();
-                        throw new RequesterError_1.RequesterError(e_4);
+                        throw new ApiError_1.ApiError(e_4);
                     case 3: return [2 /*return*/];
                 }
             });
@@ -136,7 +136,7 @@ var Requester = /** @class */ (function () {
                             }];
                     case 2:
                         e_5 = _a.sent();
-                        throw new RequesterError_1.RequesterError(e_5);
+                        throw new ApiError_1.ApiError(e_5);
                     case 3: return [2 /*return*/];
                 }
             });

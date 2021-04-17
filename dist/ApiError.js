@@ -13,15 +13,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RequesterError = void 0;
-var RequesterError = /** @class */ (function (_super) {
-    __extends(RequesterError, _super);
-    function RequesterError(axiosError) {
+exports.ApiError = void 0;
+var ApiError = /** @class */ (function (_super) {
+    __extends(ApiError, _super);
+    function ApiError(axiosError) {
         var _this = _super.call(this, axiosError.message) || this;
         _this.axiosError = axiosError;
         return _this;
     }
-    Object.defineProperty(RequesterError.prototype, "responseData", {
+    Object.defineProperty(ApiError.prototype, "responseData", {
         get: function () {
             if (this.axiosError.response) {
                 return this.axiosError.response;
@@ -31,7 +31,7 @@ var RequesterError = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(RequesterError.prototype, "statusCode", {
+    Object.defineProperty(ApiError.prototype, "statusCode", {
         get: function () {
             var _a;
             return ((_a = this.axiosError.response) === null || _a === void 0 ? void 0 : _a.status) || null;
@@ -39,7 +39,7 @@ var RequesterError = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(RequesterError.prototype, "isNetworkError", {
+    Object.defineProperty(ApiError.prototype, "isNetworkError", {
         get: function () {
             var _a;
             var hasResponse = Boolean((_a = this.axiosError.response) === null || _a === void 0 ? void 0 : _a.status);
@@ -48,6 +48,6 @@ var RequesterError = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    return RequesterError;
+    return ApiError;
 }(Error));
-exports.RequesterError = RequesterError;
+exports.ApiError = ApiError;

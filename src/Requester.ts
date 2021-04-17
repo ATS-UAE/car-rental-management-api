@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { RequesterError } from "./RequesterError";
+import { ApiError } from "./ApiError";
 
 export interface RequesterConfig {
 	headers: Record<string, string>;
@@ -31,7 +31,7 @@ export class Requester {
 				data: response.data
 			};
 		} catch (e) {
-			throw new RequesterError(e);
+			throw new ApiError(e);
 		}
 	};
 
@@ -50,7 +50,7 @@ export class Requester {
 				data: response.data
 			};
 		} catch (e) {
-			throw new RequesterError(e);
+			throw new ApiError(e);
 		}
 	};
 
@@ -69,7 +69,7 @@ export class Requester {
 				data: response.data
 			};
 		} catch (e) {
-			throw new RequesterError(e);
+			throw new ApiError(e);
 		}
 	};
 
@@ -88,7 +88,7 @@ export class Requester {
 				data: response.data
 			};
 		} catch (e) {
-			throw new RequesterError(e);
+			throw new ApiError(e);
 		}
 	};
 
@@ -102,7 +102,7 @@ export class Requester {
 				data: response.data
 			};
 		} catch (e) {
-			throw new RequesterError(e);
+			throw new ApiError(e);
 		}
 	};
 

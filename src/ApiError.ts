@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { ServerResponse } from "car-rental-management-shared";
 
-export class RequesterError extends Error {
+export class ApiError extends Error {
 	constructor(private axiosError: AxiosError<ServerResponse<null>>) {
 		super(axiosError.message);
 	}

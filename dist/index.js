@@ -34,4 +34,5 @@ __exportStar(require("./VehicleCategoryFactory"), exports);
 __exportStar(require("./InviteFactory"), exports);
 __exportStar(require("./PushSubscription"), exports);
 __exportStar(require("./ServerResponse"), exports);
+__exportStar(require("./ApiError"), exports);
 exports.default = Api_1.Api;
