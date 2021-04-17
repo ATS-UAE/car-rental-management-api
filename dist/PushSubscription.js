@@ -1,12 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PushSubscription = void 0;
-var PushSubscription = /** @class */ (function () {
-    function PushSubscription() {
-    }
-    PushSubscription.sendSubscription = function (login, subscription) {
-        login.api.post("/push_notifications/subscriptions", subscription);
-    };
-    return PushSubscription;
-}());
+class PushSubscription {
+}
 exports.PushSubscription = PushSubscription;
+PushSubscription.sendSubscription = (login, subscription) => {
+    login.api.post(`/push_notifications/subscriptions`, subscription);
+};

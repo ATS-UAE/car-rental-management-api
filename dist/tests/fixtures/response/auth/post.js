@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var car_rental_management_shared_1 = require("car-rental-management-shared");
-exports.default = (function () { return ({
+const car_rental_management_shared_1 = require("car-rental-management-shared");
+exports.default = () => ({
     code: car_rental_management_shared_1.StatusCode.SUCCESS,
     errors: [],
     success: true,
@@ -24,4 +24,4 @@ exports.default = (function () { return ({
         userImageSrc: null,
         username: "test"
     }
-}); });
+});

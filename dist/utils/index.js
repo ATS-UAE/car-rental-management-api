@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.constructFormDataPayload = void 0;
-exports.constructFormDataPayload = function (payload) {
-    var formData = new FormData();
-    Object.keys(payload).forEach(function (key) {
-        var value = payload[key];
+exports.constructFormDataPayload = (payload) => {
+    const formData = new FormData();
+    Object.keys(payload).forEach((key) => {
+        const value = payload[key];
         if (value instanceof Blob) {
             formData.append(key, value);
         }

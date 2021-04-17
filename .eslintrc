@@ -32,7 +32,6 @@
 				"args": "none"
 			}
 		],
-		"@typescript-eslint/no-throw-literal": "off",
 		"@typescript-eslint/no-explicit-any": [
 			"error",
 			{

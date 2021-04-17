@@ -8,33 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -48,58 +21,35 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Booking = void 0;
-var car_rental_management_shared_1 = require("car-rental-management-shared");
-var Vehicle_1 = require("./Vehicle");
-var User_1 = require("./User");
-var ServerResponse_1 = require("./ServerResponse");
-var Booking = /** @class */ (function () {
-    function Booking(login, data) {
-        var _this = this;
+const car_rental_management_shared_1 = require("car-rental-management-shared");
+const Vehicle_1 = require("./Vehicle");
+const User_1 = require("./User");
+const ServerResponse_1 = require("./ServerResponse");
+class Booking {
+    constructor(login, data) {
         this.login = login;
         this.data = data;
-        this.isBookedToUser = function () { return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.login.data.id === this.data.userId];
-            });
-        }); };
-        this.update = function (updatedVehicleData) { return __awaiter(_this, void 0, void 0, function () {
-            var responseData, data, meta;
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.patch("/bookings/" + this.data.id, updatedVehicleData)];
-                    case 1:
-                        responseData = (_a.sent()).data;
-                        data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Booking(_this.login, data); }, meta)];
-                }
-            });
-        }); };
-        this.approve = function () { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            return [2 /*return*/, this.update({ approved: true })];
-        }); }); };
-        this.deny = function () { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-            return [2 /*return*/, this.update({ approved: false })];
-        }); }); };
-        this.destroy = function () { return __awaiter(_this, void 0, void 0, function () {
-            var responseData, data, meta;
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.delete("/bookings/" + this.data.id)];
-                    case 1:
-                        responseData = (_a.sent()).data;
-                        data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Booking(_this.login, data); }, meta)];
-                }
-            });
-        }); };
-        this.getBookingStatus = function () {
-            var status = car_rental_management_shared_1.BookingStatus.UNKNOWN;
-            var currentTime = Math.round(Date.now() / 10);
-            var hasPassedFrom = _this.data.from <= currentTime;
-            var hasPassedTo = _this.data.to <= currentTime;
-            if (_this.data.approved) {
+        this.isBookedToUser = () => __awaiter(this, void 0, void 0, function* () {
+            return this.login.data.id === this.data.userId;
+        });
+        this.update = (updatedVehicleData) => __awaiter(this, void 0, void 0, function* () {
+            const { data: responseData } = yield this.login.api.patch(`/bookings/${this.data.id}`, updatedVehicleData);
+            const { data } = responseData, meta = __rest(responseData, ["data"]);
+            return new ServerResponse_1.ServerResponse(data, () => new Booking(this.login, data), meta);
+        });
+        this.approve = () => __awaiter(this, void 0, void 0, function* () { return this.update({ approved: true }); });
+        this.deny = () => __awaiter(this, void 0, void 0, function* () { return this.update({ approved: false }); });
+        this.destroy = () => __awaiter(this, void 0, void 0, function* () {
+            const { data: responseData } = yield this.login.api.delete(`/bookings/${this.data.id}`);
+            const { data } = responseData, meta = __rest(responseData, ["data"]);
+            return new ServerResponse_1.ServerResponse(data, () => new Booking(this.login, data), meta);
+        });
+        this.getBookingStatus = () => {
+            let status = car_rental_management_shared_1.BookingStatus.UNKNOWN;
+            const currentTime = Math.round(Date.now() / 10);
+            const hasPassedFrom = this.data.from <= currentTime;
+            const hasPassedTo = this.data.to <= currentTime;
+            if (this.data.approved) {
                 if (hasPassedFrom && !hasPassedTo) {
                     status = car_rental_management_shared_1.BookingStatus.ONGOING;
                 }
@@ -110,98 +60,53 @@ var Booking = /** @class */ (function () {
                     status = car_rental_management_shared_1.BookingStatus.APPROVED;
                 }
             }
-            else if (_this.data.approved === null) {
+            else if (this.data.approved === null) {
                 status = car_rental_management_shared_1.BookingStatus.PENDING;
             }
-            else if (_this.data.approved === false) {
+            else if (this.data.approved === false) {
                 status = car_rental_management_shared_1.BookingStatus.DENIED;
             }
             return status;
         };
-        this.isCurrentlyActive = function () {
-            var currentTime = Math.round(Date.now() / 10);
-            var isActiveBooking = _this.data.from <= currentTime && currentTime <= _this.data.to;
-            var isApproved = _this.data.approved === true;
+        this.isCurrentlyActive = () => {
+            const currentTime = Math.round(Date.now() / 10);
+            const isActiveBooking = this.data.from <= currentTime && currentTime <= this.data.to;
+            const isApproved = this.data.approved === true;
             return isActiveBooking && isApproved;
         };
-        this.getVehicle = function () { return __awaiter(_this, void 0, void 0, function () {
-            var responseData, data, meta;
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get("/bookings/" + this.data.id + "/vehicle")];
-                    case 1:
-                        responseData = (_a.sent()).data;
-                        data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Vehicle_1.Vehicle(_this.login, data); }, meta)];
-                }
-            });
-        }); };
-        this.getUser = function () { return __awaiter(_this, void 0, void 0, function () {
-            var responseData, data, meta;
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.login.api.get("/bookings/" + this.data.id + "/user")];
-                    case 1:
-                        responseData = (_a.sent()).data;
-                        data = responseData.data, meta = __rest(responseData, ["data"]);
-                        return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new User_1.User(_this.login, data); }, meta)];
-                }
-            });
-        }); };
-        this.toObject = function () {
-            return _this.data;
+        this.getVehicle = () => __awaiter(this, void 0, void 0, function* () {
+            const { data: responseData } = yield this.login.api.get(`/bookings/${this.data.id}/vehicle`);
+            const { data } = responseData, meta = __rest(responseData, ["data"]);
+            return new ServerResponse_1.ServerResponse(data, () => new Vehicle_1.Vehicle(this.login, data), meta);
+        });
+        this.getUser = () => __awaiter(this, void 0, void 0, function* () {
+            const { data: responseData } = yield this.login.api.get(`/bookings/${this.data.id}/user`);
+            const { data } = responseData, meta = __rest(responseData, ["data"]);
+            return new ServerResponse_1.ServerResponse(data, () => new User_1.User(this.login, data), meta);
+        });
+        this.toObject = () => {
+            return this.data;
         };
     }
-    Booking.getOne = function (login, bookingId) { return __awaiter(void 0, void 0, void 0, function () {
-        var responseData, data, meta;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get("/bookings/" + bookingId)];
-                case 1:
-                    responseData = (_a.sent()).data;
-                    data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Booking(login, data); }, meta)];
-            }
-        });
-    }); };
-    Booking.getAll = function (login) { return __awaiter(void 0, void 0, void 0, function () {
-        var responseData, data, meta;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.get("/bookings")];
-                case 1:
-                    responseData = (_a.sent()).data;
-                    data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return data.map(function (v) { return new Booking(login, v); }); }, meta)];
-            }
-        });
-    }); };
-    Booking.create = function (login, bookingData) { return __awaiter(void 0, void 0, void 0, function () {
-        var responseData, data, meta;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.post("/bookings", bookingData)];
-                case 1:
-                    responseData = (_a.sent()).data;
-                    data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Booking(login, data); }, meta)];
-            }
-        });
-    }); };
-    Booking.update = function (login, bookingId, updatedVehicleData) { return __awaiter(void 0, void 0, void 0, function () {
-        var responseData, data, meta;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, login.api.patch("/bookings/" + bookingId, updatedVehicleData)];
-                case 1:
-                    responseData = (_a.sent()).data;
-                    data = responseData.data, meta = __rest(responseData, ["data"]);
-                    return [2 /*return*/, new ServerResponse_1.ServerResponse(data, function () { return new Booking(login, data); }, meta)];
-            }
-        });
-    }); };
-    return Booking;
-}());
+}
 exports.Booking = Booking;
+Booking.getOne = (login, bookingId) => __awaiter(void 0, void 0, void 0, function* () {
+    const { data: responseData } = yield login.api.get(`/bookings/${bookingId}`);
+    const { data } = responseData, meta = __rest(responseData, ["data"]);
+    return new ServerResponse_1.ServerResponse(data, () => new Booking(login, data), meta);
+});
+Booking.getAll = (login) => __awaiter(void 0, void 0, void 0, function* () {
+    const { data: responseData } = yield login.api.get(`/bookings`);
+    const { data } = responseData, meta = __rest(responseData, ["data"]);
+    return new ServerResponse_1.ServerResponse(data, () => data.map((v) => new Booking(login, v)), meta);
+});
+Booking.create = (login, bookingData) => __awaiter(void 0, void 0, void 0, function* () {
+    const { data: responseData } = yield login.api.post(`/bookings`, bookingData);
+    const { data } = responseData, meta = __rest(responseData, ["data"]);
+    return new ServerResponse_1.ServerResponse(data, () => new Booking(login, data), meta);
+});
+Booking.update = (login, bookingId, updatedVehicleData) => __awaiter(void 0, void 0, void 0, function* () {
+    const { data: responseData } = yield login.api.patch(`/bookings/${bookingId}`, updatedVehicleData);
+    const { data } = responseData, meta = __rest(responseData, ["data"]);
+    return new ServerResponse_1.ServerResponse(data, () => new Booking(login, data), meta);
+});

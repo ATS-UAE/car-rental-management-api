@@ -4,14 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createApiInstance = void 0;
-var moxios_1 = __importDefault(require("moxios"));
-var Api_1 = require("../../Api");
-var fixtures_1 = require("../fixtures");
-var post_1 = __importDefault(require("../fixtures/response/auth/post"));
-exports.createApiInstance = function () {
-    var LOGIN_URL = fixtures_1.BASE_URL + "/auth/login";
-    var LOGIN_METHOD = "post";
-    var LOGIN_RESPONSE = post_1.default();
+const moxios_1 = __importDefault(require("moxios"));
+const Api_1 = require("../../Api");
+const fixtures_1 = require("../fixtures");
+const post_1 = __importDefault(require("../fixtures/response/auth/post"));
+exports.createApiInstance = () => {
+    const LOGIN_URL = `${fixtures_1.BASE_URL}/auth/login`;
+    const LOGIN_METHOD = "post";
+    const LOGIN_RESPONSE = post_1.default();
     moxios_1.default.stubOnce(LOGIN_METHOD, LOGIN_URL, {
         response: LOGIN_RESPONSE,
         status: 200,
