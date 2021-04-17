@@ -7,8 +7,9 @@ class ApiError extends Error {
         this.axiosError = axiosError;
     }
     get responseData() {
+        var _a;
         if (this.axiosError.response) {
-            return this.axiosError.response;
+            return (_a = this.axiosError.response) === null || _a === void 0 ? void 0 : _a.data;
         }
         return null;
     }

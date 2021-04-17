@@ -8,7 +8,7 @@ export class ApiError extends Error {
 
 	public get responseData() {
 		if (this.axiosError.response) {
-			return this.axiosError.response;
+			return this.axiosError.response?.data;
 		}
 		return null;
 	}
